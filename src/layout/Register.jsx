@@ -1,6 +1,53 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 
 export default function Register() {
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const submitButtonRef = useRef(null);
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Construct the payload for the API request
+    const payload = {
+      email: email,
+      password: password,
+    };
+
+    try {
+      const response = await fetch("http://localhost:3005/api/user/sign-up", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Registration successful", data);
+        // Handle successful registration (e.g., redirect to login page, show success message)
+      } else {
+        const errorData = await response.json();
+        console.error("Registration failed", errorData);
+        // Handle registration error (e.g., show error message)
+      }
+    } catch (error) {
+      console.error("An error occurred while registering", error);
+      // Handle fetch error (e.g., show error message)
+    }
+  };
+
+
   return (
     <>
       <div className="page-wrapper">
@@ -11,15 +58,18 @@ export default function Register() {
               backgroundImage: "url(../assets/images/background/12.jpg)",
             }}
           />
+
           <div className="outer-box">
             {/* Login Form */}
             <div className="login-form default-form">
               <div className="form-inner">
-                <h3>Create a Free Superio Account</h3>
+                <h3>Create a Free F-Job Account</h3>
                 {/*Login Form*/}
+
                 <form
-                  method="post"
-                  action="https://creativelayers.net/themes/superio/add-parcel.html"
+                  // method="post"
+                  onChange={handleSubmit}
+                // action="https://creativelayers.net/themes/superio/add-parcel.html"
                 >
                   <div className="form-group">
                     <div className="btn-box row">
@@ -35,6 +85,7 @@ export default function Register() {
                       </div>
                     </div>
                   </div>
+
                   <div className="form-group">
                     <label>Email Address</label>
                     <input
@@ -42,6 +93,8 @@ export default function Register() {
                       name="email"
                       placeholder="Email"
                       required
+                      value={email}
+                      onChange={handleEmailChange}
                     />
                   </div>
                   <div className="form-group">
@@ -50,19 +103,24 @@ export default function Register() {
                       id="password-field"
                       type="password"
                       name="password"
-                      defaultValue
                       placeholder="Password"
+                      required
+                      value={password}
+                      onChange={handlePasswordChange}
                     />
                   </div>
+
                   <div className="form-group">
                     <button
                       className="theme-btn btn-style-one "
                       type="submit"
                       name="Register"
+                      ref={submitButtonRef}
                     >
                       Register
                     </button>
                   </div>
+
                 </form>
                 <div className="bottom-box">
                   <div className="divider">
@@ -98,3 +156,4 @@ export default function Register() {
     </>
   );
 }
+

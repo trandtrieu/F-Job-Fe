@@ -72,7 +72,7 @@ export default function Login() {
                 </form>
                 <div className="bottom-box">
                   <div className="text">
-                    Don't have an account? <a href="register.html">Signup</a>
+                    Don't have an account? <a href="/register">Signup</a>
                   </div>
                   <div className="divider">
                     <span>or</span>
