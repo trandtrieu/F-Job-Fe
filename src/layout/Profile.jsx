@@ -1,15 +1,13 @@
 import React, { useContext } from "react";
-import Banner from "./Banner";
 import { UserContext } from "../utils/UserContext";
 
-export default function Home() {
+export default function Profile() {
   const { user } = useContext(UserContext);
 
   return (
     <div>
-      <Banner />
       {user ? (
-        <div>
+        <div className="page-wrapper">
           <p>
             Welcome, {user.firstname} {user.lastname}
           </p>
