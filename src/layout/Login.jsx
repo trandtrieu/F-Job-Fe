@@ -9,7 +9,9 @@ import { UserContext } from "../utils/UserContext";
 import { loginUser, facebookLogin } from "../services/api.js";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  // const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const { setUser } = useContext(UserContext);
@@ -17,20 +19,30 @@ const Login = () => {
 
   useFacebookSDK(process.env.REACT_APP_FACEBOOK_APP_ID);
 
-  const handleUsernameChange = (e) => setUsername(e.target.value);
+  // const handleUsernameChange = (e) => setUsername(e.target.value);
+  const handleEmailChange = (e) => setEmail(e.target.value);
+
   const handlePasswordChange = (e) => setPassword(e.target.value);
   const handleRememberMeChange = (e) => setRememberMe(e.target.checked);
 
   const handleSubmit = async (e) => {
+    console.log("hello");
+
     e.preventDefault();
     try {
-      const response = await loginUser(username, password);
-      if (response.data.success) {
+      console.log("info:", email + password);
+
+      const response = await loginUser(email, password);
+      console.log(response.data);
+      console.log("info p2:", email + password);
+      if (response.data.status === "OK") {
         toast.success("Login successful!");
         setUser(response.data.user);
         localStorage.setItem("user", JSON.stringify(response.data.user));
+        console.log(response.data.user);
         history.push("/");
       } else {
+        console.log("fail login");
         toast.error("Login failed. Please check your credentials.");
       }
     } catch (error) {
@@ -85,10 +97,10 @@ const Login = () => {
                   <label>Username</label>
                   <input
                     type="text"
-                    name="username"
-                    placeholder="Username"
-                    value={username}
-                    onChange={handleUsernameChange}
+                    name="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={handleEmailChange}
                     required
                   />
                 </div>
