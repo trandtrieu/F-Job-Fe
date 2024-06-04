@@ -2,7 +2,6 @@
 
 import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import axios from "axios";
 import { toast } from "react-toastify";
 import useFacebookSDK from "../utils/useFacebookSDK";
 import { UserContext } from "../utils/UserContext";

@@ -287,9 +287,7 @@ export default function Navbar() {
                 >
                   {user ? (
                     <div>
-                      <p>
-                        Welcome, {user.firstname} {user.lastname}
-                      </p>
+                      <p>Welcome, {user.email}</p>
                       <button onClick={handleLogout}>Log out</button>
                     </div>
                   ) : (
