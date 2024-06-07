@@ -1047,6 +1047,12 @@ input:checked + .slider:before {
   border-color: #ff0000;
 }
 
+.error {
+  color: red;
+  font-size: 0.9em;
+}
+
+
 .default-form label.error {
   display: block;
   font-weight: 500;
