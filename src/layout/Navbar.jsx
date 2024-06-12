@@ -264,10 +264,7 @@ export default function Navbar() {
             </div>
             <div className="outer-box">
               {/* Add Listing */}
-              <a
-                href="candidate-dashboard-cv-manager.html"
-                className="upload-cv"
-              >
+              <a href="/cvs" className="upload-cv">
                 {" "}
                 Upload your CV
               </a>

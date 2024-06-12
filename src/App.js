@@ -11,6 +11,9 @@ import { ToastContainer } from "react-toastify";
 import LoginV2 from "./layout/LoginV2";
 import { UserProvider } from "./utils/UserContext";
 import Profile from "./layout/Profile";
+import CreateCV from "./layout/CreateCV";
+import demo from "./layout/demo";
+import CVS from "./layout/CVS";
 
 function App() {
   return (
@@ -36,6 +39,9 @@ function App() {
 
             <Route path="/login" component={Login} />
             <Route path="/profile" component={Profile} />
+            <Route path="/createCV" component={CreateCV} />
+            <Route path="/cvs" component={CVS} />
+            <Route path="/demo" component={demo} />
 
             <Route path="/login2" component={LoginV2} />
             <Route path="/register" component={Register} />

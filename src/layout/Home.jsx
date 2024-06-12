@@ -8,16 +8,6 @@ export default function Home() {
   return (
     <div>
       <Banner />
-      {user ? (
-        <div>
-          <p>
-            Welcome, {user.firstname} {user.lastname}
-          </p>
-          <p>Your ID: {user._id}</p>
-        </div>
-      ) : (
-        <p>Please log in to see your information.</p>
-      )}
     </div>
   );
 }

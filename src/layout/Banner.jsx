@@ -5,7 +5,7 @@ export default function Banner() {
     <>
       <section className="banner-section">
         <div className="auto-container">
-          <div className="row">
+          <div className="row" >
             <div className="content-column col-lg-7 col-md-12 col-sm-12">
               <div
                 className="inner-column wow fadeInUp"
