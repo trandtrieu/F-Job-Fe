@@ -1,0 +1,81 @@
+body {
+    font-family: Arial, sans-serif;
+    /* display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0; */
+  }
+  
+  .job-list-container {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+  }
+  
+  .job-list-sidebar {
+    width: 25%;
+    padding: 20px;
+    background-color: #f7f7f7;
+  }
+  
+  .job-list-input {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+  
+  .job-list-range {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .job-list-select {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+  
+  .job-list-filters {
+    margin-bottom: 20px;
+  }
+  
+  .job-list-filters h3 {
+    margin: 0;
+  }
+  
+  .job-list-filters label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .job-list-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .job-list-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .job-list {
+    width: 75%;
+    padding: 20px;
+  }
+  
+  .job-listings {
+    width: 100%;
+  }
+  
+  .job-listing {
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  

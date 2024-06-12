@@ -222,10 +222,7 @@ export default function Navbar() {
                   </li>
                   {/* Only for Mobile View */}
                   <li className="mm-add-listing">
-                    <a
-                      href="add-listing.html"
-                      className="theme-btn btn-style-one"
-                    >
+                    <a href="job-post" className="theme-btn btn-style-one">
                       Job Post
                     </a>
                     <span>
@@ -271,9 +268,12 @@ export default function Navbar() {
               {/* Login/Register */}
               <div className="btn-box">
                 <a
-                  href="dashboard-post-job.html"
-                  className="theme-btn btn-style-one"
+                  href="/login"
+                  className="theme-btn btn-style-three call-modal"
                 >
+                  Login / Register
+                </a>
+                <a href="/job-post" className="theme-btn btn-style-one">
                   Job Post
                 </a>
               </div>
