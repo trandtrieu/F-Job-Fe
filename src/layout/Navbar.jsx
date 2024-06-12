@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
+import { UserContext } from "../utils/UserContext";
+import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function Navbar() {
+  const { user, setUser } = useContext(UserContext);
+  const history = useHistory();
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.removeItem("user");
+    history.push("/");
+  };
   return (
     <>
       <div className="body-wrapper">
@@ -30,33 +40,12 @@ export default function Navbar() {
                             <li>
                               <a href="index-2.html">Home Page 02</a>
                             </li>
-                            <li>
-                              <a href="index-3.html">Home Page 03</a>
-                            </li>
-                            <li>
-                              <a href="index-4.html">Home Page 04</a>
-                            </li>
-                            <li>
-                              <a href="index-5.html">Home Page 05</a>
-                            </li>
                           </ul>
                         </div>
                         <div className="column col-lg-3 col-md-3 col-sm-12">
                           <ul>
                             <li>
                               <a href="index-6.html">Home Page 06</a>
-                            </li>
-                            <li>
-                              <a href="index-7.html">Home Page 07</a>
-                            </li>
-                            <li>
-                              <a href="index-8.html">Home Page 08</a>
-                            </li>
-                            <li>
-                              <a href="index-9.html">Home Page 09</a>
-                            </li>
-                            <li>
-                              <a href="index-10.html">Home Page 10</a>
                             </li>
                           </ul>
                         </div>
@@ -65,42 +54,12 @@ export default function Navbar() {
                             <li>
                               <a href="index-11.html">Home Page 11</a>
                             </li>
-                            <li>
-                              <a href="index-12.html">Home Page 12</a>
-                            </li>
-                            <li>
-                              <a href="index-13.html">Home Page 13</a>
-                            </li>
-                            <li>
-                              <a href="index-14.html">Home Page 14</a>
-                            </li>
-                            <li>
-                              <a href="index-15.html">Home Page 15</a>
-                            </li>
                           </ul>
                         </div>
                         <div className="column col-lg-3 col-md-3 col-sm-12">
                           <ul>
                             <li>
                               <a href="index-16.html">Home Page 16</a>
-                            </li>
-                            <li>
-                              <a href="index-17.html">Home Page 17</a>
-                            </li>
-                            <li>
-                              <a href="index-18.html">Home Page 18</a>
-                            </li>
-                            <li>
-                              <a href="index-19.html">Home Page 19</a>
-                            </li>
-                            <li>
-                              <a href="index-20.html">Home Page 20</a>
-                            </li>
-                            <li>
-                              <a href="index-21.html">Home Page 21</a>
-                            </li>
-                            <li>
-                              <a href="index-22.html">Home Page 22</a>
                             </li>
                           </ul>
                         </div>
@@ -117,36 +76,12 @@ export default function Navbar() {
                             <li>
                               <a href="job-list-v1.html">Jobs List – v1</a>
                             </li>
-                            <li>
-                              <a href="job-list-v2.html">Jobs List – v2</a>
-                            </li>
-                            <li>
-                              <a href="job-list-v3.html">Jobs List – v3</a>
-                            </li>
-                            <li>
-                              <a href="job-list-v4.html">Jobs List – v4</a>
-                            </li>
-                            <li>
-                              <a href="job-list-v5.html">Jobs List – v5</a>
-                            </li>
                           </ul>
                         </div>
                         <div className="column col-lg-3 col-md-3 col-sm-12">
                           <ul>
                             <li>
                               <a href="job-list-v6.html">Jobs List – v6</a>
-                            </li>
-                            <li>
-                              <a href="job-list-v7.html">Jobs List – v7</a>
-                            </li>
-                            <li>
-                              <a href="job-list-v8.html">Jobs List – v8</a>
-                            </li>
-                            <li>
-                              <a href="job-list-v9.html">Jobs List – v9</a>
-                            </li>
-                            <li>
-                              <a href="job-list-v10.html">Jobs List – v10</a>
                             </li>
                           </ul>
                         </div>
@@ -158,21 +93,6 @@ export default function Navbar() {
                             <li>
                               <a href="job-list-v12.html">Jobs List – v12</a>
                             </li>
-                            <li>
-                              <a href="job-list-v13.html">Jobs List – v13</a>
-                            </li>
-                            <li>
-                              <a href="job-list-v14.html">Jobs List – v14</a>
-                            </li>
-                            <li>
-                              <a href="job-list-v15.html">Jobs List – v15</a>
-                            </li>
-                            <li>
-                              <a href="job-list-v16.html">Jobs List – v16</a>
-                            </li>
-                            <li>
-                              <a href="job-list-v17.html">Jobs List – v17</a>
-                            </li>
                           </ul>
                         </div>
                         <div className="column col-lg-3 col-md-3 col-sm-12">
@@ -183,21 +103,6 @@ export default function Navbar() {
                             </li>
                             <li>
                               <a href="job-single-2.html">Job Single v2</a>
-                            </li>
-                            <li>
-                              <a href="job-single-3.html">Job Single v3</a>
-                            </li>
-                            <li>
-                              <a href="job-single-4.html">Job Single v4</a>
-                            </li>
-                            <li>
-                              <a href="job-single-5.html">Job Single v5</a>
-                            </li>
-                            <li>
-                              <a href="job-single-6.html">Job Single v6</a>
-                            </li>
-                            <li>
-                              <a href="job-single-7.html">Job Single v7</a>
                             </li>
                           </ul>
                         </div>
@@ -215,21 +120,6 @@ export default function Navbar() {
                               Employers LIst v1
                             </a>
                           </li>
-                          <li>
-                            <a href="employers-list-v2.html">
-                              Employers LIst v2
-                            </a>
-                          </li>
-                          <li>
-                            <a href="employers-list-v3.html">
-                              Employers LIst v3
-                            </a>
-                          </li>
-                          <li>
-                            <a href="employers-list-v4.html">
-                              Employers LIst v4
-                            </a>
-                          </li>
                         </ul>
                       </li>
                       <li className="dropdown">
@@ -238,16 +128,6 @@ export default function Navbar() {
                           <li>
                             <a href="employers-single-v1.html">
                               Employers Single v1
-                            </a>
-                          </li>
-                          <li>
-                            <a href="employers-single-v2.html">
-                              Employers Single v2
-                            </a>
-                          </li>
-                          <li>
-                            <a href="employers-single-v3.html">
-                              Employers Single v3
                             </a>
                           </li>
                         </ul>
@@ -268,36 +148,6 @@ export default function Navbar() {
                               Candidates LIst v1
                             </a>
                           </li>
-                          <li>
-                            <a href="candidates-list-v2.html">
-                              Candidates LIst v2
-                            </a>
-                          </li>
-                          <li>
-                            <a href="candidates-list-v3.html">
-                              Candidates LIst v3
-                            </a>
-                          </li>
-                          <li>
-                            <a href="candidates-list-v4.html">
-                              Candidates LIst v4
-                            </a>
-                          </li>
-                          <li>
-                            <a href="candidates-list-v5.html">
-                              Candidates LIst v5
-                            </a>
-                          </li>
-                          <li>
-                            <a href="candidates-list-v6.html">
-                              Candidates LIst v6
-                            </a>
-                          </li>
-                          <li>
-                            <a href="candidates-list-v7.html">
-                              Candidates LIst v7
-                            </a>
-                          </li>
                         </ul>
                       </li>
                       <li className="dropdown">
@@ -306,26 +156,6 @@ export default function Navbar() {
                           <li>
                             <a href="candidates-single-v1.html">
                               Candidates Single v1
-                            </a>
-                          </li>
-                          <li>
-                            <a href="candidates-single-v2.html">
-                              Candidates Single v2
-                            </a>
-                          </li>
-                          <li>
-                            <a href="candidates-single-v3.html">
-                              Candidates Single v3
-                            </a>
-                          </li>
-                          <li>
-                            <a href="candidates-single-v4.html">
-                              Candidates Single v4
-                            </a>
-                          </li>
-                          <li>
-                            <a href="candidates-single-v5.html">
-                              Candidates Single v5
                             </a>
                           </li>
                         </ul>
@@ -337,23 +167,7 @@ export default function Navbar() {
                       </li>
                     </ul>
                   </li>
-                  <li className="dropdown">
-                    <span>Blog</span>
-                    <ul>
-                      <li>
-                        <a href="blog-list-v1.html">Blog LIst v1</a>
-                      </li>
-                      <li>
-                        <a href="blog-list-v2.html">Blog LIst v2</a>
-                      </li>
-                      <li>
-                        <a href="blog-list-v3.html">Blog LIst v3</a>
-                      </li>
-                      <li>
-                        <a href="blog-single.html">Blog Single</a>
-                      </li>
-                    </ul>
-                  </li>
+
                   <li className="dropdown">
                     <span>Pages</span>
                     <ul>
@@ -450,26 +264,32 @@ export default function Navbar() {
             </div>
             <div className="outer-box">
               {/* Add Listing */}
-              <a
-                href="candidate-dashboard-cv-manager.html"
-                className="upload-cv"
-              >
+              <a href="/cvs" className="upload-cv">
                 {" "}
                 Upload your CV
               </a>
               {/* Login/Register */}
               <div className="btn-box">
                 <a
-                  href="/login"
-                  className="theme-btn btn-style-three call-modal"
-                >
-                  Login / Register
-                </a>
-                <a
                   href="dashboard-post-job.html"
                   className="theme-btn btn-style-one"
                 >
                   Job Post
+                </a>
+              </div>
+              <div className="btn-box">
+                <a
+                  href="/login"
+                  className="theme-btn btn-style-three call-modal"
+                >
+                  {user ? (
+                    <div>
+                      <p>Welcome, {user.email}</p>
+                      <button onClick={handleLogout}>Log out</button>
+                    </div>
+                  ) : (
+                    <p>Login / Register</p>
+                  )}
                 </a>
               </div>
             </div>
