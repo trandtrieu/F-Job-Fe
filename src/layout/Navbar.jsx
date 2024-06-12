@@ -408,10 +408,7 @@ export default function Navbar() {
                   </li>
                   {/* Only for Mobile View */}
                   <li className="mm-add-listing">
-                    <a
-                      href="add-listing.html"
-                      className="theme-btn btn-style-one"
-                    >
+                    <a href="job-post" className="theme-btn btn-style-one">
                       Job Post
                     </a>
                     <span>
@@ -465,10 +462,7 @@ export default function Navbar() {
                 >
                   Login / Register
                 </a>
-                <a
-                  href="dashboard-post-job.html"
-                  className="theme-btn btn-style-one"
-                >
+                <a href="/job-post" className="theme-btn btn-style-one">
                   Job Post
                 </a>
               </div>
