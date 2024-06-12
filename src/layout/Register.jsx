@@ -1,11 +1,13 @@
+import axios from "axios";
 import React, { useRef, useState } from "react";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function Register() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const submitButtonRef = useRef(null);
-
+  const history = useHistory();
+  
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
@@ -14,8 +16,9 @@ export default function Register() {
     setPassword(e.target.value);
   };
 
+
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission
 
     // Construct the payload for the API request
     const payload = {
@@ -24,20 +27,18 @@ export default function Register() {
     };
 
     try {
-      const response = await fetch("http://localhost:3005/api/user/sign-up", {
-        method: "POST",
+      const response = await axios.post("http://localhost:3005/api/user/sign-up", payload, {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(payload),
       });
 
-      if (response.ok) {
-        const data = await response.json();
+      if (response.status === 200) {
+        const data = response.data;
         console.log("Registration successful", data);
-        // Handle successful registration (e.g., redirect to login page, show success message)
+        history.push('/home');
       } else {
-        const errorData = await response.json();
+        const errorData = response.data;
         console.error("Registration failed", errorData);
         // Handle registration error (e.g., show error message)
       }
@@ -46,6 +47,7 @@ export default function Register() {
       // Handle fetch error (e.g., show error message)
     }
   };
+
 
 
   return (
@@ -67,24 +69,8 @@ export default function Register() {
                 {/*Login Form*/}
 
                 <form
-                  // method="post"
-                  onChange={handleSubmit}
-                // action="https://creativelayers.net/themes/superio/add-parcel.html"
+                  onSubmit={handleSubmit}
                 >
-                  <div className="form-group">
-                    <div className="btn-box row">
-                      <div className="col-lg-6 col-md-12">
-                        <a href="/" className="theme-btn btn-style-seven">
-                          <i className="la la-user" /> Candidate{" "}
-                        </a>
-                      </div>
-                      <div className="col-lg-6 col-md-12">
-                        <a href="/" className="theme-btn btn-style-four">
-                          <i className="la la-briefcase" /> Employer{" "}
-                        </a>
-                      </div>
-                    </div>
-                  </div>
 
                   <div className="form-group">
                     <label>Email Address</label>
@@ -97,6 +83,7 @@ export default function Register() {
                       onChange={handleEmailChange}
                     />
                   </div>
+
                   <div className="form-group">
                     <label>Password</label>
                     <input
@@ -115,13 +102,14 @@ export default function Register() {
                       className="theme-btn btn-style-one "
                       type="submit"
                       name="Register"
-                      ref={submitButtonRef}
                     >
                       Register
                     </button>
                   </div>
 
                 </form>
+
+                {/* Login Facebook, Gmail */}
                 <div className="bottom-box">
                   <div className="divider">
                     <span>or</span>
@@ -145,6 +133,7 @@ export default function Register() {
                     </div>
                   </div>
                 </div>
+
               </div>
             </div>
             {/*End Login Form */}
