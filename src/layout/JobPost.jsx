@@ -46,7 +46,7 @@ const JobPostingForm = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3000/job-post/create-job-post",
+        "http://localhost:3005/job-post/create-job-post",
         formData
       );
 

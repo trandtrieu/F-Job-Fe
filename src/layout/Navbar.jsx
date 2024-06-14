@@ -7,9 +7,9 @@ export default function Navbar() {
   const { user, setUser } = useContext(UserContext);
   const history = useHistory();
   const handleLogout = () => {
-    setUser(null);
+    // setUser(null);
     localStorage.removeItem("user");
-    history.push("/");
+    window.location.href("/")
   };
   return (
     <>
@@ -109,9 +109,10 @@ export default function Navbar() {
                       </div>
                     </div>
                   </li>
+
                   <li className="dropdown">
-                    <span>Employers</span>
-                    <ul>
+                    <a href="/dashboard-recruiter"> <span >Recruiter</span> </a>
+                    {/* <ul>
                       <li className="dropdown">
                         <span>Employers List</span>
                         <ul>
@@ -135,8 +136,9 @@ export default function Navbar() {
                       <li>
                         <a href="dashboard.html">Employers Dashboard</a>
                       </li>
-                    </ul>
+                    </ul> */}
                   </li>
+
                   <li className="dropdown">
                     <span>Candidates</span>
                     <ul>

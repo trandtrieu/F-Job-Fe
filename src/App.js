@@ -14,12 +14,23 @@ import Profile from "./layout/Profile";
 import CreateCV from "./layout/CreateCV";
 import demo from "./layout/demo";
 import CVS from "./layout/CVS";
+import ProfileCadidate from "./layout/ProfileCandidate"
+import JobList from "./layout/JobList";
+import JobPost from "./layout/JobPost";
+import DashboardRecruiter from "./layout/recruiter/DashboardRecruiter";
+import DashboardApplicant from "./layout/recruiter/DashboardApplicant";
+import ApproveSchedule from "./layout/recruiter/ApproveSchedule";
+
+
+
 
 function App() {
   return (
     <div className="App">
       <UserProvider>
         <Navbar />
+        
+
         <ToastContainer
           position="top-left"
           autoClose={3000}
@@ -31,25 +42,31 @@ function App() {
           draggable
           pauseOnHover
           theme="light"
+
         />
         <Router>
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/home" exact component={Home} />
-
             <Route path="/login" component={Login} />
             <Route path="/profile" component={Profile} />
+            <Route path="/profileCandidate" component={ProfileCadidate} />
+
             <Route path="/createCV" component={CreateCV} />
             <Route path="/cvs" component={CVS} />
             <Route path="/demo" component={demo} />
-
             <Route path="/login2" component={LoginV2} />
             <Route path="/register" component={Register} />
             <Route path="/forgot-password" component={ForgotPassword} />
-            <Route
-              path="/reset_password/:id/:token"
-              component={ResetPassword}
-            />
+            <Route path="/reset_password/:id/:token" component={ResetPassword} />
+            <Route path="/job-list" component={JobList} />
+            <Route path="/job-post" component={JobPost} />
+            <Route path="/dashboard-recruiter" component={DashboardRecruiter} />
+            <Route path="/dashboard-applicant" component={DashboardApplicant} />
+            <Route path="/approve-schedule" component={ApproveSchedule} />
+
+
+
           </Switch>
         </Router>
       </UserProvider>
