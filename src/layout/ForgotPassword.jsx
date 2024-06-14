@@ -11,7 +11,7 @@ function ForgotPassword() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3443/users/forgot-password", { email })
+      .post("https://localhost:3448/api/user/forgot-password", { email })
       .then((res) => {
         if (res.data.Status === "Success") {
           history.push("/login");
