@@ -29,7 +29,7 @@ const Login = () => {
 
     e.preventDefault();
     try {
-      console.log("info:", email + password);
+      console.log("info:", email + " " + password);
 
       const response = await loginUser(email, password);
       console.log(response.data);
@@ -168,7 +168,8 @@ const Login = () => {
                           href="#"
                           className="theme-btn social-btn-two facebook-btn"
                         >
-                          <i className="fab fa-facebook-f" /> Log In via Facebook
+                          <i className="fab fa-facebook-f" /> Log In via
+                          Facebook
                         </a>
                       </div>
                       <div className="col-lg-6 col-md-12">

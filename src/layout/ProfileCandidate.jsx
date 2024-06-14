@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { UserContext } from "../utils/UserContext";
 
 const ProfileCandidate = () => {
   const [formData, setFormData] = useState({
@@ -13,38 +14,86 @@ const ProfileCandidate = () => {
     dateOfBirth: "",
     sex: "",
     jobTitle: "",
+    userId: "",
+    avatar: null,
   });
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-  const [userId, setUserId] = useState("");
+  const { user, setUser } = useContext(UserContext);
+  const userId = user ? user.id : null;
 
   useEffect(() => {
-    const userIdFromLocalStorage = localStorage.getItem("userId");
-    if (userIdFromLocalStorage) {
-      setUserId(userIdFromLocalStorage);
-    } else {
-      console.error("No user ID found in local storage.");
+    const fetchProfile = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3005/api/user/candidate/profiles/${userId}`
+        );
+        setFormData(response.data.profile);
+        setLoading(false);
+      } catch (error) {
+        toast.error(`Error fetching profile: ${error.message}`);
+      }
+    };
+
+    if (userId) {
+      fetchProfile();
     }
-  }, []);
+  }, [userId]);
 
   const handleChange = (e) => {
-    const { id, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [id]: value,
-    }));
+    const { name, value, files } = e.target;
+    if (name === "avatar") {
+      setFormData({
+        ...formData,
+        avatar: files[0], // Lưu file ảnh vào avatar
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
+  };
+
+  const handleUpload = async () => {
+    const formDataUpload = new FormData();
+    formDataUpload.append("avatar", formData.avatar); // Thêm avatar vào formData
+
+    try {
+      const response = await axios.post(
+        `http://localhost:3005/api/user/candidate/upload-avatar`,
+        formDataUpload,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      // Lưu đường dẫn của ảnh vào formData
+      setFormData({
+        ...formData,
+        avatar: response.data.avatarUrl,
+      });
+      toast.success("Avatar uploaded successfully!");
+    } catch (error) {
+      toast.error(`Error uploading avatar: ${error.message}`);
+    }
   };
 
   const validateForm = () => {
     const newErrors = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^\d{10}$/;
+    const vietnameseNameRegex = /^[\p{L}\s']+$/u; // Biểu thức chính quy cho tên tiếng Việt
 
     if (!formData.fullName) {
       newErrors.fullName = "Your name is required.";
     } else if (formData.fullName.length < 2) {
       newErrors.fullName = "Your name must be at least 2 characters.";
+    } else if (!vietnameseNameRegex.test(formData.fullName)) {
+      newErrors.fullName =
+        "Your name must contain only Vietnamese letters and spaces.";
     }
 
     if (!formData.email) {
@@ -72,48 +121,6 @@ const ProfileCandidate = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   if (!validateForm()) {
-  //     return;
-  //   }
-
-  //   try {
-  //     const response = await axios.post(
-  //       "http://localhost:3005/api/user/candidate/create-profile",
-  //       formData
-  //     );
-
-  //     console.log("Server response:", response.data);
-
-  //     if (response.data.success) {
-  //       toast.success("Profile updated successfully");
-  //       fetchProfileData();
-  //       setFormData({
-  //         fullName: "",
-  //         phone: "",
-  //         email: "",
-  //         website: "",
-  //         address: "",
-  //         dateOfBirth: "",
-  //         sex: "",
-  //         jobTitle: "",
-  //       });
-  //       setErrors({});
-  //     } else {
-  //       toast.error(
-  //         `Unexpected response format: ${JSON.stringify(response.data)}`
-  //       );
-  //     }
-  //   } catch (error) {
-  //     console.error("Error creating profile:", error);
-  //     toast.error(
-  //       error.response?.data?.message ||
-  //         `Error creating profile: ${error.message}`
-  //     );
-  //   }
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) {
@@ -121,68 +128,18 @@ const ProfileCandidate = () => {
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:3005/api/user/candidate/create-profile",
-        formData
+      await axios.post(
+        `http://localhost:3005/api/user/candidate/create-profile`,
+        {
+          ...formData,
+          userId: userId,
+        }
       );
-
-      console.log("Server response:", response.data);
-
-      if (response.data.success) {
-        toast.success("Profile updated successfully");
-        fetchProfileData(); // Gọi lại để cập nhật dữ liệu mới nhất từ MongoDB
-        setErrors({});
-      } else {
-        toast.error(
-          `Unexpected response format: ${JSON.stringify(response.data)}`
-        );
-      }
+      toast.success("Profile updated successfully!");
     } catch (error) {
-      console.error("Error creating profile:", error);
-      toast.error(
-        error.response?.data?.message ||
-          `Error creating profile: ${error.message}`
-      );
+      toast.error(`Error updating profile: ${error.message}`);
     }
   };
-
-  const fetchProfileData = async () => {
-    if (!userId) {
-      console.error("No user ID set.");
-      return;
-    }
-
-    try {
-      setLoading(true);
-      const response = await axios.get(
-        `http://localhost:3005/api/user/candidate/profiles/${userId}`
-      );
-      console.log("Server response:", response.data);
-
-      if (response.data) {
-        console.log(response.data);
-        setFormData(response.data);
-      } else {
-        console.error("No profile data found in response.");
-      }
-
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching profile:", error);
-      toast.error(
-        error.response?.data?.message ||
-          `Error fetching profile: ${error.message}`
-      );
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    console.log("User ID from local storage:", userId);
-    if (userId) {
-      fetchProfileData();
-    }
-  }, [userId]);
 
   return (
     <div>
