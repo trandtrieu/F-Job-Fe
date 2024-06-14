@@ -14,7 +14,8 @@ import Profile from "./layout/Profile";
 import CreateCV from "./layout/CreateCV";
 import demo from "./layout/demo";
 import CVS from "./layout/CVS";
-
+import JobPost from "./layout/JobPost";
+import JobList from "./layout/JobList";
 function App() {
   return (
     <div className="App">
@@ -50,6 +51,9 @@ function App() {
               path="/reset_password/:id/:token"
               component={ResetPassword}
             />
+
+            <Route path="/job-post" component={JobPost} />
+            <Route path="/job-list" component={JobList} />
           </Switch>
         </Router>
       </UserProvider>

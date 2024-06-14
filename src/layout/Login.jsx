@@ -29,11 +29,8 @@ const Login = () => {
 
     e.preventDefault();
     try {
-      console.log("info:", email + password);
-
       const response = await loginUser(email, password);
-      console.log(response.data);
-      console.log("info p2:", email + password);
+
       if (response.data.status === "OK") {
         toast.success("Login successful!");
         setUser(response.data.user);
@@ -140,21 +137,21 @@ const Login = () => {
                 </div>
               </form>
               <div className="bottom-box">
-                <div className="text">
+                {/* <div className="text">
                   Don't have an account? <Link to="/register">Signup</Link>
                 </div>
                 <div className="divider">
                   <span>or</span>
-                </div>
+                </div> */}
                 <div className="btn-box row">
-                  <div className="col-lg-6 col-md-12">
+                  {/* <div className="col-lg-6 col-md-12">
                     <button
                       onClick={handleFacebookLogin}
                       className="theme-btn social-btn-two facebook-btn"
                     >
                       <i className="fab fa-facebook-f" /> Log In via Facebook
                     </button>
-                  </div>
+                  </div> */}
                   <div className="bottom-box">
                     <div className="text">
                       Don't have an account? <a href="/register">Signup</a>
@@ -168,7 +165,8 @@ const Login = () => {
                           href="#"
                           className="theme-btn social-btn-two facebook-btn"
                         >
-                          <i className="fab fa-facebook-f" /> Log In via Facebook
+                          <i className="fab fa-facebook-f" /> Log In via
+                          Facebook
                         </a>
                       </div>
                       <div className="col-lg-6 col-md-12">
