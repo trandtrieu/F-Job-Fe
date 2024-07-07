@@ -9,7 +9,7 @@ export default function Navbar() {
   const handleLogout = () => {
     setUser(null);
     localStorage.removeItem("user");
-    history.push("/");
+    // history.push("/");
   };
   return (
     <>
@@ -21,7 +21,7 @@ export default function Navbar() {
             <div className="nav-outer">
               <div className="logo-box">
                 <div className="logo">
-                  <a href="index.html">
+                  <a href="/">
                     <img src="../assets/images/logo.svg" alt="" title />
                   </a>
                 </div>
@@ -189,12 +189,6 @@ export default function Navbar() {
                           <li>
                             <a href="order-completed.html">Order Completed</a>
                           </li>
-                          <li>
-                            <a href="login.html">Login</a>
-                          </li>
-                          <li>
-                            <a href="register.html">Register</a>
-                          </li>
                         </ul>
                       </li>
                       <li>
@@ -267,12 +261,6 @@ export default function Navbar() {
               </a>
               {/* Login/Register */}
               <div className="btn-box">
-                <a
-                  href="/login"
-                  className="theme-btn btn-style-three call-modal"
-                >
-                  Login / Register
-                </a>
                 <a href="/job-post" className="theme-btn btn-style-one">
                   Job Post
                 </a>
@@ -297,7 +285,7 @@ export default function Navbar() {
           {/* Mobile Header */}
           <div className="mobile-header">
             <div className="logo">
-              <a href="index.html">
+              <a href="/">
                 <img src="images/logo.svg" alt="" title />
               </a>
             </div>

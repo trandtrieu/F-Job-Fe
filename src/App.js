@@ -8,13 +8,12 @@ import ForgotPassword from "./layout/ForgotPassword";
 import ResetPassword from "./layout/ResetPassword";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-import LoginV2 from "./layout/LoginV2";
 import { UserProvider } from "./utils/UserContext";
-import Profile from "./layout/Profile";
-import CreateCV from "./layout/CreateCV";
+
 import demo from "./layout/demo";
 import CVS from "./layout/CVS";
 import ProfileCandidate from "./layout/ProfileCandidate";
+import ProfileCV from "./layout/ProfileCV";
 
 function App() {
   return (
@@ -39,14 +38,12 @@ function App() {
             <Route path="/home" exact component={Home} />
 
             <Route path="/login" component={Login} />
-            <Route path="/profile" component={Profile} />
             <Route path="/profileCandidate/" component={ProfileCandidate} />
+            <Route path="/myCv" component={ProfileCV} />
 
-            <Route path="/createCV" component={CreateCV} />
             <Route path="/cvs" component={CVS} />
             <Route path="/demo" component={demo} />
 
-            <Route path="/login2" component={LoginV2} />
             <Route path="/register" component={Register} />
             <Route path="/forgot-password" component={ForgotPassword} />
             <Route
