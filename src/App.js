@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+// import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Login from "./layout/Login";
 import Navbar from "./layout/Navbar";
@@ -18,19 +18,17 @@ import ProfileCadidate from "./layout/ProfileCandidate"
 import JobList from "./layout/JobList";
 import JobPost from "./layout/JobPost";
 import DashboardRecruiter from "./layout/recruiter/DashboardRecruiter";
-import DashboardApplicant from "./layout/recruiter/DashboardApplicant";
 import ApproveSchedule from "./layout/recruiter/ApproveSchedule";
-
-
-
+import AllApplicant from "./layout/recruiter/AllApplicant";
+import AllCandidate from "./layout/recruiter/AllCandidate";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
       <UserProvider>
         <Navbar />
-        
-
+    
         <ToastContainer
           position="top-left"
           autoClose={3000}
@@ -42,7 +40,6 @@ function App() {
           draggable
           pauseOnHover
           theme="light"
-
         />
         <Router>
           <Switch>
@@ -62,7 +59,8 @@ function App() {
             <Route path="/job-list" component={JobList} />
             <Route path="/job-post" component={JobPost} />
             <Route path="/dashboard-recruiter" component={DashboardRecruiter} />
-            <Route path="/dashboard-applicant" component={DashboardApplicant} />
+            <Route path="/all-applicant" component={AllApplicant} />
+            <Route path="/all-candidate" component={AllCandidate} />
             <Route path="/approve-schedule" component={ApproveSchedule} />
 
 

@@ -10,7 +10,6 @@ import { loginUser, facebookLogin } from "../services/api.js";
 const Login = () => {
   // const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const { setUser } = useContext(UserContext);
@@ -20,7 +19,6 @@ const Login = () => {
 
   // const handleUsernameChange = (e) => setUsername(e.target.value);
   const handleEmailChange = (e) => setEmail(e.target.value);
-
   const handlePasswordChange = (e) => setPassword(e.target.value);
   const handleRememberMeChange = (e) => setRememberMe(e.target.checked);
 
@@ -91,6 +89,7 @@ const Login = () => {
           <div className="login-form default-form">
             <div className="form-inner">
               <h3>Login to Superio</h3>
+              
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
                   <label>Username</label>
@@ -103,6 +102,7 @@ const Login = () => {
                     required
                   />
                 </div>
+
                 <div className="form-group">
                   <label>Password</label>
                   <input
@@ -114,6 +114,7 @@ const Login = () => {
                     required
                   />
                 </div>
+
                 <div className="form-group">
                   <div className="field-outer">
                     <div className="input-group checkboxes square">
@@ -133,12 +134,15 @@ const Login = () => {
                     </Link>
                   </div>
                 </div>
+
                 <div className="form-group">
                   <button className="theme-btn btn-style-one" type="submit">
                     Log In
                   </button>
                 </div>
+
               </form>
+              
               <div className="bottom-box">
                 <div className="text">
                   Don't have an account? <Link to="/register">Signup</Link>

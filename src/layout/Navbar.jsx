@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import { UserContext } from "../utils/UserContext";
 import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function Navbar() {
   const { user, setUser } = useContext(UserContext);
@@ -11,6 +12,10 @@ export default function Navbar() {
     localStorage.removeItem("user");
     window.location.href("/")
   };
+
+  // const handleRecruiter = () => {
+  //   history.push('/dashboard-recruiter')
+  // }
   return (
     <>
       <div className="body-wrapper">
@@ -111,7 +116,10 @@ export default function Navbar() {
                   </li>
 
                   <li className="dropdown">
-                    <a href="/dashboard-recruiter"> <span >Recruiter</span> </a>
+                    <a
+                      href="/dashboard-recruiter"
+                    // onClick={handleRecruiter}
+                    > <span >Recruiter</span> </a>
                     {/* <ul>
                       <li className="dropdown">
                         <span>Employers List</span>
@@ -261,6 +269,7 @@ export default function Navbar() {
               </nav>
               {/* Main Menu End*/}
             </div>
+
             <div className="outer-box">
               {/* Add Listing */}
               <a href="/cvs" className="upload-cv">
@@ -269,31 +278,26 @@ export default function Navbar() {
               </a>
               {/* Login/Register */}
               <div className="btn-box">
-                <a
-                  href="/login"
-                  className="theme-btn btn-style-three call-modal"
-                >
-                  Login / Register
-                </a>
-                <a href="/job-post" className="theme-btn btn-style-one">
-                  Job Post
-                </a>
+                <a href="/login" className="theme-btn btn-style-three call-modal">Login / Register</a>
+                <a href="/job-post" className="theme-btn btn-style-one">Job Post</a>
               </div>
+
+
               <div className="btn-box">
-                <a
-                  href="/login"
-                  className="theme-btn btn-style-three call-modal"
-                >
+                <a href="/login" className="theme-btn btn-style-three call-modal">
                   {user ? (
+
                     <div>
                       <p>Welcome, {user.email}</p>
                       <button onClick={handleLogout}>Log out</button>
                     </div>
+
                   ) : (
                     <p>Login / Register</p>
                   )}
                 </a>
               </div>
+
             </div>
           </div>
           {/* Mobile Header */}

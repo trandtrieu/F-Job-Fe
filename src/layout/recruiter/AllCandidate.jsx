@@ -1,6 +1,7 @@
 import React from 'react'
+import CandidatesUser from '../../Component/CandidatesUser/CandidatesUser'
 
-const DashboardRecruiter = () => {
+const AllCandidate = () => {
     return (
         <div>
             <div className="page-wrapper dashboard ">
@@ -22,20 +23,10 @@ const DashboardRecruiter = () => {
                     </div>
                 </div>
                 {/* End User Sidebar */}
-
-                {/* Dashboard */}
-                <section className="user-dashboard">
-                    <div className="dashboard-outer">
-                    </div>
-                </section>
-                <div className="copyright-text">
-                    <p>© 2024 F-JOB. All Right Reserved.</p>
-                </div>
+                <CandidatesUser/>
             </div>{/* End Page Wrapper */}
-            {/* Chart.js // documentation: http://www.chartjs.org/docs/latest/ */}
-            {/* Mirrored from creativelayers.net/themes/superio/dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 24 May 2024 06:19:52 GMT */}
         </div>
     )
 }
 
-export default DashboardRecruiter
+export default AllCandidate
