@@ -7,11 +7,17 @@ function ForgotPassword() {
   const [email, setEmail] = useState();
   const history = useHistory();
 
-  axios.defaults.withCredentials = true;
+  // axios.defaults.withCredentials = true;
+
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("https://localhost:3448/api/user/forgot-password", { email })
+      .post(
+        "http://localhost:3005/api/user/forgot-password",
+        { email }
+        // ,
+        // { withCredentials: true }
+      )
       .then((res) => {
         if (res.data.Status === "Success") {
           history.push("/login");

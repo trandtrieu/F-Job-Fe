@@ -1,0 +1,15 @@
+.cv-image-container {
+    position: relative;
+    display: inline-block;
+}
+
+.cv-image {
+    width: 100px;
+    height: 100px;
+    transition: transform 0.3s;
+}
+
+.cv-image-container:hover .cv-image {
+    transform: scale(2);
+    /* Adjust the scale value as needed */
+}
