@@ -16,11 +16,18 @@ import demo from "./layout/demo";
 import CVS from "./layout/CVS";
 import JobPost from "./layout/JobPost";
 import JobList from "./layout/JobList";
+import ProfileCadidate from "./layout/ProfileCandidate";
+import DashboardRecruiter from "./layout/recruiter/DashboardRecruiter";
+import DashboardApplicant from "./layout/recruiter/DashboardApplicant";
+import ApproveSchedule from "./layout/recruiter/ApproveSchedule";
+import ManageJobList from "./layout/admin/ManageJobList";
+
 function App() {
   return (
     <div className="App">
       <UserProvider>
         <Navbar />
+
         <ToastContainer
           position="top-left"
           autoClose={3000}
@@ -37,13 +44,13 @@ function App() {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/home" exact component={Home} />
-
             <Route path="/login" component={Login} />
             <Route path="/profile" component={Profile} />
+            <Route path="/profileCandidate" component={ProfileCadidate} />
+
             <Route path="/createCV" component={CreateCV} />
             <Route path="/cvs" component={CVS} />
             <Route path="/demo" component={demo} />
-
             <Route path="/login2" component={LoginV2} />
             <Route path="/register" component={Register} />
             <Route path="/forgot-password" component={ForgotPassword} />
@@ -51,9 +58,12 @@ function App() {
               path="/reset_password/:id/:token"
               component={ResetPassword}
             />
-
-            <Route path="/job-post" component={JobPost} />
             <Route path="/job-list" component={JobList} />
+            <Route path="/job-post" component={JobPost} />
+            <Route path="/dashboard-recruiter" component={DashboardRecruiter} />
+            <Route path="/dashboard-applicant" component={DashboardApplicant} />
+            <Route path="/approve-schedule" component={ApproveSchedule} />
+            <Route path="/manage-job-list" component={ManageJobList} />
           </Switch>
         </Router>
       </UserProvider>

@@ -1,10 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "../assest/css/jobpost.css";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { UserContext } from "../utils/UserContext";
 
 const JobPost = () => {
+  const [userId, setUserId] = useState("");
+  const { user } = useContext(UserContext);
+
+  useEffect(() => {
+    if (user && user.id) {
+      setUserId(user.id);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    setFormData((prevState) => ({
+      ...prevState,
+      userId: userId,
+    }));
+  }, [userId]);
+
+  console.log(userId);
+
   const getCurrentDate = () => {
     const currentDate = new Date();
     return currentDate.toISOString();
@@ -27,8 +46,10 @@ const JobPost = () => {
     workingDays: [],
     nameCompany: "",
     workPlace: "",
+    userId: userId,
     reason: [],
     createdAt: getCurrentDate(),
+    images: [],
   });
 
   const handleChange = (e) => {
@@ -45,6 +66,14 @@ const JobPost = () => {
     setFormData((prevState) => ({
       ...prevState,
       reason: value.split(";").map((reason) => reason.trim()),
+    }));
+  };
+
+  const handleImageChange = (e) => {
+    const files = Array.from(e.target.files);
+    setFormData((prevState) => ({
+      ...prevState,
+      images: files,
     }));
   };
 
@@ -92,15 +121,34 @@ const JobPost = () => {
       qualifications: formData.qualifications.join(", "),
     };
 
+    const formDataObj = new FormData();
+
+    for (const key in transformedData) {
+      if (key === "images") {
+        transformedData[key].forEach((image, index) => {
+          formDataObj.append(`images`, image);
+        });
+      } else {
+        formDataObj.append(key, transformedData[key]);
+      }
+    }
+
     try {
       const response = await axios.post(
         "http://localhost:3005/job/create-job-post",
-        transformedData
+        formDataObj,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
 
       if (response.status === 201) {
         toast.success("Job posted successfully");
-        window.location.href = "/";
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 3000);
       } else {
         toast.warning("Failed to post job");
       }
@@ -347,6 +395,17 @@ const JobPost = () => {
               </div>
             ))}
           </div>
+        </div>
+        <div className="post-form-group">
+          <label htmlFor="images">Upload Images</label>
+          <input
+            type="file"
+            className="post-form-control"
+            id="images"
+            accept="image/*"
+            onChange={handleImageChange}
+            multiple
+          />
         </div>
         <button
           type="submit"
