@@ -25,13 +25,16 @@ const Login = () => {
   const handleRememberMeChange = (e) => setRememberMe(e.target.checked);
 
   useEffect(() => {
+    // setUser(null);
+    localStorage.removeItem("user");
+
     const urlParams = new URLSearchParams(window.location.search);
-    const userId = urlParams.get("userId");
+    const id = urlParams.get("id");
     const token = urlParams.get("token");
     const email = urlParams.get("email");
 
-    if (userId && token && email) {
-      const user = { userId, token, email };
+    if (id && token && email) {
+      const user = { id, token, email };
       setUser(user);
       localStorage.setItem("user", JSON.stringify(user));
       toast.success("Login successful!");
@@ -45,8 +48,6 @@ const Login = () => {
 
     e.preventDefault();
     try {
-      console.log("info:", email + " " + password);
-
       const response = await loginUser(email, password);
       console.log(response.data);
       console.log("info p2:", email + password);
