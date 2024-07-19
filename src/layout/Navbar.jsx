@@ -216,7 +216,7 @@ export default function Navbar() {
                         <a href="about.html">About</a>
                       </li>
                       <li>
-                        <a href="pricing.html">Pricing</a>
+                        <a href="/profileCandidate">Profile</a>
                       </li>
                       <li>
                         <a href="faqs.html">FAQ's</a>

@@ -29,6 +29,11 @@ const Login = () => {
 
     e.preventDefault();
     try {
+<<<<<<< HEAD
+=======
+      console.log("info:", email + " " + password);
+
+>>>>>>> 5ed032c6daa87b713513c5d52d5e30263ea845b4
       const response = await loginUser(email, password);
 
       if (response.data.status === "OK") {
