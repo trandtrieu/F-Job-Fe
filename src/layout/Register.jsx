@@ -1,6 +1,55 @@
-import React from "react";
+import axios from "axios";
+import React, { useRef, useState } from "react";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function Register() {
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const history = useHistory();
+  
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent default form submission
+
+    // Construct the payload for the API request
+    const payload = {
+      email: email,
+      password: password,
+    };
+
+    try {
+      const response = await axios.post("http://localhost:3005/api/user/sign-up", payload, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.status === 200) {
+        const data = response.data;
+        console.log("Registration successful", data);
+        history.push('/home');
+      } else {
+        const errorData = response.data;
+        console.error("Registration failed", errorData);
+        // Handle registration error (e.g., show error message)
+      }
+    } catch (error) {
+      console.error("An error occurred while registering", error);
+      // Handle fetch error (e.g., show error message)
+    }
+  };
+
+
+
   return (
     <>
       <div className="page-wrapper">
@@ -11,30 +60,18 @@ export default function Register() {
               backgroundImage: "url(../assets/images/background/12.jpg)",
             }}
           />
+
           <div className="outer-box">
             {/* Login Form */}
             <div className="login-form default-form">
               <div className="form-inner">
-                <h3>Create a Free Superio Account</h3>
+                <h3>Create a Free F-Job Account</h3>
                 {/*Login Form*/}
+
                 <form
-                  method="post"
-                  action="https://creativelayers.net/themes/superio/add-parcel.html"
+                  onSubmit={handleSubmit}
                 >
-                  <div className="form-group">
-                    <div className="btn-box row">
-                      <div className="col-lg-6 col-md-12">
-                        <a href="/" className="theme-btn btn-style-seven">
-                          <i className="la la-user" /> Candidate{" "}
-                        </a>
-                      </div>
-                      <div className="col-lg-6 col-md-12">
-                        <a href="/" className="theme-btn btn-style-four">
-                          <i className="la la-briefcase" /> Employer{" "}
-                        </a>
-                      </div>
-                    </div>
-                  </div>
+
                   <div className="form-group">
                     <label>Email Address</label>
                     <input
@@ -42,18 +79,24 @@ export default function Register() {
                       name="email"
                       placeholder="Email"
                       required
+                      value={email}
+                      onChange={handleEmailChange}
                     />
                   </div>
+
                   <div className="form-group">
                     <label>Password</label>
                     <input
                       id="password-field"
                       type="password"
                       name="password"
-                      defaultValue
                       placeholder="Password"
+                      required
+                      value={password}
+                      onChange={handlePasswordChange}
                     />
                   </div>
+
                   <div className="form-group">
                     <button
                       className="theme-btn btn-style-one "
@@ -63,7 +106,10 @@ export default function Register() {
                       Register
                     </button>
                   </div>
+
                 </form>
+
+                {/* Login Facebook, Gmail */}
                 <div className="bottom-box">
                   <div className="divider">
                     <span>or</span>
@@ -87,6 +133,7 @@ export default function Register() {
                     </div>
                   </div>
                 </div>
+
               </div>
             </div>
             {/*End Login Form */}

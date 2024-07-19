@@ -1,9 +1,9 @@
 // services/api.js
 import axios from "axios";
 
-export const loginUser = (username, password) => {
-  return axios.post("http://localhost:3443/users/login", {
-    username,
+export const loginUser = (email, password) => {
+  return axios.post("http://localhost:3005/api/user/login", {
+    email,
     password,
   });
 };

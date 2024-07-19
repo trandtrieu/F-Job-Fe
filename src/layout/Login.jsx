@@ -2,14 +2,15 @@
 
 import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import axios from "axios";
 import { toast } from "react-toastify";
 import useFacebookSDK from "../utils/useFacebookSDK";
 import { UserContext } from "../utils/UserContext";
 import { loginUser, facebookLogin } from "../services/api.js";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  // const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const { setUser } = useContext(UserContext);
@@ -17,20 +18,27 @@ const Login = () => {
 
   useFacebookSDK(process.env.REACT_APP_FACEBOOK_APP_ID);
 
-  const handleUsernameChange = (e) => setUsername(e.target.value);
+  // const handleUsernameChange = (e) => setUsername(e.target.value);
+  const handleEmailChange = (e) => setEmail(e.target.value);
+
   const handlePasswordChange = (e) => setPassword(e.target.value);
   const handleRememberMeChange = (e) => setRememberMe(e.target.checked);
 
   const handleSubmit = async (e) => {
+    console.log("hello");
+
     e.preventDefault();
     try {
-      const response = await loginUser(username, password);
-      if (response.data.success) {
+      const response = await loginUser(email, password);
+
+      if (response.data.status === "OK") {
         toast.success("Login successful!");
         setUser(response.data.user);
         localStorage.setItem("user", JSON.stringify(response.data.user));
+        console.log(response.data.user);
         history.push("/");
       } else {
+        console.log("fail login");
         toast.error("Login failed. Please check your credentials.");
       }
     } catch (error) {
@@ -85,10 +93,10 @@ const Login = () => {
                   <label>Username</label>
                   <input
                     type="text"
-                    name="username"
-                    placeholder="Username"
-                    value={username}
-                    onChange={handleUsernameChange}
+                    name="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={handleEmailChange}
                     required
                   />
                 </div>
@@ -129,28 +137,47 @@ const Login = () => {
                 </div>
               </form>
               <div className="bottom-box">
-                <div className="text">
+                {/* <div className="text">
                   Don't have an account? <Link to="/register">Signup</Link>
                 </div>
                 <div className="divider">
                   <span>or</span>
-                </div>
+                </div> */}
                 <div className="btn-box row">
-                  <div className="col-lg-6 col-md-12">
+                  {/* <div className="col-lg-6 col-md-12">
                     <button
                       onClick={handleFacebookLogin}
                       className="theme-btn social-btn-two facebook-btn"
                     >
                       <i className="fab fa-facebook-f" /> Log In via Facebook
                     </button>
-                  </div>
-                  <div className="col-lg-6 col-md-12">
-                    <a
-                      href="/auth/google"
-                      className="theme-btn social-btn-two google-btn"
-                    >
-                      <i className="fab fa-google" /> Log In via Gmail
-                    </a>
+                  </div> */}
+                  <div className="bottom-box">
+                    <div className="text">
+                      Don't have an account? <a href="/register">Signup</a>
+                    </div>
+                    <div className="divider">
+                      <span>or</span>
+                    </div>
+                    <div className="btn-box row">
+                      <div className="col-lg-6 col-md-12">
+                        <a
+                          href="#"
+                          className="theme-btn social-btn-two facebook-btn"
+                        >
+                          <i className="fab fa-facebook-f" /> Log In via
+                          Facebook
+                        </a>
+                      </div>
+                      <div className="col-lg-6 col-md-12">
+                        <a
+                          href="#"
+                          className="theme-btn social-btn-two google-btn"
+                        >
+                          <i className="fab fa-google" /> Log In via Gmail
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

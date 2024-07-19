@@ -1,16 +1,22 @@
 import React, { useContext } from "react";
 import { UserContext } from "../utils/UserContext";
 import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom";
 
 export default function Navbar() {
   const { user, setUser } = useContext(UserContext);
   const history = useHistory();
+
   const handleLogout = () => {
     setUser(null);
     localStorage.removeItem("user");
     history.push("/");
   };
+
+  const navJobFinder = () =>{
+    window.location.href="/job-finder";
+  };
+
   return (
     <>
       <div className="body-wrapper">
@@ -66,48 +72,9 @@ export default function Navbar() {
                       </div>
                     </div>
                   </li>
-                  <li className="dropdown has-mega-menu" id="has-mega-menu">
-                    <span>Find Jobs</span>
-                    <div className="mega-menu">
-                      <div className="mega-menu-bar row">
-                        <div className="column col-lg-3 col-md-3 col-sm-12">
-                          <h3>Jobs Listing</h3>
-                          <ul>
-                            <li>
-                              <a href="job-list-v1.html">Jobs List – v1</a>
-                            </li>
-                          </ul>
-                        </div>
-                        <div className="column col-lg-3 col-md-3 col-sm-12">
-                          <ul>
-                            <li>
-                              <a href="job-list-v6.html">Jobs List – v6</a>
-                            </li>
-                          </ul>
-                        </div>
-                        <div className="column col-lg-3 col-md-3 col-sm-12">
-                          <ul>
-                            <li>
-                              <a href="job-list-v11.html">Jobs List – v11</a>
-                            </li>
-                            <li>
-                              <a href="job-list-v12.html">Jobs List – v12</a>
-                            </li>
-                          </ul>
-                        </div>
-                        <div className="column col-lg-3 col-md-3 col-sm-12">
-                          <h3>Jobs Single</h3>
-                          <ul>
-                            <li>
-                              <a href="job-single.html">Job Single v1</a>
-                            </li>
-                            <li>
-                              <a href="job-single-2.html">Job Single v2</a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
+                  <li className="dropdown has-mega-menu">
+
+                    <span onClick={navJobFinder}>Find Jobs</span>
                   </li>
                   <li className="dropdown">
                     <span>Employers</span>

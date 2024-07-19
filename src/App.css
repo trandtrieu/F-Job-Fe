@@ -1,0 +1,66 @@
+.card{
+    margin: 20px;
+    border: 2px solid #ededed;
+    padding: 20px;
+    cursor: pointer;
+    max-height: 200px;
+}
+.sidebar-label-container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+.sidebar-label-container input:checked ~ .checkmark {
+    background-color: #2196f3;
+}
+.sidebar-label-container{
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    -webkit-user-select: none;
+    user-select: none;
+}
+.checkmark{
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    background-color: #ccc;
+    border-radius: 50%;
+}
+.img{
+    height: 50%;
+    width: 50%;
+}
+.job-listing {
+    margin-bottom: 1.5rem; /* Add spacing between job listings */
+    padding: 1rem; /* Add padding around each job listing */
+    border: 1px solid #e2e8f0; /* Add a light border */
+    border-radius: 0.5rem; /* Add rounded corners */
+    background-color: #f9fafb; /* Light background color */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* Add subtle shadow */
+  }
+  
+  .job-listing h2 {
+    font-size: 1.25rem; /* Increase title font size */
+    font-weight: 700; /* Make title bold */
+    margin-bottom: 0.5rem; /* Add space below title */
+  }
+  
+  .job-listing .company-logo {
+    max-width: 100px;
+    max-height: 100px;
+    margin-bottom: 0.5rem; /* Add space below logo */
+  }
+  
+  .job-listing .text-black {
+    font-size: 1rem; /* Adjust company name font size */
+    font-weight: 600; /* Make company name semi-bold */
+  }
+  
+  .job-listing .text-dark {
+    color: #4a5568; /* Dark text color */
+  }
+  
+  .job-listing .text-gray-700 {
+    color: #4a5568; /* Dark gray text color */
+  }
+  

@@ -11,6 +11,7 @@ import { ToastContainer } from "react-toastify";
 import LoginV2 from "./layout/LoginV2";
 import { UserProvider } from "./utils/UserContext";
 import Profile from "./layout/Profile";
+import JobFinder from "./layout/JobFinder";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
               path="/reset_password/:id/:token"
               component={ResetPassword}
             />
+            <Route path="/job-finder" component={JobFinder} />
           </Switch>
         </Router>
       </UserProvider>
