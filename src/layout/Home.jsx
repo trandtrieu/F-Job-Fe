@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Banner from "./Banner";
 import { UserContext } from "../utils/UserContext";
 import JobList from "./JobList";

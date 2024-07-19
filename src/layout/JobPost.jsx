@@ -8,12 +8,31 @@ import { UserContext } from "../utils/UserContext";
 const JobPost = () => {
   const [userId, setUserId] = useState("");
   const { user } = useContext(UserContext);
+  const [userRole, setUserRole] = useState("null");
 
   useEffect(() => {
     if (user && user.id) {
       setUserId(user.id);
     }
   }, [user]);
+
+  useEffect(() => {
+    const userJSON = localStorage.getItem("user");
+
+    if (userJSON) {
+      const user = JSON.parse(userJSON);
+      console.log(user);
+      if (user && user.role) {
+        const userRole = user.role;
+        console.log(userRole);
+        setUserRole(userRole);
+      } else {
+        console.log("Role không tồn tại trong đối tượng user.");
+      }
+    } else {
+      console.log("Đối tượng user không tồn tại trong localStorage.");
+    }
+  }, []);
 
   useEffect(() => {
     setFormData((prevState) => ({

@@ -1,30 +1,52 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "../utils/UserContext";
-import { Link, useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
+import Modal from "react-modal";
+import "../assest/css/navbar.css";
+Modal.setAppElement("#root");
 
 export default function Navbar() {
   const { user, setUser } = useContext(UserContext);
+  const [userRole, setUserRole] = useState("null");
+  const [showAlert, setShowAlert] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    const userJSON = localStorage.getItem("user");
+    if (userJSON) {
+      const user = JSON.parse(userJSON);
+      if (user && user.role) {
+        const userRole = user.role;
+        setUserRole(userRole);
+      }
+    }
+  }, []);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    if (userRole === "user" || userRole === "null") {
+      // toast.warn("You cannot access this page");
+      setIsModalOpen(true); // Open the modal
+    } else {
+      window.location.href = "/job-post";
+    }
+  };
 
   const handleLogout = () => {
-    console.log("Logging out...");
     setUser(null);
     localStorage.removeItem("user");
-    console.log(
-      "User removed from localStorage:",
-      localStorage.getItem("user")
-    );
-    window.location.href("/");
-    // setUser(null);
-    localStorage.removeItem("user");
-    window.location.href("/");
+    window.location.href = "/";
   };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <>
       <div className="body-wrapper">
         <header className="main-header">
-          {/* Main box */}
           <div className="main-box">
-            {/*Nav Outer */}
             <div className="nav-outer">
               <div className="logo-box">
                 <div className="logo">
@@ -122,34 +144,8 @@ export default function Navbar() {
 
                   <li className="dropdown">
                     <a href="/dashboard-recruiter">
-                      {" "}
-                      <span>Recruiter</span>{" "}
+                      <span>Recruiter</span>
                     </a>
-                    {/* <ul>
-                      <li className="dropdown">
-                        <span>Employers List</span>
-                        <ul>
-                          <li>
-                            <a href="employers-list-v1.html">
-                              Employers LIst v1
-                            </a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li className="dropdown">
-                        <span>Employers Single</span>
-                        <ul>
-                          <li>
-                            <a href="employers-single-v1.html">
-                              Employers Single v1
-                            </a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li>
-                        <a href="dashboard.html">Employers Dashboard</a>
-                      </li>
-                    </ul> */}
                   </li>
 
                   <li className="dropdown">
@@ -235,11 +231,13 @@ export default function Navbar() {
                       </li>
                     </ul>
                   </li>
-                  {/* Only for Mobile View */}
                   <li className="mm-add-listing">
-                    <a href="job-post" className="theme-btn btn-style-one">
+                    <button
+                      className="theme-btn btn-style-one"
+                      onClick={handleClick}
+                    >
                       Job Post
-                    </a>
+                    </button>
                     <span>
                       <span className="contact-info">
                         <span className="phone-num">
@@ -272,19 +270,23 @@ export default function Navbar() {
                   </li>
                 </ul>
               </nav>
-              {/* Main Menu End*/}
             </div>
             <div className="outer-box">
-              {/* Add Listing */}
               <a href="/cvs" className="upload-cv">
-                {" "}
                 Upload your CV
               </a>
-              {/* Login/Register */}
               <div className="btn-box">
-                <a href="/job-post" className="theme-btn btn-style-one">
+                <button
+                  className="theme-btn btn-style-one"
+                  onClick={handleClick}
+                >
                   Job Post
-                </a>
+                </button>
+                {showAlert && (
+                  <div className="alert">
+                    Bạn không có quyền truy cập trang này.
+                  </div>
+                )}
               </div>
               <div className="btn-box">
                 <a
@@ -313,32 +315,49 @@ export default function Navbar() {
               </div>
             </div>
           </div>
-          {/* Mobile Header */}
           <div className="mobile-header">
             <div className="logo">
               <a href="index.html">
                 <img src="images/logo.svg" alt="" title />
               </a>
             </div>
-            {/*Nav Box*/}
             <div className="nav-outer clearfix">
               <div className="outer-box">
-                {/* Login/Register */}
                 <div className="login-box">
                   <a href="login-popup.html" className="call-modal">
                     <span className="icon-user" />
                   </a>
                 </div>
-                <a href="#nav-mobile" className="mobile-nav-toggler">
+                <button
+                  className="mobile-nav-toggler"
+                  onClick={() =>
+                    document
+                      .getElementById("nav-mobile")
+                      .classList.toggle("open")
+                  }
+                >
                   <span className="flaticon-menu-1" />
-                </a>
+                </button>
               </div>
             </div>
           </div>
-          {/* Mobile Nav */}
           <div id="nav-mobile" />
         </header>
       </div>
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        contentLabel="Register as Recruiter"
+        className="modal"
+        overlayClassName="overlay"
+      >
+        <h2>Register as Recruiter</h2>
+        <p>
+          You do not have permission to access this page. Please register as a
+          recruiter to continue.
+        </p>
+        <button onClick={closeModal}>Close</button>
+      </Modal>
     </>
   );
 }
