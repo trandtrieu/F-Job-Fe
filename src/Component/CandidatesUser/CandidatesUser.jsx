@@ -24,13 +24,12 @@ const CandidateUser = () => {
   const [isModalOpenDelete, setIsModalOpenDelete] = useState(false)
   // hiển thị loading update
   const [isLoadingUpdate, setIsLoadingUpdate] = useState(false)
+  // lấy info user từ redux
+  const user = useSelector((state) => state?.user)
   // sort, filter, search
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
-
-  // lấy info user từ redux
-  const user = useSelector((state) => state?.user)
 
   // khai báo state của riêng USER details
   const [stateUserDetails, setStateUserDetails] = useState({
@@ -130,6 +129,7 @@ const CandidateUser = () => {
       </div>
     )
   }
+
   // search, sort, filter ==========================================================================
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -201,6 +201,7 @@ const CandidateUser = () => {
     },
   });
 
+
   // các thuộc tính của bảng render ra dữ liệu USERS
   const columns = [
     {
@@ -227,7 +228,7 @@ const CandidateUser = () => {
       sorter: (a, b) => a.address - b.address,
     },
     {
-      title: 'Admin',
+      title: 'Applied',
       dataIndex: 'isAdmin',
       // filter
       filters: [
@@ -265,6 +266,7 @@ const CandidateUser = () => {
   })
 
   // console.log("products", products)
+
 
   // useEffect sau khi DELETE USER thành công
   useEffect(() => {
@@ -357,8 +359,7 @@ const CandidateUser = () => {
         <WrapperHeader>Quản Lý Candidate</WrapperHeader>
         {/* component hiển thị dữ liệu USER */}
         <div style={{ marginTop: '20px', }}>
-          <TableComponent columns={columns} isLoading={isLoadingUsers}
-            data={dataTable}
+          <TableComponent columns={columns} isLoading={isLoadingUsers} data={dataTable}
             onRow={(record, rowIndex) => {
               return {
                 onClick: event => {
@@ -366,7 +367,6 @@ const CandidateUser = () => {
                 },
               };
             }}
-
           />
         </div>
       </div>
