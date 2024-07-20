@@ -3,6 +3,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { UserContext } from "../utils/UserContext";
+import { validateForm } from "../utils/validate";
 
 const ProfileCandidate = () => {
   const [formData, setFormData] = useState({
@@ -14,130 +15,110 @@ const ProfileCandidate = () => {
     dateOfBirth: "",
     sex: "",
     jobTitle: "",
-    userId: "",
-    avatar: null,
+    image: null,
   });
 
   const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
-  const { user, setUser } = useContext(UserContext);
+  const [loading, setLoading] = useState(true);
+  const [profileExists, setProfileExists] = useState(false);
+  const [file, setFile] = useState(null);
+  const { user } = useContext(UserContext);
   const userId = user ? user.id : null;
 
   useEffect(() => {
     const fetchProfile = async () => {
+      if (!userId) return;
+
       try {
         const response = await axios.get(
           `http://localhost:3005/api/user/candidate/profiles/${userId}`
         );
-        setFormData(response.data.profile);
-        setLoading(false);
+        const profile = response.data.profile;
+        const formattedDateOfBirth = profile.dateOfBirth
+          ? new Date(profile.dateOfBirth).toISOString().split("T")[0]
+          : "";
+
+        setFormData((prevState) => ({
+          ...prevState,
+          ...profile,
+          dateOfBirth: formattedDateOfBirth,
+        }));
+        if (profile.image) {
+          // Set file preview if image exists
+          setFile(profile.image);
+        }
+        setProfileExists(true);
       } catch (error) {
-        toast.error(`Error fetching profile: ${error.message}`);
+        console.error(`Error fetching profile: ${error.message}`);
+        setFormData((prevState) => ({
+          ...prevState,
+          email: user ? user.email : "",
+        }));
+
+        setProfileExists(false);
+      } finally {
+        setLoading(false);
       }
     };
 
-    if (userId) {
-      fetchProfile();
-    }
+    fetchProfile();
   }, [userId]);
 
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    if (name === "avatar") {
-      setFormData({
-        ...formData,
-        avatar: files[0], // Lưu file ảnh vào avatar
-      });
-    } else {
-      setFormData({
-        ...formData,
-        [name]: value,
-      });
-    }
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
-  const handleUpload = async () => {
-    const formDataUpload = new FormData();
-    formDataUpload.append("avatar", formData.avatar); // Thêm avatar vào formData
-
-    try {
-      const response = await axios.post(
-        `http://localhost:3005/api/user/candidate/upload-avatar`,
-        formDataUpload,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      // Lưu đường dẫn của ảnh vào formData
-      setFormData({
-        ...formData,
-        avatar: response.data.avatarUrl,
-      });
-      toast.success("Avatar uploaded successfully!");
-    } catch (error) {
-      toast.error(`Error uploading avatar: ${error.message}`);
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      const fileUrl = URL.createObjectURL(selectedFile);
+      setFile(fileUrl);
+      setFormData((prevState) => ({
+        ...prevState,
+        image: selectedFile,
+      }));
     }
-  };
-
-  const validateForm = () => {
-    const newErrors = {};
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneRegex = /^\d{10}$/;
-    const vietnameseNameRegex = /^[\p{L}\s']+$/u; // Biểu thức chính quy cho tên tiếng Việt
-
-    if (!formData.fullName) {
-      newErrors.fullName = "Your name is required.";
-    } else if (formData.fullName.length < 2) {
-      newErrors.fullName = "Your name must be at least 2 characters.";
-    } else if (!vietnameseNameRegex.test(formData.fullName)) {
-      newErrors.fullName =
-        "Your name must contain only Vietnamese letters and spaces.";
-    }
-
-    if (!formData.email) {
-      newErrors.email = "Email is required.";
-    } else if (!emailRegex.test(formData.email)) {
-      newErrors.email = "Email is not valid.";
-    }
-
-    if (!formData.phone) {
-      newErrors.phone = "Phone number is required.";
-    } else if (!phoneRegex.test(formData.phone)) {
-      newErrors.phone = "Phone number is not valid.";
-    }
-
-    if (formData.dateOfBirth) {
-      const today = new Date();
-      const birthDate = new Date(formData.dateOfBirth);
-      const age = today.getFullYear() - birthDate.getFullYear();
-      if (age < 18) {
-        newErrors.dateOfBirth = "You must be at least 18 years old.";
-      }
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateForm()) {
+    const newErrors = validateForm(formData);
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
 
     try {
-      await axios.post(
-        `http://localhost:3005/api/user/candidate/create-profile`,
-        {
-          ...formData,
-          userId: userId,
+      const formDataWithImage = new FormData();
+      formDataWithImage.append("image", formData.image);
+      Object.keys(formData).forEach((key) => {
+        if (key !== "image") {
+          formDataWithImage.append(key, formData[key]);
         }
-      );
-      toast.success("Profile updated successfully!");
+      });
+
+      formDataWithImage.append("userId", userId);
+
+      if (profileExists) {
+        await axios.post(
+          `http://localhost:3005/api/user/candidate/profiles/update/${userId}`,
+          formDataWithImage
+        );
+        toast.success("Profile updated successfully!");
+      } else {
+        await axios.post(
+          `http://localhost:3005/api/user/candidate/create-profile`,
+          formDataWithImage
+        );
+        toast.success("Profile created successfully!");
+      }
     } catch (error) {
-      toast.error(`Error updating profile: ${error.message}`);
+      toast.error(`Error saving profile: ${error.message}`);
     }
   };
 
@@ -214,12 +195,12 @@ const ProfileCandidate = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="dashboard-change-password.html">
+                  <a href="/changePassword">
                     <i className="la la-lock" /> Change Password
                   </a>
                 </li>
                 <li>
-                  <a href="dashboard-profile.html">
+                  <a href="/profileCandidate">
                     <i className="la la-user-alt" /> View Profile
                   </a>
                 </li>
@@ -276,32 +257,9 @@ const ProfileCandidate = () => {
                   <div className="ls-widget">
                     <div className="tabs-box">
                       <div className="widget-title">
-                        <h4>My Profile</h4>
+                        {/* <h4>My Profile</h4> */}
                       </div>
                       <div className="widget-content">
-                        <div className="uploading-outer">
-                          <div className="uploadButton">
-                            <input
-                              className="uploadButton-input"
-                              type="file"
-                              name="attachments[]"
-                              accept="image/*, application/pdf"
-                              id="upload"
-                              multiple
-                            />
-                            <label
-                              className="uploadButton-button ripple-effect"
-                              htmlFor="upload"
-                            >
-                              Browse Logo
-                            </label>
-                            <span className="uploadButton-file-name" />
-                          </div>
-                          <div className="text">
-                            Max file size is 1MB, Minimum dimension: 330x300 And
-                            Suitable files are .jpg &amp; .png
-                          </div>
-                        </div>
                         {loading ? (
                           <div>Loading...</div>
                         ) : (
@@ -310,6 +268,29 @@ const ProfileCandidate = () => {
                             onSubmit={handleSubmit}
                           >
                             <div className="row">
+                              <div className="post-form-group">
+                                <input
+                                  type="file"
+                                  className="post-form-control"
+                                  id="image"
+                                  accept="image/*"
+                                  onChange={handleFileChange}
+                                  input
+                                />
+                                {file && (
+                                  <img
+                                    src={file}
+                                    alt="Profile Preview"
+                                    style={{
+                                      maxWidth: "150px",
+                                      maxHeight: "150px",
+                                      marginTop: "10px",
+                                      marginBottom: "30px",
+                                    }}
+                                  />
+                                )}
+                              </div>
+
                               <div className="form-group col-lg-6 col-md-12">
                                 <label>Full Name</label>
                                 <input

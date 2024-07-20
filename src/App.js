@@ -15,6 +15,7 @@ import CreateCV from "./layout/CreateCV";
 import demo from "./layout/demo";
 import CVS from "./layout/CVS";
 import ProfileCandidate from "./layout/ProfileCandidate";
+import ChangePassword from "./layout/ChangePassword";
 
 function App() {
   return (
@@ -41,7 +42,7 @@ function App() {
             <Route path="/login" component={Login} />
             <Route path="/profile" component={Profile} />
             <Route path="/profileCandidate/" component={ProfileCandidate} />
-
+            <Route path="/changePassword" component={ChangePassword} />
             <Route path="/createCV" component={CreateCV} />
             <Route path="/cvs" component={CVS} />
             <Route path="/demo" component={demo} />
