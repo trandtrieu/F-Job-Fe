@@ -14,7 +14,6 @@ import Profile from "./layout/Profile";
 import CreateCV from "./layout/CreateCV";
 import demo from "./layout/demo";
 import CVS from "./layout/CVS";
-<<<<<<< HEAD
 import JobPost from "./layout/JobPost";
 import JobList from "./layout/JobList";
 import ProfileCadidate from "./layout/ProfileCandidate";
@@ -22,9 +21,8 @@ import DashboardRecruiter from "./layout/recruiter/DashboardRecruiter";
 import DashboardApplicant from "./layout/recruiter/DashboardApplicant";
 import ApproveSchedule from "./layout/recruiter/ApproveSchedule";
 import ManageJobList from "./layout/admin/ManageJobList";
-=======
 import ProfileCandidate from "./layout/ProfileCandidate";
->>>>>>> 5ed032c6daa87b713513c5d52d5e30263ea845b4
+import ChangePassword from "./layout/ChangePassword";
 
 function App() {
   return (
@@ -50,11 +48,8 @@ function App() {
             <Route path="/home" exact component={Home} />
             <Route path="/login" component={Login} />
             <Route path="/profile" component={Profile} />
-<<<<<<< HEAD
-            <Route path="/profileCandidate" component={ProfileCadidate} />
-=======
+
             <Route path="/profileCandidate/" component={ProfileCandidate} />
->>>>>>> 5ed032c6daa87b713513c5d52d5e30263ea845b4
 
             <Route path="/createCV" component={CreateCV} />
             <Route path="/cvs" component={CVS} />
