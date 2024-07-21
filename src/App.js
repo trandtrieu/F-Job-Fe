@@ -16,7 +16,6 @@ import demo from "./layout/demo";
 import CVS from "./layout/CVS";
 import JobPost from "./layout/JobPost";
 import JobList from "./layout/JobList";
-import ProfileCadidate from "./layout/ProfileCandidate";
 import DashboardRecruiter from "./layout/recruiter/DashboardRecruiter";
 import DashboardApplicant from "./layout/recruiter/DashboardApplicant";
 import ApproveSchedule from "./layout/recruiter/ApproveSchedule";
@@ -50,6 +49,8 @@ function App() {
             <Route path="/profile" component={Profile} />
 
             <Route path="/profileCandidate/" component={ProfileCandidate} />
+
+            <Route path="/changePassword" component={ChangePassword} />
 
             <Route path="/createCV" component={CreateCV} />
             <Route path="/cvs" component={CVS} />
