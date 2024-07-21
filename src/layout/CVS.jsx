@@ -16,6 +16,7 @@ const customStyles = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     width: "80%",
+    maxHeight: "98vh",
     maxHeight: "80vh",
     overflowY: "auto",
     border: "none",

@@ -8,9 +8,7 @@ import { UserContext } from "../utils/UserContext";
 import { loginUser, facebookLogin, googleLogin } from "../services/api.js";
 
 const Login = () => {
-  // const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const { setUser } = useContext(UserContext);
@@ -18,14 +16,7 @@ const Login = () => {
 
   useFacebookSDK(process.env.REACT_APP_FACEBOOK_APP_ID);
 
-  // const handleUsernameChange = (e) => setUsername(e.target.value);
-  const handleEmailChange = (e) => setEmail(e.target.value);
-
-  const handlePasswordChange = (e) => setPassword(e.target.value);
-  const handleRememberMeChange = (e) => setRememberMe(e.target.checked);
-
   useEffect(() => {
-    // setUser(null);
     localStorage.removeItem("user");
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -39,26 +30,19 @@ const Login = () => {
       localStorage.setItem("user", JSON.stringify(user));
       toast.success("Login successful!");
       history.push("/");
-      toast.success("Login successful!");
     }
   }, [history, setUser]);
 
   const handleSubmit = async (e) => {
-    console.log("hello");
-
     e.preventDefault();
     try {
       const response = await loginUser(email, password);
-      console.log(response.data);
-      console.log("info p2:", email + password);
       if (response.data.status === "OK") {
         toast.success("Login successful!");
         setUser(response.data.user);
         localStorage.setItem("user", JSON.stringify(response.data.user));
-        console.log(response.data.user);
         history.push("/");
       } else {
-        console.log("fail login");
         toast.error("Login failed. Please check your credentials.");
       }
     } catch (error) {
@@ -97,9 +81,6 @@ const Login = () => {
     FB.login(checkLoginState, { scope: "public_profile,email" });
   };
 
-  // const handleGoogleLogin = () => {
-  //   window.open(`http://localhost:3005/api/user/google/callback`, "_self");
-  // };
   const handleGoogleLogin = () => {
     window.open(`http://localhost:3005/api/user/google/callback`, "_self");
   };
@@ -107,23 +88,20 @@ const Login = () => {
   return (
     <div className="page-wrapper">
       <div className="login-section">
-        <div
-          className="image-layer"
-          style={{ backgroundImage: "url(../assets/images/background/12.jpg)" }}
-        />
+        <div className="image-layer" style={{ backgroundImage: "url(../assets/images/background/12.jpg)" }} />
         <div className="outer-box">
           <div className="login-form default-form">
             <div className="form-inner">
               <h3>Login to Superio</h3>
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                  <label>Username</label>
+                  <label>Email</label>
                   <input
                     type="text"
                     name="email"
                     placeholder="Email"
                     value={email}
-                    onChange={handleEmailChange}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </div>
@@ -134,7 +112,7 @@ const Login = () => {
                     name="password"
                     placeholder="Password"
                     value={password}
-                    onChange={handlePasswordChange}
+                    onChange={(e) => setPassword(e.target.value)}
                     required
                   />
                 </div>
@@ -146,7 +124,7 @@ const Login = () => {
                         name="remember-me"
                         id="remember"
                         checked={rememberMe}
-                        onChange={handleRememberMeChange}
+                        onChange={(e) => setRememberMe(e.target.checked)}
                       />
                       <label htmlFor="remember" className="remember">
                         <span className="custom-checkbox" /> Remember me
@@ -186,14 +164,6 @@ const Login = () => {
                     >
                       <i className="fab fa-google" /> Log In via Gmail
                     </button>
-                  </div>
-                  <div className="bottom-box">
-                    <div className="text">
-                      Don't have an account? <a href="/register">Signup</a>
-                    </div>
-                    <div className="divider">
-                      <span>or</span>
-                    </div>
                   </div>
                 </div>
               </div>

@@ -1,15 +1,23 @@
 import React, { useContext } from "react";
 import { UserContext } from "../utils/UserContext";
-import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { Link, useHistory } from "react-router-dom";
 
 export default function Navbar() {
   const { user, setUser } = useContext(UserContext);
-  const history = useHistory();
+
   const handleLogout = () => {
+    console.log("Logging out...");
     setUser(null);
     localStorage.removeItem("user");
-    // history.push("/");
+
+    console.log(
+      "User removed from localStorage:",
+      localStorage.getItem("user")
+    );
+    window.location.href("/");
+    // setUser(null);
+    localStorage.removeItem("user");
+    window.location.href("/");
   };
   return (
     <>
@@ -70,11 +78,14 @@ export default function Navbar() {
                     <span>Find Jobs</span>
                     <div className="mega-menu">
                       <div className="mega-menu-bar row">
-                        <div className="column col-lg-3 col-md-3 col-sm-12">
+                        <div
+                          className="column col-lg-3 col-md-3 col-sm-12"
+                          style={{ zIndex: "999" }}
+                        >
                           <h3>Jobs Listing</h3>
                           <ul>
                             <li>
-                              <a href="job-list-v1.html">Jobs List – v1</a>
+                              <a href="/job-list">Jobs List – v1</a>
                             </li>
                           </ul>
                         </div>
@@ -109,9 +120,13 @@ export default function Navbar() {
                       </div>
                     </div>
                   </li>
+
                   <li className="dropdown">
-                    <span>Employers</span>
-                    <ul>
+                    <a href="/dashboard-recruiter">
+                      {" "}
+                      <span>Recruiter</span>{" "}
+                    </a>
+                    {/* <ul>
                       <li className="dropdown">
                         <span>Employers List</span>
                         <ul>
@@ -135,8 +150,9 @@ export default function Navbar() {
                       <li>
                         <a href="dashboard.html">Employers Dashboard</a>
                       </li>
-                    </ul>
+                    </ul> */}
                   </li>
+
                   <li className="dropdown">
                     <span>Candidates</span>
                     <ul>
@@ -272,11 +288,21 @@ export default function Navbar() {
                 >
                   {user ? (
                     <div>
-                      <p>Welcome, {user.email}</p>
-                      <button onClick={handleLogout}>Log out</button>
+                      <button
+                        onClick={handleLogout}
+                        style={{ textAlign: "center", marginRight: "10px" }}
+                      >
+                        <p>Welcome, {user.email}</p>
+                        Log out
+                      </button>
                     </div>
                   ) : (
-                    <p>Login / Register</p>
+                    <a
+                      href="/login"
+                      className="theme-btn btn-style-three call-modal"
+                    >
+                      Login / Register
+                    </a>
                   )}
                 </a>
               </div>
