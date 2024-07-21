@@ -109,7 +109,7 @@ const JobList = () => {
                 <button className="apply-now-btn">Apply Now</button>
                 <button
                   className="wishlist-btn"
-                  onClick={() => addToWishlist(selectedJob)}
+                  // onClick={() => addToWishlist(selectedJob)}
                   style={{ marginLeft: "30px" }}
                 >
                   <FontAwesomeIcon icon={faHeart} />
