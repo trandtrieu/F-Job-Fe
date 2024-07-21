@@ -23,6 +23,9 @@ import ManageJobList from "./layout/admin/ManageJobList";
 import ProfileCandidate from "./layout/ProfileCandidate";
 import ChangePassword from "./layout/ChangePassword";
 
+import ProtectedRoute from "./utils/auth";
+import Unauthorized from "./layout/Unauthorized";
+import RecruiterRegistration from "./layout/recruiter/registerRecruiter";
 function App() {
   return (
     <div className="App">
@@ -68,6 +71,11 @@ function App() {
             <Route path="/dashboard-applicant" component={DashboardApplicant} />
             <Route path="/approve-schedule" component={ApproveSchedule} />
             <Route path="/manage-job-list" component={ManageJobList} />
+            <Route path="/unauthorized" component={Unauthorized} />
+            <Route
+              path="/register-recruiter"
+              component={RecruiterRegistration}
+            />
           </Switch>
         </Router>
       </UserProvider>

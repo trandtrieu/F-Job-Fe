@@ -8,6 +8,7 @@ import { UserContext } from "../utils/UserContext";
 const JobPost = () => {
   const [userId, setUserId] = useState("");
   const { user } = useContext(UserContext);
+  const [userRole, setUserRole] = useState("null");
 
   useEffect(() => {
     if (user && user.id) {
@@ -16,13 +17,26 @@ const JobPost = () => {
   }, [user]);
 
   useEffect(() => {
+    const userJSON = localStorage.getItem("user");
+
+    if (userJSON) {
+      const user = JSON.parse(userJSON);
+      if (user && user.role) {
+        setUserRole(user.role);
+      } else {
+        console.log("Role không tồn tại trong đối tượng user.");
+      }
+    } else {
+      console.log("Đối tượng user không tồn tại trong localStorage.");
+    }
+  }, []);
+
+  useEffect(() => {
     setFormData((prevState) => ({
       ...prevState,
       userId: userId,
     }));
   }, [userId]);
-
-  console.log(userId);
 
   const getCurrentDate = () => {
     const currentDate = new Date();
