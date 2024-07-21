@@ -1,0 +1,134 @@
+.registration-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #fff;
+    flex: 2;
+  }
+  
+  .registration-form {
+    flex: 1;
+    padding: 20px;
+    border: 2px;
+  }
+  
+  .registration-form h2 {
+    color: #1967d2;
+    margin-bottom: 20px;
+  }
+  
+  .registration-form p {
+    color: gray;
+ 
+  }
+  
+  .form-group-recruiter {
+    margin-bottom: 20px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  
+  .form-group-recruiter label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form-group-recruiter input,
+  .form-group-recruiter select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #1967d2;
+    border-radius: 4px;
+    
+  }
+
+  .inline {
+    display: flex;
+    align-items: center;
+    margin-right: 76px;
+  }
+  
+  .inline input[type="checkbox"] {
+   flex: 1;
+  }
+  
+  .inline label {
+    display: flex;
+    flex: 2;
+    align-items: center;
+  }
+  
+  .inline a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .inline a:hover {
+    text-decoration: underline;
+  }
+  
+
+
+  .form-group-recruiter input[type="radio"] {
+    width: auto;
+    margin-right: 10px;
+  }
+  
+  .btn-recruiter-page {
+    width: 100%;
+    padding: 15px;
+    background-color: #1967d2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .btn-recruiter-page:hover {
+    background-color: #1967d2;
+  }
+  
+  .registration-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9f9f9;
+  }
+  
+  .registration-image img {
+    max-width: 100%;
+    border-radius: 8px;
+  }
+  
+  fieldset {
+    border: 1px solid #1967d2;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  legend {
+    padding: 0 10px;
+    font-weight: bold;
+    color: #1967d2;
+  }
+  .next-page {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .gender-group {
+    display: flex;
+    align-items: center;
+  }
+  
+  .gender-group input[type="radio"] {
+    margin-left: 15px;
+    margin-right: 5px;
+  }
+
+  

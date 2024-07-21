@@ -21,11 +21,8 @@ const JobPost = () => {
 
     if (userJSON) {
       const user = JSON.parse(userJSON);
-      console.log(user);
       if (user && user.role) {
-        const userRole = user.role;
-        console.log(userRole);
-        setUserRole(userRole);
+        setUserRole(user.role);
       } else {
         console.log("Role không tồn tại trong đối tượng user.");
       }
@@ -40,8 +37,6 @@ const JobPost = () => {
       userId: userId,
     }));
   }, [userId]);
-
-  console.log(userId);
 
   const getCurrentDate = () => {
     const currentDate = new Date();
