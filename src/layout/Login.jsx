@@ -1,11 +1,11 @@
 /*global FB*/
 
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import useFacebookSDK from "../utils/useFacebookSDK";
 import { UserContext } from "../utils/UserContext";
-import { loginUser, facebookLogin } from "../services/api.js";
+import { loginUser, facebookLogin, googleLogin } from "../services/api.js";
 
 const Login = () => {
   // const [username, setUsername] = useState("");
@@ -24,6 +24,21 @@ const Login = () => {
   const handlePasswordChange = (e) => setPassword(e.target.value);
   const handleRememberMeChange = (e) => setRememberMe(e.target.checked);
 
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get("userId");
+    const token = urlParams.get("token");
+    const email = urlParams.get("email");
+
+    if (userId && token && email) {
+      const user = { userId, token, email };
+      setUser(user);
+      localStorage.setItem("user", JSON.stringify(user));
+      toast.success("Login successful!");
+      history.push("/");
+    }
+  }, [history, setUser]);
+
   const handleSubmit = async (e) => {
     console.log("hello");
 
@@ -32,7 +47,8 @@ const Login = () => {
       console.log("info:", email + " " + password);
 
       const response = await loginUser(email, password);
-
+      console.log(response.data);
+      console.log("info p2:", email + password);
       if (response.data.status === "OK") {
         toast.success("Login successful!");
         setUser(response.data.user);
@@ -77,6 +93,13 @@ const Login = () => {
 
   const handleFacebookLogin = () => {
     FB.login(checkLoginState, { scope: "public_profile,email" });
+  };
+
+  // const handleGoogleLogin = () => {
+  //   window.open(`http://localhost:3005/api/user/google/callback`, "_self");
+  // };
+  const handleGoogleLogin = () => {
+    window.open(`http://localhost:3005/api/user/google/callback`, "_self");
   };
 
   return (
@@ -139,46 +162,35 @@ const Login = () => {
                 </div>
               </form>
               <div className="bottom-box">
-                {/* <div className="text">
+                <div className="text">
                   Don't have an account? <Link to="/register">Signup</Link>
                 </div>
                 <div className="divider">
                   <span>or</span>
-                </div> */}
+                </div>
                 <div className="btn-box row">
-                  {/* <div className="col-lg-6 col-md-12">
+                  <div className="col-lg-6 col-md-12">
                     <button
                       onClick={handleFacebookLogin}
                       className="theme-btn social-btn-two facebook-btn"
                     >
                       <i className="fab fa-facebook-f" /> Log In via Facebook
                     </button>
-                  </div> */}
+                  </div>
+                  <div className="col-lg-6 col-md-12">
+                    <button
+                      onClick={handleGoogleLogin}
+                      className="theme-btn social-btn-two google-btn"
+                    >
+                      <i className="fab fa-google" /> Log In via Gmail
+                    </button>
+                  </div>
                   <div className="bottom-box">
                     <div className="text">
                       Don't have an account? <a href="/register">Signup</a>
                     </div>
                     <div className="divider">
                       <span>or</span>
-                    </div>
-                    <div className="btn-box row">
-                      <div className="col-lg-6 col-md-12">
-                        <a
-                          href="#"
-                          className="theme-btn social-btn-two facebook-btn"
-                        >
-                          <i className="fab fa-facebook-f" /> Log In via
-                          Facebook
-                        </a>
-                      </div>
-                      <div className="col-lg-6 col-md-12">
-                        <a
-                          href="#"
-                          className="theme-btn social-btn-two google-btn"
-                        >
-                          <i className="fab fa-google" /> Log In via Gmail
-                        </a>
-                      </div>
                     </div>
                   </div>
                 </div>

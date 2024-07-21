@@ -17,11 +17,7 @@ const customStyles = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     width: "80%",
-<<<<<<< HEAD
-    maxHeight: "98vh",
-=======
     maxHeight: "80vh",
->>>>>>> 5ed032c6daa87b713513c5d52d5e30263ea845b4
     overflowY: "auto",
     border: "none",
     textAlign: "center",
