@@ -61,6 +61,7 @@ export default function Navbar() {
                 </ul>
               </nav>
             </div>
+
             <div className="outer-box">
               <a
                 href="/cvs"
@@ -78,6 +79,7 @@ export default function Navbar() {
                   Job Post
                 </a>
               </div>
+
               <div className="btn-box">
                 {user ? (
                   <div>
@@ -98,6 +100,7 @@ export default function Navbar() {
                   </a>
                 )}
               </div>
+
             </div>
           </div>
           <div className="mobile-header">

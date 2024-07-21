@@ -111,7 +111,6 @@ const Login = () => {
           <div className="login-form default-form">
             <div className="form-inner">
               <h3>Login to Superio</h3>
-
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
                   <label>Email</label>
@@ -162,7 +161,9 @@ const Login = () => {
                     Log In
                   </button>
                 </div>
+
               </form>
+              
               <div className="bottom-box">
                 <div className="text">
                   Don't have an account? <Link to="/register">Signup</Link>

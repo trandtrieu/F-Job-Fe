@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+// import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Login from "./layout/Login";
 import Navbar from "./layout/Navbar";
@@ -16,7 +16,6 @@ import CVS from "./layout/CVS";
 import JobPost from "./layout/JobPost";
 import JobList from "./layout/JobList";
 import DashboardRecruiter from "./layout/recruiter/DashboardRecruiter";
-import DashboardApplicant from "./layout/recruiter/DashboardApplicant";
 import ApproveSchedule from "./layout/recruiter/ApproveSchedule";
 import ManageJobList from "./layout/admin/ManageJobList";
 import ProfileCandidate from "./layout/ProfileCandidate";
@@ -27,12 +26,15 @@ import ProfileCV from "./layout/ProfileCV";
 import ProtectedRoute from "./utils/auth";
 import Unauthorized from "./layout/Unauthorized";
 import RecruiterRegistration from "./layout/recruiter/registerRecruiter";
+import AllApplicant from "./layout/recruiter/AllApplicant";
+import AllCandidate from "./layout/recruiter/AllCandidate";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 function App() {
   return (
     <div className="App">
       <UserProvider>
         <Navbar />
-
         <ToastContainer
           position="top-left"
           autoClose={3000}
@@ -45,6 +47,7 @@ function App() {
           pauseOnHover
           theme="light"
         />
+
         <Router>
           <Switch>
             <Route path="/" exact component={Home} />
@@ -68,7 +71,8 @@ function App() {
             <Route path="/job-list" component={JobList} />
             <Route path="/job-post" component={JobPost} />
             <Route path="/dashboard-recruiter" component={DashboardRecruiter} />
-            <Route path="/dashboard-applicant" component={DashboardApplicant} />
+            <Route path="/all-applicant" component={AllApplicant} />
+            <Route path="/all-candidate" component={AllCandidate} />
             <Route path="/approve-schedule" component={ApproveSchedule} />
             <Route path="/manage-job-list" component={ManageJobList} />
             <Route path="/unauthorized" component={Unauthorized} />
