@@ -125,22 +125,6 @@ const ProfileCandidate = () => {
   return (
     <div>
       <div>
-        <meta charSet="utf-8" />
-        <title>Superio | Candidate Dashboard Profile</title>
-        <link href="css/bootstrap.css" rel="stylesheet" />
-        <link href="css/style.css" rel="stylesheet" />
-        <link href="css/responsive.css" rel="stylesheet" />
-        <link
-          rel="shortcut icon"
-          href="images/favicon.png"
-          type="image/x-icon"
-        />
-        <link rel="icon" href="images/favicon.png" type="image/x-icon" />
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
-        />
         <div className="page-wrapper dashboard">
           <ToastContainer position="bottom-right" />
           <div className="preloader" />

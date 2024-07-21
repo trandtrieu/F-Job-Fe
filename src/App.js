@@ -8,10 +8,9 @@ import ForgotPassword from "./layout/ForgotPassword";
 import ResetPassword from "./layout/ResetPassword";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-import LoginV2 from "./layout/LoginV2";
 import { UserProvider } from "./utils/UserContext";
-import Profile from "./layout/Profile";
-import CreateCV from "./layout/CreateCV";
+import "react-tooltip/dist/react-tooltip.css";
+
 import demo from "./layout/demo";
 import CVS from "./layout/CVS";
 import JobPost from "./layout/JobPost";
@@ -22,6 +21,8 @@ import ApproveSchedule from "./layout/recruiter/ApproveSchedule";
 import ManageJobList from "./layout/admin/ManageJobList";
 import ProfileCandidate from "./layout/ProfileCandidate";
 import ChangePassword from "./layout/ChangePassword";
+
+import ProfileCV from "./layout/ProfileCV";
 
 import ProtectedRoute from "./utils/auth";
 import Unauthorized from "./layout/Unauthorized";
@@ -49,16 +50,15 @@ function App() {
             <Route path="/" exact component={Home} />
             <Route path="/home" exact component={Home} />
             <Route path="/login" component={Login} />
-            <Route path="/profile" component={Profile} />
 
             <Route path="/profileCandidate/" component={ProfileCandidate} />
 
             <Route path="/changePassword" component={ChangePassword} />
+            <Route path="/myCv" component={ProfileCV} />
 
-            <Route path="/createCV" component={CreateCV} />
             <Route path="/cvs" component={CVS} />
             <Route path="/demo" component={demo} />
-            <Route path="/login2" component={LoginV2} />
+
             <Route path="/register" component={Register} />
             <Route path="/forgot-password" component={ForgotPassword} />
             <Route

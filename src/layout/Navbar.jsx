@@ -102,7 +102,7 @@ export default function Navbar() {
           </div>
           <div className="mobile-header">
             <div className="logo">
-              <a href="index.html">
+              <a href="/">
                 <img src="images/logo.svg" alt="" title />
               </a>
             </div>
