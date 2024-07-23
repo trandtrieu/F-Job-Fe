@@ -1,0 +1,72 @@
+.dashboard {
+    padding-left: 250px; /* Adjust the padding as needed */
+  }
+.card-wrapper {
+    margin-bottom: 20px;
+    max-width: 900px; /* Adjust the width as needed */
+    margin: 10 auto; /* Center the card-wrapper */
+    padding: 0; /* Remove padding */
+  }
+  
+  .custom-card {
+    height: 100px; /* Adjust the height as needed */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    backdrop-filter: blur(200px);
+
+  }
+  
+  .custom-card .card-body {
+    /* display: flex; */
+    flex-direction: column;
+    justify-content: flex-start; /* Align items at the top */
+    align-items: flex-start;
+    padding: 0; /* Remove padding */
+    width: 930px;
+  }
+  
+  .custom-card .card-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem; /* Add space between title and text */
+  }
+  
+  .custom-card .card-text {
+    font-size: 1.2rem;
+  }
+  /* Transparent backgrounds with a hint of color */
+.bg-primary {
+    background-color: rgba(0, 123, 255, 0.1) !important; /* Very transparent primary color */
+  }
+  
+  .bg-danger {
+    background-color: rgba(220, 53, 69, 0.1) !important; /* Very transparent danger color */
+  }
+  
+  .bg-warning {
+    background-color: rgba(255, 193, 7, 0.1) !important; /* Very transparent warning color */
+  }
+  
+  .bg-success {
+    background-color: rgba(40, 167, 69, 0.1) !important; /* Very transparent success color */
+  }
+  .custom-budget{
+    margin-bottom: -200px;
+  }
+  .notification {
+
+    z-index: 1000;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.212);
+    padding: 10px;
+    width: 1460px;
+    max-width: calc(100% - 40px);
+    animation: fadeIn 0.3s ease-in-out;
+    margin-bottom: 20px;
+  }
+  .text{
+    margin-left: 20px;
+    font-size: 17px;
+
+  }

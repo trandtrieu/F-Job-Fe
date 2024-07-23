@@ -10,8 +10,9 @@ const SideBar = ({handleChange,handleClick}) => {
             <h1 className='text-xl font-bold mb-2'>Filter</h1>
             <Location handleChange={handleChange}/>
             <Experience handleChange={handleChange} handleClick={handleClick}></Experience>
-            <Employment handleChange={handleChange} handleClick={handleClick}/>
             <Salary handleChange={handleChange} handleClick={handleClick} />
+            <Employment handleChange={handleChange} handleClick={handleClick}/>
+            
         </div>
     );
 };

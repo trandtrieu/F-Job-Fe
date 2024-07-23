@@ -12,6 +12,7 @@ import LoginV2 from "./layout/LoginV2";
 import { UserProvider } from "./utils/UserContext";
 import Profile from "./layout/Profile";
 import JobFinder from "./layout/JobFinder";
+import DashboardRecruiter from "./components/DashboardRecruiter";
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
               component={ResetPassword}
             />
             <Route path="/job-finder" component={JobFinder} />
+            <Route path="/view-statistic" component={DashboardRecruiter}/>
           </Switch>
         </Router>
       </UserProvider>

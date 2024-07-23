@@ -16,6 +16,9 @@ export default function Navbar() {
   const navJobFinder = () =>{
     window.location.href="/job-finder";
   };
+  const navStatistic =() =>{
+    window.location.href="/view-statistic";
+  };
 
   return (
     <>
@@ -76,29 +79,21 @@ export default function Navbar() {
 
                     <span onClick={navJobFinder}>Find Jobs</span>
                   </li>
+
+                  <li className="dropdown has-mega-menu">
+                    <span onClick={navStatistic}>View Statistics</span>
+
+                  </li>
                   <li className="dropdown">
                     <span>Employers</span>
                     <ul>
                       <li className="dropdown">
                         <span>Employers List</span>
                         <ul>
-                          <li>
-                            <a href="employers-list-v1.html">
-                              Employers LIst v1
-                            </a>
-                          </li>
+
                         </ul>
                       </li>
-                      <li className="dropdown">
-                        <span>Employers Single</span>
-                        <ul>
-                          <li>
-                            <a href="employers-single-v1.html">
-                              Employers Single v1
-                            </a>
-                          </li>
-                        </ul>
-                      </li>
+                     
                       <li>
                         <a href="dashboard.html">Employers Dashboard</a>
                       </li>
