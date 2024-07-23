@@ -86,7 +86,7 @@ function App() {
             <ProtectedRoute
               path="/dashboard-recruiter"
               component={DashboardRecruiter}
-              // allowedRoles={["recruiter", "admin"]}
+              allowedRoles={["recruiter", "admin"]}
             />
             <ProtectedRoute
               path="/job-post"

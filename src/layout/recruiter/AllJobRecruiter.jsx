@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import NavbarRecruiter from "./NavbarRecruiter";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import CustomModal from "../../Modal/CustomModal";
 
 export default function AllJobRecruiter() {
   const { jobId } = useParams(); // Get jobId from URL params
@@ -11,6 +10,11 @@ export default function AllJobRecruiter() {
   const [candidates, setCandidates] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [cvUrl, setCvUrl] = useState(""); // State to store the CV URL to be viewed
+  const [degreeUrl, setDegreeUrl] = useState(""); // State to store the Degree URL to be viewed
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
+  const [modalTitle, setModalTitle] = useState(""); // State to store modal title
+  const [statusFilter, setStatusFilter] = useState("All Status"); // State to control filter
 
   useEffect(() => {
     if (!jobId) {
@@ -22,7 +26,9 @@ export default function AllJobRecruiter() {
       try {
         setLoading(true);
         const response = await axios.get(
-          `http://localhost:3005/job/${jobId}/applicants`
+          `http://localhost:3005/job/${jobId}/applicants?status=${
+            statusFilter === "All Status" ? "" : statusFilter
+          }`
         );
         setCandidates(response.data.applicants || []); // Access the applicants array
       } catch (error) {
@@ -34,7 +40,8 @@ export default function AllJobRecruiter() {
     };
 
     fetchCandidates();
-  }, [jobId]);
+  }, [jobId, statusFilter]);
+
   const formatDate = (dateString) => {
     const options = {
       year: "numeric",
@@ -45,8 +52,32 @@ export default function AllJobRecruiter() {
     };
     return new Date(dateString).toLocaleDateString("en-US", options);
   };
+
+  const handleView = (url, title) => {
+    setCvUrl(url);
+    setModalTitle(title);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setCvUrl(""); // Clear the URL
+    setDegreeUrl(""); // Clear the URL
+  };
+
+  const handleStatusChange = (event) => {
+    setStatusFilter(event.target.value);
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
+
+  // Calculate counts for each status
+  const statusCounts = {
+    PENDING: candidates.filter((c) => c.status === "PENDING").length,
+    APPROVED: candidates.filter((c) => c.status === "APPROVED").length,
+    REJECTED: candidates.filter((c) => c.status === "REJECTED").length,
+  };
 
   return (
     <div className="page-wrapper dashboard">
@@ -64,19 +95,15 @@ export default function AllJobRecruiter() {
                   <div className="widget-title">
                     <h4>Applicant</h4>
                     <div className="chosen-outer">
-                      <select className="chosen-select">
-                        <option>Select Jobs</option>
-                        <option>Last 12 Months</option>
-                        <option>Last 16 Months</option>
-                        <option>Last 24 Months</option>
-                        <option>Last 5 year</option>
-                      </select>
-                      <select className="chosen-select">
+                      <select
+                        className="chosen-select"
+                        onChange={handleStatusChange}
+                        value={statusFilter}
+                      >
                         <option>All Status</option>
-                        <option>Last 12 Months</option>
-                        <option>Last 16 Months</option>
-                        <option>Last 24 Months</option>
-                        <option>Last 5 year</option>
+                        <option>PENDING</option>
+                        <option>APPROVED</option>
+                        <option>REJECTED</option>
                       </select>
                     </div>
                   </div>
@@ -91,11 +118,14 @@ export default function AllJobRecruiter() {
                           >
                             Total(s): {candidates.length}
                           </li>
+                          <li className="tab-btn pending" data-tab="#pending">
+                            Pending: {statusCounts.PENDING}
+                          </li>
                           <li className="tab-btn approved" data-tab="#approved">
-                            Approved: 0
+                            Approved: {statusCounts.APPROVED}
                           </li>
                           <li className="tab-btn rejected" data-tab="#rejected">
-                            Rejected(s): 0
+                            Rejected(s): {statusCounts.REJECTED}
                           </li>
                         </ul>
                       </div>
@@ -114,7 +144,7 @@ export default function AllJobRecruiter() {
                                         src={
                                           applicant.image ||
                                           "images/resource/default-candidate.png"
-                                        } // Use applicant image or default image
+                                        }
                                         alt={applicant.fullName}
                                       />
                                     </figure>
@@ -122,7 +152,7 @@ export default function AllJobRecruiter() {
                                       <a href="/">{applicant.fullName}</a>
                                     </h4>
                                     <ul className="candidate-info">
-                                      <li className="">
+                                      <li>
                                         <span className="icon flaticon-mail" />{" "}
                                         {applicant.email}
                                       </li>
@@ -139,7 +169,7 @@ export default function AllJobRecruiter() {
                                     </ul>
                                     <ul className="post-tags">
                                       <li>
-                                        <a href="#">App</a>
+                                        <a href="#">{applicant.status}</a>
                                       </li>
                                       <li>
                                         <a href="#">Design</a>
@@ -152,23 +182,50 @@ export default function AllJobRecruiter() {
                                   <div className="option-box">
                                     <ul className="option-list">
                                       <li>
-                                        <button data-text="View Application">
-                                          <span className="la la-eye" />
-                                        </button>
-                                      </li>
-                                      <li>
-                                        <button data-text="Approve Application">
+                                        <button
+                                          data-text="Approve Application"
+                                          // Add onClick handler here for approval logic
+                                        >
                                           <span className="la la-check" />
                                         </button>
                                       </li>
                                       <li>
-                                        <button data-text="Reject Application">
+                                        <button
+                                          data-text="Reject Application"
+                                          // Add onClick handler here for rejection logic
+                                        >
                                           <span className="la la-times-circle" />
                                         </button>
                                       </li>
                                       <li>
-                                        <button data-text="Delete Application">
+                                        <button
+                                          data-text="Delete Application"
+                                          // Add onClick handler here for deletion logic
+                                        >
                                           <span className="la la-trash" />
+                                        </button>
+                                      </li>
+                                      <li>
+                                        <button
+                                          data-text="View CV"
+                                          onClick={() =>
+                                            handleView(applicant.cvPath, "CV")
+                                          }
+                                        >
+                                          <span>CV</span>
+                                        </button>
+                                      </li>
+                                      <li>
+                                        <button
+                                          data-text="View Degree"
+                                          onClick={() =>
+                                            handleView(
+                                              applicant.degreePath,
+                                              "Degree"
+                                            )
+                                          }
+                                        >
+                                          <span>Degree</span>
                                         </button>
                                       </li>
                                     </ul>
@@ -187,6 +244,12 @@ export default function AllJobRecruiter() {
           </div>
         </div>
       </section>
+      <CustomModal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        title={modalTitle}
+        contentUrl={cvUrl || degreeUrl}
+      />
     </div>
   );
 }

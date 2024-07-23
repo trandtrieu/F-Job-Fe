@@ -46,6 +46,7 @@ const ProfileCandidate = () => {
         if (profile.image) {
           // Set file preview if image exists
           setFile(profile.image);
+          console.log(profile.image);
         }
         setProfileExists(true);
       } catch (error) {
