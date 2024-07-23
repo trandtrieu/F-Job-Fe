@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Modal from "react-modal";
-import { toast } from "react-toastify";
 import CVPreview from "./CVPreview";
 
 const customStyles = {
@@ -17,7 +16,7 @@ const customStyles = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     width: "80%",
-    maxHeight: "98vh",
+    maxHeight: "80vh",
     overflowY: "auto",
     border: "none",
     textAlign: "center",
@@ -32,11 +31,15 @@ export default function CVS() {
   const [selectedType, setSelectedType] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [showPreviewModal, setShowPreviewModal] = useState(false);
-  const [selectedCV, setSelectedCV] = useState(null); // To store the CV for preview
+  const [selectedCV, setSelectedCV] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+
   useEffect(() => {
     const modalHidden = localStorage.getItem("hideModal");
     if (modalHidden) {
       setModalIsOpen(false);
+    } else {
+      setModalIsOpen(true);
     }
   }, []);
 
@@ -68,29 +71,32 @@ export default function CVS() {
   const handleTypeChange = (typeId) => {
     setSelectedType(typeId);
   };
+
   const handleModalClose = () => {
     setModalIsOpen(false);
   };
+
   const handleDontShowAgain = () => {
     setModalIsOpen(false);
-    localStorage.setItem("hideModal", true);
+    localStorage.setItem("hideModal", "true");
   };
 
   const handlePreviewClick = (cv) => {
-    setSelectedCV(cv); // Pass only the image URL
-    console.log(cv);
+    setSelectedCV(cv);
     setShowPreviewModal(true);
   };
 
   const handlePreviewModalClose = () => {
     setShowPreviewModal(false);
   };
-  const filteredCVs = selectedType
-    ? cvs.filter((cv) => cv.cvType === selectedType)
-    : cvs;
+
+  const filteredCVs = cvs
+    .filter((cv) => !selectedType || cv.cvType === selectedType)
+    .filter((cv) => cv.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
   return (
     <div className="page-wrapper">
+      <span className="header-span"></span>
       <section className="page-title">
         <div className="auto-container">
           <div className="title-outer">
@@ -147,12 +153,10 @@ export default function CVS() {
                               rel="noreferrer"
                             >
                               Go <i className="fa fa-angle-right" />
-                            </a>{" "}
+                            </a>
                             <a
                               onClick={() => handlePreviewClick(cv.image)}
-                              target="_blank"
                               className="read-more"
-                              rel="noreferrer"
                             >
                               Preview <i className="fa fa-angle-right" />
                             </a>
@@ -168,7 +172,6 @@ export default function CVS() {
                 </div>
               </div>
             </div>
-
             <div className="sidebar-side col-lg-4 col-md-12 col-sm-12">
               <aside className="sidebar blog-sidebar">
                 <div className="sidebar-widget search-widget">
@@ -176,17 +179,15 @@ export default function CVS() {
                     <h4>Search by Keywords</h4>
                   </div>
                   <div className="search-box">
-                    <form
-                      method="post"
-                      action="https://creativelayers.net/themes/superio/blog.html"
-                    >
+                    <form>
                       <div className="form-group">
                         <span className="icon flaticon-search-1" />
                         <input
                           type="search"
                           name="search-field"
-                          defaultValue
                           placeholder="keywords"
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
                           required
                         />
                       </div>
@@ -220,7 +221,7 @@ export default function CVS() {
       </div>
       <Modal
         isOpen={modalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
+        onRequestClose={handleModalClose}
         contentLabel="Notification Modal"
         style={customStyles}
       >
@@ -239,14 +240,11 @@ export default function CVS() {
             templates.
           </p>
         </div>
-
         <div className="button-group">
-          <button onClick={() => handleModalClose()}>Close</button>
-          <button onClick={() => handleDontShowAgain()}>
-            Don't show again
-          </button>
+          <button onClick={handleModalClose}>Close</button>
+          <button onClick={handleDontShowAgain}>Don't show again</button>
         </div>
-      </Modal>{" "}
+      </Modal>
       <Modal
         isOpen={showPreviewModal}
         onRequestClose={handlePreviewModalClose}

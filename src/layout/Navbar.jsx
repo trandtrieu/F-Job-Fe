@@ -32,6 +32,7 @@ export default function Navbar() {
         setUserRole(recruiter.role);
         setUser(recruiter);
         setRecruiterEmail(recruiter.emailRecruiter);
+        console.log(recruiterEmail);
       }
     }
   }, [setUser]);
@@ -124,6 +125,7 @@ export default function Navbar() {
                 </ul>
               </nav>
             </div>
+
             <div className="outer-box">
               <a href="/cvs" className="upload-cv">
                 Upload your CV
@@ -137,6 +139,7 @@ export default function Navbar() {
                   Job Post
                 </a>
               </div>
+
               <div className="btn-box">
                 {user ? (
                   <div>

@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { UserContext } from "../utils/UserContext";
+import { validateForm } from "../utils/validate";
 
 const ProfileCandidate = () => {
   const [formData, setFormData] = useState({
@@ -13,196 +15,116 @@ const ProfileCandidate = () => {
     dateOfBirth: "",
     sex: "",
     jobTitle: "",
+    image: null,
   });
 
   const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [userId, setUserId] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [profileExists, setProfileExists] = useState(false);
+  const [file, setFile] = useState(null);
+  const { user } = useContext(UserContext);
+  const userId = user ? user.id : null;
 
   useEffect(() => {
-    const userIdFromLocalStorage = localStorage.getItem("userId");
-    if (userIdFromLocalStorage) {
-      setUserId(userIdFromLocalStorage);
-    } else {
-      console.error("No user ID found in local storage.");
-    }
-  }, []);
+    const fetchProfile = async () => {
+      if (!userId) return;
+
+      try {
+        const response = await axios.get(
+          `http://localhost:3005/api/user/candidate/profiles/${userId}`
+        );
+        const profile = response.data.profile;
+        const formattedDateOfBirth = profile.dateOfBirth
+          ? new Date(profile.dateOfBirth).toISOString().split("T")[0]
+          : "";
+
+        setFormData((prevState) => ({
+          ...prevState,
+          ...profile,
+          dateOfBirth: formattedDateOfBirth,
+        }));
+        if (profile.image) {
+          // Set file preview if image exists
+          setFile(profile.image);
+        }
+        setProfileExists(true);
+      } catch (error) {
+        console.error(`Error fetching profile: ${error.message}`);
+        setFormData((prevState) => ({
+          ...prevState,
+          email: user ? user.email : "",
+        }));
+
+        setProfileExists(false);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfile();
+  }, [userId]);
 
   const handleChange = (e) => {
-    const { id, value } = e.target;
+    const { name, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
-      [id]: value,
+      [name]: value,
     }));
   };
 
-  const validateForm = () => {
-    const newErrors = {};
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneRegex = /^\d{10}$/;
-
-    if (!formData.fullName) {
-      newErrors.fullName = "Your name is required.";
-    } else if (formData.fullName.length < 2) {
-      newErrors.fullName = "Your name must be at least 2 characters.";
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      const fileUrl = URL.createObjectURL(selectedFile);
+      setFile(fileUrl);
+      setFormData((prevState) => ({
+        ...prevState,
+        image: selectedFile,
+      }));
     }
-
-    if (!formData.email) {
-      newErrors.email = "Email is required.";
-    } else if (!emailRegex.test(formData.email)) {
-      newErrors.email = "Email is not valid.";
-    }
-
-    if (!formData.phone) {
-      newErrors.phone = "Phone number is required.";
-    } else if (!phoneRegex.test(formData.phone)) {
-      newErrors.phone = "Phone number is not valid.";
-    }
-
-    if (formData.dateOfBirth) {
-      const today = new Date();
-      const birthDate = new Date(formData.dateOfBirth);
-      const age = today.getFullYear() - birthDate.getFullYear();
-      if (age < 18) {
-        newErrors.dateOfBirth = "You must be at least 18 years old.";
-      }
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
   };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   if (!validateForm()) {
-  //     return;
-  //   }
-
-  //   try {
-  //     const response = await axios.post(
-  //       "http://localhost:3005/api/user/candidate/create-profile",
-  //       formData
-  //     );
-
-  //     console.log("Server response:", response.data);
-
-  //     if (response.data.success) {
-  //       toast.success("Profile updated successfully");
-  //       fetchProfileData();
-  //       setFormData({
-  //         fullName: "",
-  //         phone: "",
-  //         email: "",
-  //         website: "",
-  //         address: "",
-  //         dateOfBirth: "",
-  //         sex: "",
-  //         jobTitle: "",
-  //       });
-  //       setErrors({});
-  //     } else {
-  //       toast.error(
-  //         `Unexpected response format: ${JSON.stringify(response.data)}`
-  //       );
-  //     }
-  //   } catch (error) {
-  //     console.error("Error creating profile:", error);
-  //     toast.error(
-  //       error.response?.data?.message ||
-  //         `Error creating profile: ${error.message}`
-  //     );
-  //   }
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateForm()) {
+    const newErrors = validateForm(formData);
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:3005/api/user/candidate/create-profile",
-        formData
-      );
+      const formDataWithImage = new FormData();
+      formDataWithImage.append("image", formData.image);
+      Object.keys(formData).forEach((key) => {
+        if (key !== "image") {
+          formDataWithImage.append(key, formData[key]);
+        }
+      });
 
-      console.log("Server response:", response.data);
+      formDataWithImage.append("userId", userId);
 
-      if (response.data.success) {
-        toast.success("Profile updated successfully");
-        fetchProfileData(); // Gọi lại để cập nhật dữ liệu mới nhất từ MongoDB
-        setErrors({});
-      } else {
-        toast.error(
-          `Unexpected response format: ${JSON.stringify(response.data)}`
+      if (profileExists) {
+        await axios.post(
+          `http://localhost:3005/api/user/candidate/profiles/update/${userId}`,
+          formDataWithImage
         );
-      }
-    } catch (error) {
-      console.error("Error creating profile:", error);
-      toast.error(
-        error.response?.data?.message ||
-          `Error creating profile: ${error.message}`
-      );
-    }
-  };
-
-  const fetchProfileData = async () => {
-    if (!userId) {
-      console.error("No user ID set.");
-      return;
-    }
-
-    try {
-      setLoading(true);
-      const response = await axios.get(
-        `http://localhost:3005/api/user/candidate/profiles/${userId}`
-      );
-      console.log("Server response:", response.data);
-
-      if (response.data) {
-        console.log(response.data);
-        setFormData(response.data);
+        toast.success("Profile updated successfully!");
       } else {
-        console.error("No profile data found in response.");
+        await axios.post(
+          `http://localhost:3005/api/user/candidate/create-profile`,
+          formDataWithImage
+        );
+        toast.success("Profile created successfully!");
       }
-
-      setLoading(false);
     } catch (error) {
-      console.error("Error fetching profile:", error);
-      toast.error(
-        error.response?.data?.message ||
-          `Error fetching profile: ${error.message}`
-      );
-      setLoading(false);
+      toast.error(`Error saving profile: ${error.message}`);
     }
   };
-
-  useEffect(() => {
-    console.log("User ID from local storage:", userId);
-    if (userId) {
-      fetchProfileData();
-    }
-  }, [userId]);
 
   return (
     <div>
       <div>
-        <meta charSet="utf-8" />
-        <title>Superio | Candidate Dashboard Profile</title>
-        <link href="css/bootstrap.css" rel="stylesheet" />
-        <link href="css/style.css" rel="stylesheet" />
-        <link href="css/responsive.css" rel="stylesheet" />
-        <link
-          rel="shortcut icon"
-          href="images/favicon.png"
-          type="image/x-icon"
-        />
-        <link rel="icon" href="images/favicon.png" type="image/x-icon" />
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
-        />
         <div className="page-wrapper dashboard">
           <ToastContainer position="bottom-right" />
           <div className="preloader" />
@@ -257,12 +179,12 @@ const ProfileCandidate = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="dashboard-change-password.html">
+                  <a href="/changePassword">
                     <i className="la la-lock" /> Change Password
                   </a>
                 </li>
                 <li>
-                  <a href="dashboard-profile.html">
+                  <a href="/profileCandidate">
                     <i className="la la-user-alt" /> View Profile
                   </a>
                 </li>
@@ -319,32 +241,9 @@ const ProfileCandidate = () => {
                   <div className="ls-widget">
                     <div className="tabs-box">
                       <div className="widget-title">
-                        <h4>My Profile</h4>
+                        {/* <h4>My Profile</h4> */}
                       </div>
                       <div className="widget-content">
-                        <div className="uploading-outer">
-                          <div className="uploadButton">
-                            <input
-                              className="uploadButton-input"
-                              type="file"
-                              name="attachments[]"
-                              accept="image/*, application/pdf"
-                              id="upload"
-                              multiple
-                            />
-                            <label
-                              className="uploadButton-button ripple-effect"
-                              htmlFor="upload"
-                            >
-                              Browse Logo
-                            </label>
-                            <span className="uploadButton-file-name" />
-                          </div>
-                          <div className="text">
-                            Max file size is 1MB, Minimum dimension: 330x300 And
-                            Suitable files are .jpg &amp; .png
-                          </div>
-                        </div>
                         {loading ? (
                           <div>Loading...</div>
                         ) : (
@@ -353,6 +252,29 @@ const ProfileCandidate = () => {
                             onSubmit={handleSubmit}
                           >
                             <div className="row">
+                              <div className="post-form-group">
+                                <input
+                                  type="file"
+                                  className="post-form-control"
+                                  id="image"
+                                  accept="image/*"
+                                  onChange={handleFileChange}
+                                  input
+                                />
+                                {file && (
+                                  <img
+                                    src={file}
+                                    alt="Profile Preview"
+                                    style={{
+                                      maxWidth: "150px",
+                                      maxHeight: "150px",
+                                      marginTop: "10px",
+                                      marginBottom: "30px",
+                                    }}
+                                  />
+                                )}
+                              </div>
+
                               <div className="form-group col-lg-6 col-md-12">
                                 <label>Full Name</label>
                                 <input

@@ -9,13 +9,13 @@ function ResetPassword() {
   const history = useHistory();
   const { id, token } = useParams();
 
-  axios.defaults.withCredentials = true;
+  // axios.defaults.withCredentials = true;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `http://localhost:3443/users/reset-password/${id}/${token}`,
+        `http://localhost:3005/api/user/reset-password/${id}/${token}`,
         { password }
       );
       if (res.data.Status === "Success") {

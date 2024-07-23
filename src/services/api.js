@@ -20,3 +20,8 @@ export const facebookLogin = (token) => {
     headers: { Authorization: `Bearer ${token}` },
   });
 };
+export const googleLogin = () => {
+  return axios.get("http://localhost:3005/api/user/google/callback", {
+    withCredentials: true,
+  });
+};

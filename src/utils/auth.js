@@ -6,30 +6,30 @@ const checkAuth = (role, allowedRoles) => {
 };
 
 const ProtectedRoute = ({ component: Component, allowedRoles, ...rest }) => {
-  const user = JSON.parse(localStorage.getItem("user") || "null");
-  const recruiter = JSON.parse(localStorage.getItem("recruiter") || "null");
+  const user = JSON.parse(localStorage.getItem("user"));
+  const recruiter = JSON.parse(localStorage.getItem("recruiter"));
 
+  console.log(recruiter);
   return (
     <Route
       {...rest}
-      render={(props) => {
-        console.log("User:", user);
-        console.log("Recruiter:", recruiter);
-
-        if (user && checkAuth(user.role, allowedRoles)) {
-          return <Component {...props} />;
-        }
-
-        if (recruiter && checkAuth(recruiter.role, allowedRoles)) {
-          return <Component {...props} />;
-        }
-
-        if (!user && !recruiter) {
-          return <Redirect to="/login" />;
-        }
-
-        return <Redirect to="/unauthorized" />;
-      }}
+      render={(props) =>
+        user ? (
+          checkAuth(user.role, allowedRoles) ? (
+            <Component {...props} />
+          ) : (
+            <Redirect to="/unauthorized" />
+          )
+        ) : recruiter ? (
+          checkAuth(recruiter.role, allowedRoles) ? (
+            <Component {...props} />
+          ) : (
+            <Redirect to="/unauthorized" />
+          )
+        ) : (
+          <Redirect to="/login" />
+        )
+      }
     />
   );
 };

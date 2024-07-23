@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -38,7 +39,8 @@ export default function Register() {
       if (response.status === 200) {
         const data = response.data;
         console.log("Registration successful", data);
-        history.push("/home");
+        history.push("/login");
+        toast.success("Registration successful")
       } else {
         const errorData = response.data;
         console.error("Registration failed", errorData);

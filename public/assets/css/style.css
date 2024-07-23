@@ -10378,7 +10378,7 @@ Registeration Banners
   justify-content: center;
   flex-direction: column;
   cursor: pointer;
-  height: 120px;
+  height: 60px;
   width: 200px;
   border-radius: 5px;
   transition: 0.3s;
@@ -22711,4 +22711,16 @@ Work Section
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.post-form-group {
+  position: relative;
+  display: inline-block;
+}
+
+.post-form-group img {
+  max-width: 100px; /* Điều chỉnh kích thước tối đa của hình ảnh */
+  max-height: 100px;
+  display: block;
+  margin-top: 10px; /* Khoảng cách từ hình ảnh đến ô chọn file */
 }
