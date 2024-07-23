@@ -69,8 +69,18 @@ export default function Navbar() {
             <div className="nav-outer">
               <div className="logo-box">
                 <div className="logo">
-                  <a href="/">
-                    <img src="../assets/images/logo.svg" alt="" title />
+                  <a href="/" style={{ display: "inline-block" }}>
+                    <img
+                      src="../assets/images/letterFlogo.png"
+                      alt="Fjob logo"
+                      title="Fjob"
+                      // style="width: 154px; height: 100px; object-fit: contain;"
+                      style={{
+                        width: "154px",
+                        height: "75px",
+                        objectFit: "contain",
+                      }}
+                    />
                   </a>
                 </div>
               </div>
@@ -145,8 +155,11 @@ export default function Navbar() {
                   <div>
                     <button
                       onClick={handleLogout}
-                      className="theme-btn-role btn-style-one-role"
-                      style={{ marginLeft: "16px" }}
+                      style={{
+                        textAlign: "center",
+                        marginRight: "10px",
+                        paddingLeft: "30px",
+                      }}
                     >
                       {userRole === "recruiter" ? (
                         <p>Welcome, {recruiterEmail}</p>

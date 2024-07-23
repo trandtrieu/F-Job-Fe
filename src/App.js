@@ -1,7 +1,9 @@
-// import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Login from "./layout/Login";
 import Navbar from "./layout/Navbar";
+import Footer from "./layout/Footer";
 import Home from "./layout/Home";
 import Register from "./layout/Register";
 import ForgotPassword from "./layout/ForgotPassword";
@@ -23,7 +25,6 @@ import ChangePassword from "./layout/ChangePassword";
 import ProfileCV from "./layout/ProfileCV";
 import AllApplicant from "./layout/recruiter/AllApplicant";
 import AllCandidate from "./layout/recruiter/AllCandidate";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import AllJob from "./layout/recruiter/AllJob";
 import AllJobRecruiter from "./layout/recruiter/AllJobRecruiter";
 import ManageJobList from "../src/layout/recruiter/ManageJobList";
@@ -82,7 +83,6 @@ function App() {
             <Route path="/approve-schedule" component={ApproveCandidate} />
             <Route path="/job-list" component={JobList} />
 
-
             <ProtectedRoute
               path="/dashboard-recruiter"
               component={DashboardRecruiter}
@@ -119,10 +119,10 @@ function App() {
             <Route path="/unauthorized" component={Unauthorized} />
 
             <Route path="/all-applicant" component={AllApplicant} />
-
-
           </Switch>
         </Router>
+
+        <Footer />
       </UserProvider>
     </div>
   );
