@@ -8,6 +8,13 @@ export const loginUser = (email, password) => {
   });
 };
 
+export const loginRecruiter = (emailRecruiter, password) => {
+  return axios.post("http://localhost:3005/recruiter/login-recruiter", {
+    emailRecruiter,
+    password,
+  });
+};
+
 export const facebookLogin = (token) => {
   return axios.get("https://localhost:3448/api/user/facebook/token", {
     headers: { Authorization: `Bearer ${token}` },

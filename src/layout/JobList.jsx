@@ -7,6 +7,7 @@ import {
   faDollarSign,
   faLocationDot,
   faPlaceOfWorship,
+  faMoneyBillWave,
 } from "@fortawesome/free-solid-svg-icons";
 
 const JobList = () => {
@@ -66,15 +67,18 @@ const JobList = () => {
               className="job-listing"
               onClick={() => handleJobClick(job)}
             >
-              <p style={{ fontWeight: "600" }}>{job.title}</p>
-              <p style={{ fontWeight: "600" }}> {job.nameCompany}</p>
+              <p style={{ fontWeight: "600", fontSize: "30px" }}>{job.title}</p>
+              <p style={{ fontWeight: "600", fontSize: "15px" }}>
+                {job.nameCompany}
+              </p>
 
               <p style={{ color: "#07bc0c" }}>
                 <FontAwesomeIcon
-                  icon={faDollarSign}
+                  icon={faMoneyBillWave}
                   style={{ marginRight: "5px" }}
                 />
                 {formatSalary(job.minSalary)} - {formatSalary(job.maxSalary)}{" "}
+                VND <br />
                 {job.salaryType}
               </p>
               <p>
@@ -91,7 +95,7 @@ const JobList = () => {
         )}
       </div>
       {selectedJob && (
-        <div className="job-details">
+        <div className="job-details" style={{ marginTop: "40px" }}>
           <div className="scrollable-container">
             {" "}
             <div className="scrollable-right">
@@ -100,11 +104,12 @@ const JobList = () => {
                 <p>{selectedJob.nameCompany}</p>
                 <p style={{ color: "#07bc0c" }}>
                   <FontAwesomeIcon
-                    icon={faDollarSign}
+                    icon={faMoneyBillWave}
                     style={{ marginRight: "5px" }}
                   />
                   {formatSalary(selectedJob.minSalary)} -{" "}
-                  {formatSalary(selectedJob.maxSalary)} {selectedJob.salaryType}
+                  {formatSalary(selectedJob.maxSalary)} VND <br />
+                  {selectedJob.salaryType}{" "}
                 </p>
                 <button className="apply-now-btn">Apply Now</button>
                 <button

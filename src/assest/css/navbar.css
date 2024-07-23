@@ -41,5 +41,128 @@
 
 .btn-recruiter:hover,
 .btn-job-seeker:hover {
-  background-color: #1967d2;
+  background-color: #0056b3;
+}
+
+
+.main-header {
+  background: #fff;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.main-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  height: 100px;
+}
+
+.nav-outer {
+  display: flex;
+  align-items: center;
+}
+
+.nav.main-menu .navigation {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav.main-menu .navigation .mm-add-listing {
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 90px;
+}
+
+.outer-box {
+  display: flex;
+  align-items: center;
+}
+
+.upload-cv {
+  margin-right: 20px;
+  text-decoration: none;
+  color: #000;
+}
+
+.btn-box {
+  display: flex;
+  align-items: center;
+}
+
+.btn-box a,
+.btn-box b {
+  margin-right: 10px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.btn-box button p {
+  margin: 0;
+}
+
+.mobile-header {
+  display: none;
+}
+
+.theme-btn-role .btn-style-one-role {
+  width: 100px;
+  height: 36px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.theme-btn-role .btn-style-one-role:hover {
+  background-color: #0056b3;
+  color: #fff;
+}
+.btn-navbar {
+  position: absolute;
+  top: 10px; /* Điều chỉnh giá trị này theo nhu cầu */
+  right: 10px; /* Điều chỉnh giá trị này theo nhu cầu */
+  background: none; /* Hoặc màu nền tùy thích */
+  border: none; /* Hoặc viền tùy thích */
+  font-size: 18px; /* Điều chỉnh kích thước font */
+  cursor: pointer;
+  /* Các kiểu dáng khác cho nút */
+}
+
+
+@media (max-width: 768px) {
+  .mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+  }
+  
+  .main-header .main-box {
+    display: none;
+  }
+
+  .mobile-nav-toggler {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
 }

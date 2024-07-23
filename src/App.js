@@ -20,10 +20,13 @@ import ProfileCadidate from "./layout/ProfileCandidate";
 import DashboardRecruiter from "./layout/recruiter/DashboardRecruiter";
 import DashboardApplicant from "./layout/recruiter/DashboardApplicant";
 import ApproveSchedule from "./layout/recruiter/ApproveSchedule";
-import ManageJobList from "./layout/admin/ManageJobList";
+import ManageJobList from "../src/layout/recruiter/ManageJobList";
 import ProtectedRoute from "./utils/auth";
 import Unauthorized from "./layout/Unauthorized";
 import RecruiterRegistration from "./layout/recruiter/registerRecruiter";
+import LoginRecruiter from "./layout/recruiter/loginRecruiter";
+import UpdateJobPost from "./layout/recruiter/updateJobPost";
+import JobDetails from "./layout/recruiter/viewJobDetails";
 function App() {
   return (
     <div className="App">
@@ -49,7 +52,6 @@ function App() {
             <Route path="/login" component={Login} />
             <Route path="/profile" component={Profile} />
             <Route path="/profileCandidate" component={ProfileCadidate} />
-
             <Route path="/createCV" component={CreateCV} />
             <Route path="/cvs" component={CVS} />
             <Route path="/demo" component={demo} />
@@ -60,17 +62,45 @@ function App() {
               path="/reset_password/:id/:token"
               component={ResetPassword}
             />
-            <Route path="/job-list" component={JobList} />
-            <Route path="/job-post" component={JobPost} />
-            <Route path="/dashboard-recruiter" component={DashboardRecruiter} />
-            <Route path="/dashboard-applicant" component={DashboardApplicant} />
             <Route path="/approve-schedule" component={ApproveSchedule} />
-            <Route path="/manage-job-list" component={ManageJobList} />
-            <Route path="/unauthorized" component={Unauthorized} />
+            <Route path="/job-list" component={JobList} />
+            <ProtectedRoute
+              path="/dashboard-applicant"
+              component={DashboardApplicant}
+              allowedRoles={["recruiter", "admin"]}
+            />
+
+            <ProtectedRoute
+              path="/dashboard-recruiter"
+              component={DashboardRecruiter}
+              allowedRoles={["recruiter", "admin"]}
+            />
+            <ProtectedRoute
+              path="/job-post"
+              component={JobPost}
+              allowedRoles={["recruiter", "admin"]}
+            />
+            <ProtectedRoute
+              path="/manage-job-list"
+              component={ManageJobList}
+              allowedRoles={["recruiter", "admin"]}
+            />
+            <ProtectedRoute
+              path="/update-job/:jobId"
+              component={UpdateJobPost}
+              allowedRoles={["recruiter", "admin"]}
+            />
+            <ProtectedRoute
+              path="/job-details/:jobId"
+              component={JobDetails}
+              allowedRoles={["recruiter", "admin"]}
+            />
+            <Route path="/login-recruiter" component={LoginRecruiter} />
             <Route
               path="/register-recruiter"
               component={RecruiterRegistration}
             />
+            <Route path="/unauthorized" component={Unauthorized} />
           </Switch>
         </Router>
       </UserProvider>
