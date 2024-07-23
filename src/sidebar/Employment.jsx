@@ -4,7 +4,7 @@ import InputField from '../components/InputField';
 const Employment = ({handleChange}) =>{
     return(
         <div className=''>
-            <h4 className='text-lg font-medium mb-2'>Employment Type</h4>   
+            <h4 className='text-lg mb-2' style={{ fontSize:"19px", fontWeight:"bold"}}>Employment Type</h4>   
      <div>
         <label className='sidebar-label-container'>
             <input type="radio" name="test" id="test" value="" onChange={handleChange}/>

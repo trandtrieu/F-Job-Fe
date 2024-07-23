@@ -7,7 +7,7 @@ import Salary from './Salary';
 const SideBar = ({handleChange,handleClick}) => {
     return (
         <div className='space-y-5'>
-            <h1 className='text-xl font-bold mb-2'>Filter</h1>
+            <h1 className='text-xl mb-2' style={{ fontSize:"20px", fontWeight:"bold"}}>Filter</h1>
             <Location handleChange={handleChange}/>
             <Experience handleChange={handleChange} handleClick={handleClick}></Experience>
             <Salary handleChange={handleChange} handleClick={handleClick} />

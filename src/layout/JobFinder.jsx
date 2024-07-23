@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import SideBar from "../sidebar/SideBar";
 import axios from "axios";
-import { FiMapPin, FiClock, FiDollarSign, FiCalendar } from "react-icons/fi";
 import { FaEnvelopeOpenText } from "react-icons/fa6";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMoneyBill1Wave, faLocationDot,faClock } from "@fortawesome/free-solid-svg-icons";
 
 const JobFinder = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -162,32 +163,27 @@ const JobFinder = () => {
                   key={job.id}
                   className="job-listing mb-6 p-4 border rounded-lg shadow-md bg-white"
                 >
-                  <h2 className="text-xl font-bold mb-2">{job.title}</h2>
-                  <img
-                    src={job.companyLogo}
-                    alt="Company Logo"
-                    className="company-logo mb-2"
-                  />
+                  <h2 className="text-xl font-bold mb-2" style={{fontSize:"20px"}}>{job.title}</h2>
                   <div>
-                    <h4 className="text-black mb-1">{job.companyName}</h4>
+                    <h4 className="text-black mb-1"style={{fontSize:"18px"}}>{job.nameCompany}</h4>
                     <h3 className="text-lg font-semibold mb-2">
                       {job.jobTitle}
                     </h3>
                     <div className="text-dark/70 text-base flex flex-wrap gap-2 mb-2">
-                      <span className="flex items-center gap-2">
-                        <FiMapPin /> {job.country}{" "}
+                      <span className="flex items-center gap-2" style={{fontSize:"16px"}}>
+                      <FontAwesomeIcon icon={faLocationDot} style={{color: "#216ef2"}} /> {job.country}{" "}
                       </span>
-                      <span className="flex items-center gap-2">
-                        <FiClock /> {job.jobType}{" "}
+                      <span className="flex items-center gap-2" style={{fontSize:"16px"}}>
+                      <FontAwesomeIcon icon={faClock} style={{color: "#dbe2c5",}} /> {job.jobType}{" "}
                       </span>
-                      <span className="flex items-center gap-2">
-                        <FiDollarSign /> {job.minSalary}--{job.maxSalary}{" "}
+                      <span className="flex items-center gap-2" style={{fontSize:"16px", color:"#d8a20e"}}>
+                      <FontAwesomeIcon icon={faMoneyBill1Wave} style={{color: "#1abe04",}} /> {job.minSalary}--{job.maxSalary}{" "}
                       </span>
-                      <span className="flex items-center gap-2">
+                      {/* <span className="flex items-center gap-2">
                         <FiCalendar /> {job.postingDate}{" "}
-                      </span>
+                      </span> */}
                     </div>
-                    <p className="text-base text-gray-700">
+                    <p className="text-base text-gray-700" style={{fontSize:"17px"}}>
                       {truncateDescription(job.description, 200)}
                     </p>
                   </div>
