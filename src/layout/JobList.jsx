@@ -284,7 +284,7 @@ const JobList = () => {
                 }}
               >
                 <FontAwesomeIcon
-                  icon={faDollarSign}
+                  icon={faMoneyBillWave}
                   style={{
                     marginRight: "5px",
                   }}
@@ -309,7 +309,7 @@ const JobList = () => {
         )}
       </div>
       {selectedJob && (
-        <div className="job-details" style={{ marginTop: "40px" }}>
+        <div className="job-details">
           <div className="scrollable-container">
             <div className="scrollable-right">
               <div className="job-details-header">
@@ -321,7 +321,7 @@ const JobList = () => {
                   }}
                 >
                   <FontAwesomeIcon
-                    icon={faDollarSign}
+                    icon={faMoneyBillWave}
                     style={{
                       marginRight: "5px",
                     }}

@@ -56,6 +56,9 @@ const ManageJobList = () => {
     setSelectedJobId(jobId);
     history.push(`/update-job/${jobId}`);
   };
+  const handleViewClick = (jobId) => {
+    history.push(`/job-details/${jobId}`);
+  };
 
   const handleRemoveJob = async (jobId) => {
     try {
@@ -141,7 +144,10 @@ const ManageJobList = () => {
                                 >
                                   <ul className="option-list">
                                     <li>
-                                      <button data-text="View Application">
+                                      <button
+                                        data-text="View Application"
+                                        onClick={() => handleViewClick(job._id)}
+                                      >
                                         <span className="la la-eye"></span>
                                       </button>
                                     </li>
