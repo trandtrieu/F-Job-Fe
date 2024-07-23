@@ -38,3 +38,4 @@ export const deleteUser = async (id, access_token) => {
         })
     return res.data
 }
+

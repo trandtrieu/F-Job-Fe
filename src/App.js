@@ -16,7 +16,8 @@ import CVS from "./layout/CVS";
 import JobPost from "./layout/JobPost";
 import JobList from "./layout/JobList";
 import DashboardRecruiter from "./layout/recruiter/DashboardRecruiter";
-import ApproveSchedule from "./layout/recruiter/ApproveSchedule";
+import ApproveCandidate from "./layout/recruiter/ApproveCandidate";
+
 import ProfileCandidate from "./layout/ProfileCandidate";
 import ChangePassword from "./layout/ChangePassword";
 import ProfileCV from "./layout/ProfileCV";
@@ -78,18 +79,14 @@ function App() {
               component={AllJobRecruiter}
             />
 
-            <Route path="/approve-schedule" component={ApproveSchedule} />
+            <Route path="/approve-schedule" component={ApproveCandidate} />
             <Route path="/job-list" component={JobList} />
-            {/* <ProtectedRoute
-              path="/dashboard-applicant"
-              component={DashboardApplicant}
-              allowedRoles={["recruiter", "admin"]}
-            /> */}
+
 
             <ProtectedRoute
               path="/dashboard-recruiter"
               component={DashboardRecruiter}
-              allowedRoles={["recruiter", "admin"]}
+              // allowedRoles={["recruiter", "admin"]}
             />
             <ProtectedRoute
               path="/job-post"
@@ -112,11 +109,18 @@ function App() {
               allowedRoles={["recruiter", "admin"]}
             />
             <Route path="/login-recruiter" component={LoginRecruiter} />
+            <Route path="/approve-schedule" component={ApproveCandidate} />
+            <Route path="/manage-job-list" component={ManageJobList} />
+            <Route path="/unauthorized" component={Unauthorized} />
             <Route
               path="/register-recruiter"
               component={RecruiterRegistration}
             />
             <Route path="/unauthorized" component={Unauthorized} />
+
+            <Route path="/all-applicant" component={AllApplicant} />
+
+
           </Switch>
         </Router>
       </UserProvider>
