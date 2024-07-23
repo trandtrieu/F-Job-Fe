@@ -40,7 +40,7 @@ export default function Register() {
         const data = response.data;
         console.log("Registration successful", data);
         history.push("/login");
-        toast.success("Registration successful")
+        toast.success("Registration successful");
       } else {
         const errorData = response.data;
         console.error("Registration failed", errorData);

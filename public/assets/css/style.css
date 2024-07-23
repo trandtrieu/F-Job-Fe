@@ -7468,7 +7468,8 @@ Job Section
 
 /* Mai_fix */
 
-.owl-dots, .owl-nav {
+.owl-dots,
+.owl-nav {
   display: none !important;
 }
 
@@ -10541,6 +10542,10 @@ Registeration Banners
   line-height: 22px;
   color: #1967D2;
   margin-left: 115px;
+}
+
+.aplicants-upper-bar .aplicantion-status li.pending {
+  color: #F7E561;
 }
 
 .aplicants-upper-bar .aplicantion-status li.approved {
@@ -22736,19 +22741,24 @@ Work Section
 }
 
 .post-form-group img {
-  max-width: 100px; /* Điều chỉnh kích thước tối đa của hình ảnh */
+  max-width: 100px;
+  /* Điều chỉnh kích thước tối đa của hình ảnh */
   max-height: 100px;
   display: block;
-  margin-top: 10px; /* Khoảng cách từ hình ảnh đến ô chọn file */
+  margin-top: 10px;
+  /* Khoảng cách từ hình ảnh đến ô chọn file */
 }
+
 /* Mai-fix =====================================================================================*/
 .about-us-section {
   padding: 60px 0;
-  background-color: #FFFFFF; /* Light gray background */
+  background-color: #FFFFFF;
+  /* Light gray background */
 }
 
 .section-content {
-  background-color: #F5F7FB; /* White background for content */
+  background-color: #F5F7FB;
+  /* White background for content */
   padding: 20px;
   border-radius: 8px;
 }
@@ -22763,7 +22773,7 @@ Work Section
 
 .text-content {
   padding: 20px;
- font-family: 'Alexandria', sans-serif;
+  font-family: 'Alexandria', sans-serif;
   padding-top: 4px;
   font-size: 14px;
 
@@ -22791,7 +22801,8 @@ Work Section
   height: auto;
 }
 
-p, .text {
+p,
+.text {
   padding-top: 10px;
   font-weight: 300;
 }

@@ -113,7 +113,7 @@ const Login = () => {
         <div className="outer-box">
           <div className="login-form default-form">
             <div className="form-inner">
-              <h3>Login to Superio</h3>
+              <h3>Login to F-Job</h3>
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
                   <label>Email</label>
@@ -188,14 +188,6 @@ const Login = () => {
                     >
                       <i className="fab fa-google" /> Log In via Gmail
                     </button>
-                  </div>
-                  <div className="bottom-box">
-                    <div className="text">
-                      Don't have an account? <a href="/register">Signup</a>
-                    </div>
-                    <div className="divider">
-                      <span>or</span>
-                    </div>
                   </div>
                 </div>
               </div>

@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import NavbarRecruiter from "./NavbarRecruiter";
 import axios from "axios";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { UserContext } from "../../utils/UserContext";
 
 export default function AllJob() {
   const [jobs, setJobs] = useState([]);
   const history = useHistory();
+  const { recruiter } = useContext(UserContext);
 
-  const userId = "669f7d9af3b965dfb561de82"; // Replace with actual user ID
+  const userId = recruiter ? recruiter.id : null;
 
   useEffect(() => {
     const fetchJobs = async () => {

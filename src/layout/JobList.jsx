@@ -161,6 +161,10 @@ const JobList = () => {
     setSelectedJob(job);
   };
   const openModal = () => {
+    if (!userId) {
+      toast.error("You must login to use this feature!!!");
+      return;
+    }
     if (selectedJob) {
       if (profileComplete) {
         setModalIsOpen(true);
@@ -180,6 +184,10 @@ const JobList = () => {
 
   const handleApply = async (e) => {
     e.preventDefault();
+    if (!userId) {
+      toast.error("Login first");
+      return;
+    }
     if (!selectedJob._id) {
       toast.error("No job selected!");
       return;
@@ -233,7 +241,7 @@ const JobList = () => {
     const file = e.target.files[0];
     setCv(file);
     setCvName(file?.name || "");
-    const fileURL = `http://localhost:3005/api/uploadCv/download/${file}`;
+    const fileURL = `http://localhost:3005/api/uploadCv/download/${file.name}`;
     setCvFileURL(fileURL);
   };
 
@@ -244,6 +252,7 @@ const JobList = () => {
     const fileURL = file ? URL.createObjectURL(file) : "";
     setDegreeFileURL(fileURL);
   };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setProfileData((prevProfileData) => ({
