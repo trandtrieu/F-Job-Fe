@@ -56,13 +56,13 @@
   border: none;
   cursor: pointer;
   font-size: 1.25rem;
-  color: #ff5a5f;
+  color: #FD9854;
   transition: color 0.3s ease;
   width: 20px;
 }
 
 .wishlist-btn:hover {
-  color: #ff2a2f;
+  color: #e38b51;
 }
 
 .scrollable {
@@ -71,7 +71,7 @@
 }
 
 .apply-now-btn {
-  background-color: #ff5a5f;
+  background-color: #e38b51;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -106,7 +106,7 @@
 }
 
 .apply-now-btn {
-  background-color: #ff5a5f;
+  background-color: #fd9854;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -119,7 +119,7 @@
 }
 
 .apply-now-btn:hover {
-  background-color: #ff2a2f;
+  background-color: #e38b51;
 }
 
 p {
@@ -207,6 +207,8 @@ ul {
 }
 
 .job-details-header h2 {
+  font-family: 'Alexandria', sans-serif;
+  font-size: x-large;
   margin: 0;
 }
 
@@ -217,7 +219,9 @@ ul {
 
 .job-description h4 {
   margin-top: 10px;
-  font-weight: 700;
+  font-weight: 500;
+  font-family: 'Alexandria', sans-serif;
+
 }
 
 .job-address {
@@ -232,7 +236,8 @@ ul {
 
 .reason h4 {
   margin-top: 10px;
-  font-weight: 700;
+  font-weight: 500;
+  font-family: 'Alexandria', sans-serif;
 }
 
 .reason ul {
@@ -247,9 +252,45 @@ ul {
 .job-skill {
   border-bottom: 1px solid #ccc;
   margin-right: 20px;
+  transition: background-color 0.3s ease;
+  padding: 1rem;
+  border: 1px solid #ddd;
 }
 
 .job-skill h4 {
   margin-top: 10px;
-  font-weight: 700;
+  font-weight: 500;
+  font-family: 'Alexandria', sans-serif;
+}
+.job-skill:hover {
+  background-color: #f0f0f0;
+}
+.job-skill p {
+  position: relative;
+  padding-left: 1.8rem;
+}
+.job-skill p::before {
+  content: "✔";
+  color: green;
+  position: absolute;
+  left: 0;
+  font-size: 1rem;
+}
+
+.working-days {
+  font-size: 0.9rem;
+  font-family: Inter, sans-serif;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.working-days:hover {
+  background-color: #f0f0f0;
+  transition: background-color 0.3s ease;
+}
+
+.working-days .fa-calendar-alt {
+  color: green;
+  margin-right: 0.5rem;
 }

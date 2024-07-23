@@ -100,12 +100,15 @@ export default function CVS() {
       <section className="page-title">
         <div className="auto-container">
           <div className="title-outer">
-            <h1>CV template</h1>
+            <h1>CV TEMPLATE</h1>
             <ul className="page-breadcrumb">
               <li>
                 <a href="index.html">Home</a>
               </li>
-              <li>CVS</li>
+              <li>
+                {" "}
+                <a href="/cvs">CVs</a>
+              </li>
             </ul>
           </div>
         </div>

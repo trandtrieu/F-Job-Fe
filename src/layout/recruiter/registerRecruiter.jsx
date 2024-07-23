@@ -2,6 +2,18 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../../assest/css/registerRecruiter.css";
 import { toast } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { validatePassword, validateForm } from "./../../utils/validate";
+
+import {
+  faPhone,
+  faLock,
+  faEnvelope,
+  faUser,
+  faBuilding,
+  faLocation,
+  faPlaceOfWorship,
+} from "@fortawesome/free-solid-svg-icons"; // Import icons
 
 const RecruiterRegistration = () => {
   const [formData, setFormData] = useState({
@@ -18,6 +30,7 @@ const RecruiterRegistration = () => {
 
   const [cities, setCities] = useState([]);
   const [districts, setDistricts] = useState([]);
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     // Gọi API để lấy danh sách tỉnh/thành phố
@@ -54,9 +67,18 @@ const RecruiterRegistration = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { confirmPassword, ...rest } = formData;
+    // Validate the form data
+    const formErrors = validateForm(formData);
+    const passwordError = validatePassword(formData.password);
 
-    if (rest.password !== confirmPassword) {
+    if (Object.keys(formErrors).length > 0 || passwordError) {
+      // Update the errors state
+      setErrors({ ...formErrors, password: passwordError });
+      toast.error("Please fix the errors in the form.");
+      return;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
       toast.error("Passwords do not match!");
       return;
     }
@@ -64,7 +86,7 @@ const RecruiterRegistration = () => {
     try {
       const response = await axios.post(
         "http://localhost:3005/recruiter/register-recruiter",
-        rest
+        formData
       );
 
       if (response.status === 200) {
@@ -86,24 +108,134 @@ const RecruiterRegistration = () => {
       <div className="registration-form">
         <h2>Register for a Recruiter account</h2>
 
+        <p
+          style={{
+            color: "#000000",
+            fontWeight: "300",
+            fontSize: "0.9rem",
+            paddingBottom: "20px",
+          }}
+        >
+          Create an advantage for your business by experiencing AI & Hiring
+          Funnel deep recruitment technology.
+        </p>
         <form onSubmit={handleSubmit}>
           <fieldset>
-            <legend>Regulations</legend>
-            <p>
-              To ensure service quality,F-Job does not allow one user Create
-              many different accounts.
-            </p>{" "}
-            <p>
+            <legend
+              style={{
+                fontFamily: "inherit",
+                fontWeight: "400",
+                paddingTop: "10px",
+                color: "#005599",
+              }}
+            >
+              Regulations
+            </legend>
+
+            <p
+              style={{
+                paddingLeft: "0.7rem",
+                color: "#000000",
+                fontWeight: "300",
+                fontSize: "1rem",
+              }}
+            >
+              To ensure service quality, F-Job{" "}
+              <span style={{ color: "red" }}>
+                does not allow one user to create many different accounts.
+              </span>
+            </p>
+
+            <p
+              style={{
+                paddingLeft: "0.7rem",
+                color: "#000000",
+                fontWeight: "300",
+                fontSize: "1rem",
+              }}
+            >
               Employer violates, F-Job will stop providing services and all
               Accounts using the F-Job service will have their access completely
               locked Access F-Job's website system. To avoid consequences from
               happening If desired, employers please limit the use of one
               account for businesses to issue business license information.
             </p>
+
+            <p
+              style={{
+                paddingLeft: "0.7rem",
+                color: "#000000",
+                fontWeight: "300",
+                fontSize: "1rem",
+              }}
+            >
+              For any questions please contact Customer Service Hotline:
+            </p>
+
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                paddingLeft: "0.7rem",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginRight: "1rem",
+                }}
+              >
+                <div className="phone-circle">
+                  <FontAwesomeIcon icon={faPhone} />
+                </div>
+                <span
+                  style={{
+                    color: "#005599",
+                    fontWeight: "500",
+                    fontSize: "1rem",
+                    marginLeft: "0.5rem",
+                  }}
+                >
+                  +84 869 155 454
+                </span>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <div
+                  className="phone-circle"
+                  style={{
+                    marginLeft: "2.5rem",
+                  }}
+                >
+                  <FontAwesomeIcon icon={faPhone} />
+                </div>
+                <span
+                  style={{
+                    color: "#005599",
+                    fontWeight: "500",
+                    fontSize: "1rem",
+                    marginLeft: "0.5rem",
+                  }}
+                >
+                  +84 906 543 903
+                </span>
+              </div>
+            </div>
           </fieldset>
 
           <div className="form-group-recruiter">
-            <label>Email</label>
+            <label>
+              <FontAwesomeIcon
+                icon={faEnvelope}
+                style={{ marginRight: "0.5rem", color: "#005599" }}
+              />
+              Email
+            </label>
             <input
               type="email"
               name="emailRecruiter"
@@ -111,39 +243,68 @@ const RecruiterRegistration = () => {
               onChange={handleChange}
               required
             />
+            {errors.email && <p className="error-text">{errors.email}</p>}
           </div>
 
           <div className="form-group-recruiter">
-            <label>Password</label>
+            <label>
+              <FontAwesomeIcon
+                icon={faLock}
+                style={{ marginRight: "0.5rem", color: "#005599" }}
+              />
+              Password
+            </label>
             <input
               type="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
               required
+              placeholder="Password (6 to 25 characters)"
             />
+            {errors.password && <p className="error-text">{errors.password}</p>}
           </div>
 
           <div className="form-group-recruiter">
-            <label>Confirm password</label>
+            <label>
+              <FontAwesomeIcon
+                icon={faLock}
+                style={{ marginRight: "0.5rem", color: "#005599" }}
+              />
+              Confirm Password
+            </label>
             <input
               type="password"
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleChange}
               required
+              placeholder="Enter the password"
             />
+            {errors.confirmPassword && (
+              <p className="error-text">{errors.confirmPassword}</p>
+            )}
           </div>
           <h2>Employer Information</h2>
           <div className="form-group-recruiter">
-            <label>First and last name</label>
+            <label>
+              {" "}
+              <FontAwesomeIcon
+                icon={faUser}
+                style={{ marginRight: "0.5rem", color: "#005599" }}
+              />{" "}
+              First and last name
+            </label>
+
             <input
               type="text"
               name="fullName"
               value={formData.fullName}
               onChange={handleChange}
               required
+              placeholder="First and last name"
             />
+            {errors.fullName && <p className="error-text">{errors.fullName}</p>}
           </div>
           <div className="form-group-recruiter gender-group">
             <label>Gender</label>
@@ -165,48 +326,88 @@ const RecruiterRegistration = () => {
             Female
           </div>
           <div className="form-group-recruiter">
-            <label>My Phone</label>
+            <label>
+              {" "}
+              <FontAwesomeIcon
+                icon={faPhone}
+                style={{ marginRight: "0.5rem", color: "#005599" }}
+              />{" "}
+              My Phone
+            </label>
             <input
               type="text"
               name="phone"
               value={formData.phone}
               onChange={handleChange}
               required
+              placeholder="Personal phone number"
             />
+            {errors.phone && <p className="error-text">{errors.phone}</p>}
           </div>
 
           <div className="form-group-recruiter">
-            <label>Company</label>
+            <label>
+              {" "}
+              <FontAwesomeIcon
+                icon={faBuilding}
+                style={{ marginRight: "0.5rem", color: "#005599" }}
+              />{" "}
+              Company
+            </label>
             <input
               type="text"
               name="company"
               value={formData.company}
               onChange={handleChange}
               required
+              placeholder="Company name"
             />
           </div>
           <div className="form-group-recruiter">
-            <label>Work location</label>
+            <label>
+              {" "}
+              <FontAwesomeIcon
+                icon={faLocation}
+                style={{ marginRight: "0.5rem", color: "#005599" }}
+              />{" "}
+              Work location
+            </label>
             <input
               name="city"
               value={formData.city}
               onChange={handleChange}
               required
+              placeholder="Enter work location"
             ></input>
           </div>
           <div className="form-group-recruiter">
-            <label>District</label>
+            <label>
+              {" "}
+              <FontAwesomeIcon
+                icon={faPlaceOfWorship}
+                style={{ marginRight: "0.5rem", color: "#005599" }}
+              />{" "}
+              District
+            </label>
             <input
               name="district"
               value={formData.district}
               onChange={handleChange}
               required
+              placeholder="Enter district"
             ></input>
           </div>
 
           <div className="form-group-recruiter inline">
-            <input type="checkbox" required />I have read and agree to F-Job's
-            Terms of Service and Privacy Policy.
+            <input type="checkbox" required />I have read and agree to&nbsp;
+            <a href="/terms-of-service" className="policy-link">
+              F-Job's Terms of Service
+            </a>
+            &nbsp;and&nbsp;
+            <a href="/privacy-policy" className="policy-link">
+              Privacy Policy
+            </a>
+            .
           </div>
 
           <button type="submit" className="btn-recruiter-page">
@@ -214,8 +415,14 @@ const RecruiterRegistration = () => {
           </button>
         </form>
         <div className="next-page">
-          You have account? <a href="/login-recruiter">Login Recruiter</a>
+          Already have an account? <a href="/login-recruiter">Sign in now</a>
         </div>
+      </div>
+      <div className="registration-image">
+        <img
+          src="https://kstoimenov.com/wp-content/uploads/2017/02/2a.png"
+          alt="Registration"
+        />
       </div>
     </div>
   );
