@@ -2,20 +2,20 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom";
 
 function ResetPassword() {
   const [password, setPassword] = useState("");
   const history = useHistory();
   const { id, token } = useParams();
 
-  axios.defaults.withCredentials = true;
+  // axios.defaults.withCredentials = true;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `http://localhost:3443/users/reset-password/${id}/${token}`,
+        `http://localhost:3005/api/user/reset-password/${id}/${token}`,
         { password }
       );
       if (res.data.Status === "Success") {

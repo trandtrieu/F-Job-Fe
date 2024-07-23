@@ -1,13 +1,13 @@
 import axios from "axios";
 import React, { useRef, useState } from "react";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Register() {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
-  
+
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
@@ -15,7 +15,6 @@ export default function Register() {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent default form submission
@@ -27,16 +26,21 @@ export default function Register() {
     };
 
     try {
-      const response = await axios.post("http://localhost:3005/api/user/sign-up", payload, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.post(
+        "http://localhost:3005/api/user/sign-up",
+        payload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (response.status === 200) {
         const data = response.data;
         console.log("Registration successful", data);
-        history.push('/home');
+        history.push("/login");
+        toast.success("Registration successful")
       } else {
         const errorData = response.data;
         console.error("Registration failed", errorData);
@@ -47,8 +51,6 @@ export default function Register() {
       // Handle fetch error (e.g., show error message)
     }
   };
-
-
 
   return (
     <>
@@ -68,10 +70,7 @@ export default function Register() {
                 <h3>Create a Free F-Job Account</h3>
                 {/*Login Form*/}
 
-                <form
-                  onSubmit={handleSubmit}
-                >
-
+                <form onSubmit={handleSubmit}>
                   <div className="form-group">
                     <label>Email Address</label>
                     <input

@@ -9,7 +9,7 @@ function BudgetReport() {
 
     const option = {
       legend: {
-        data: ["Allocated Budget", "Actual Expenses"],
+        data: ["Allocated Budget", "Estimated Expenses"],
       },
       radar: {
         shape: "circle",
@@ -17,8 +17,8 @@ function BudgetReport() {
           { name: "Sales", max: 6500 },
           { name: "Administration", max: 16000 },
           { name: "IT", max: 30000 },
-          { name: "Customer Support", max: 38000 },
-          { name: "Development", max: 40000 },
+          { name: "Manager", max: 35000 },
+          { name: "Development", max: 38000 },
           { name: "Marketing", max: 25000 },
         ],
       },
@@ -28,17 +28,17 @@ function BudgetReport() {
           type: 'radar',
           data: [
             {
-              value: [4200, 3000, 20000, 35000, 50000, 18000],
+              value: [5200, 3500, 20000, 35000, 45000, 16000],
               name: 'Allocated Budget',
               itemStyle: {
                 color: '#1f77b4' // Example color for visibility
               }
             },
             {
-              value: [5000, 8000, 25000, 30000, 40000, 21000],
-              name: 'Actual Expenses',
+              value: [5000, 8000, 25000, 30000, 40000, 18000],
+              name: 'Estimated Expenses',
               itemStyle: {
-                color: '#ff7f0e' // Example color for visibility
+                color: '#339933' // Example color for visibility
               }
             },
           ],

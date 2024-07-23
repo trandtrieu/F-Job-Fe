@@ -1,23 +1,18 @@
-import React, { useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Banner from "./Banner";
 import { UserContext } from "../utils/UserContext";
+import JobList from "./JobList";
+import Design from "./Design";
 
 export default function Home() {
   const { user } = useContext(UserContext);
 
   return (
     <div>
+
       <Banner />
-      {user ? (
-        <div>
-          <p>
-            Welcome, {user.firstname} {user.lastname}
-          </p>
-          <p>Your ID: {user._id}</p>
-        </div>
-      ) : (
-        <p>Please log in to see your information.</p>
-      )}
+      <JobList />
+      <Design />
     </div>
   );
 }

@@ -1,16 +1,14 @@
 /*global FB*/
 
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import useFacebookSDK from "../utils/useFacebookSDK";
 import { UserContext } from "../utils/UserContext";
-import { loginUser, facebookLogin } from "../services/api.js";
+import { loginUser, facebookLogin, googleLogin } from "../services/api.js";
 
 const Login = () => {
-  // const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const { setUser } = useContext(UserContext);
@@ -18,27 +16,48 @@ const Login = () => {
 
   useFacebookSDK(process.env.REACT_APP_FACEBOOK_APP_ID);
 
-  // const handleUsernameChange = (e) => setUsername(e.target.value);
-  const handleEmailChange = (e) => setEmail(e.target.value);
+  useEffect(() => {
+    localStorage.removeItem("user");
 
-  const handlePasswordChange = (e) => setPassword(e.target.value);
-  const handleRememberMeChange = (e) => setRememberMe(e.target.checked);
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get("id");
+    const token = urlParams.get("token");
+    const email = urlParams.get("email");
+
+    if (id && token && email) {
+      const user = { id, token, email };
+      setUser(user);
+      localStorage.setItem("user", JSON.stringify(user));
+      toast.success("Login successful!");
+      history.push("/");
+    }
+  }, [history, setUser]);
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get("userId");
+    const token = urlParams.get("token");
+    const email = urlParams.get("email");
+
+    if (userId && token && email) {
+      const user = { userId, token, email };
+      setUser(user);
+      localStorage.setItem("user", JSON.stringify(user));
+      toast.success("Login successful!");
+      history.push("/");
+    }
+  }, [history, setUser]);
 
   const handleSubmit = async (e) => {
-    console.log("hello");
-
     e.preventDefault();
     try {
       const response = await loginUser(email, password);
-
       if (response.data.status === "OK") {
         toast.success("Login successful!");
         setUser(response.data.user);
         localStorage.setItem("user", JSON.stringify(response.data.user));
-        console.log(response.data.user);
         history.push("/");
       } else {
-        console.log("fail login");
         toast.error("Login failed. Please check your credentials.");
       }
     } catch (error) {
@@ -72,9 +91,15 @@ const Login = () => {
       toast.error("Failed to log in with Facebook.");
     }
   };
-
   const handleFacebookLogin = () => {
     FB.login(checkLoginState, { scope: "public_profile,email" });
+  };
+
+  // const handleGoogleLogin = () => {
+  //   window.open(`http://localhost:3005/api/user/google/callback`, "_self");
+  // };
+  const handleGoogleLogin = () => {
+    window.open(`http://localhost:3005/api/user/google/callback`, "_self");
   };
 
   return (
@@ -90,16 +115,17 @@ const Login = () => {
               <h3>Login to Superio</h3>
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                  <label>Username</label>
+                  <label>Email</label>
                   <input
                     type="text"
                     name="email"
                     placeholder="Email"
                     value={email}
-                    onChange={handleEmailChange}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </div>
+
                 <div className="form-group">
                   <label>Password</label>
                   <input
@@ -107,10 +133,11 @@ const Login = () => {
                     name="password"
                     placeholder="Password"
                     value={password}
-                    onChange={handlePasswordChange}
+                    onChange={(e) => setPassword(e.target.value)}
                     required
                   />
                 </div>
+
                 <div className="form-group">
                   <div className="field-outer">
                     <div className="input-group checkboxes square">
@@ -119,7 +146,7 @@ const Login = () => {
                         name="remember-me"
                         id="remember"
                         checked={rememberMe}
-                        onChange={handleRememberMeChange}
+                        onChange={(e) => setRememberMe(e.target.checked)}
                       />
                       <label htmlFor="remember" className="remember">
                         <span className="custom-checkbox" /> Remember me
@@ -136,47 +163,37 @@ const Login = () => {
                   </button>
                 </div>
               </form>
+
               <div className="bottom-box">
-                {/* <div className="text">
+                <div className="text">
                   Don't have an account? <Link to="/register">Signup</Link>
                 </div>
                 <div className="divider">
                   <span>or</span>
-                </div> */}
+                </div>
                 <div className="btn-box row">
-                  {/* <div className="col-lg-6 col-md-12">
+                <div className="col-lg-6 col-md-12">
                     <button
                       onClick={handleFacebookLogin}
                       className="theme-btn social-btn-two facebook-btn"
                     >
                       <i className="fab fa-facebook-f" /> Log In via Facebook
                     </button>
-                  </div> */}
+                  </div>
+                  <div className="col-lg-6 col-md-12">
+                    <button
+                      onClick={handleGoogleLogin}
+                      className="theme-btn social-btn-two google-btn"
+                    >
+                      <i className="fab fa-google" /> Log In via Gmail
+                    </button>
+                  </div>
                   <div className="bottom-box">
                     <div className="text">
                       Don't have an account? <a href="/register">Signup</a>
                     </div>
                     <div className="divider">
                       <span>or</span>
-                    </div>
-                    <div className="btn-box row">
-                      <div className="col-lg-6 col-md-12">
-                        <a
-                          href="#"
-                          className="theme-btn social-btn-two facebook-btn"
-                        >
-                          <i className="fab fa-facebook-f" /> Log In via
-                          Facebook
-                        </a>
-                      </div>
-                      <div className="col-lg-6 col-md-12">
-                        <a
-                          href="#"
-                          className="theme-btn social-btn-two google-btn"
-                        >
-                          <i className="fab fa-google" /> Log In via Gmail
-                        </a>
-                      </div>
                     </div>
                   </div>
                 </div>

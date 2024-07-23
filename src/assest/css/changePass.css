@@ -1,0 +1,52 @@
+.toggle-password-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  
+  .toggle-password-icon-fixed {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  
+  .toggle-password-icon:hover {
+    color: #333; /* Màu icon khi hover */
+  }
+  
+  .default-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+  }
+
+  .error {
+    color: red;
+    margin-top: 5px;
+  }
+  .error_general {
+    color: red;
+    margin-bottom: 20px; 
+  }
+  .user-dashboard-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    padding: 40px;
+  }
+
+  .user-dashboard-wrap-form {
+    max-width: 800px;
+    width: 100%;
+    background-color: #fff;
+    padding: 50px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }

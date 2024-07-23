@@ -81,7 +81,7 @@ function Report() {
   };
 
   return (
-    <div className="Card">
+    <div className="card-report">
       <div className="card-body mb-6 p-4 border rounded-lg shadow-md bg-white" style={{width: '930px'}}>
         <h1 className="card-title" style={{fontSize: "20px", fontWeight: "bold"}}>Report</h1>
       

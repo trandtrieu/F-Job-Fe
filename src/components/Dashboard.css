@@ -1,6 +1,10 @@
 .dashboard {
     padding-left: 250px; /* Adjust the padding as needed */
+
   }
+.dashboard-section{
+  margin-bottom: 100px;
+}
 .card-wrapper {
     margin-bottom: 20px;
     max-width: 900px; /* Adjust the width as needed */
@@ -17,7 +21,7 @@
   }
   
   .custom-card .card-body {
-    /* display: flex; */
+    display: flex;
     flex-direction: column;
     justify-content: flex-start; /* Align items at the top */
     align-items: flex-start;
@@ -35,19 +39,19 @@
   }
   /* Transparent backgrounds with a hint of color */
 .bg-primary {
-    background-color: rgba(0, 123, 255, 0.1) !important; /* Very transparent primary color */
+    background-color: rgba(0, 123, 255, 0.2) !important; /* Very transparent primary color */
   }
   
   .bg-danger {
-    background-color: rgba(220, 53, 69, 0.1) !important; /* Very transparent danger color */
+    background-color: rgba(220, 53, 69, 0.2) !important; /* Very transparent danger color */
   }
   
   .bg-warning {
-    background-color: rgba(255, 193, 7, 0.1) !important; /* Very transparent warning color */
+    background-color: rgba(255, 193, 7, 0.2) !important; /* Very transparent warning color */
   }
   
   .bg-success {
-    background-color: rgba(40, 167, 69, 0.1) !important; /* Very transparent success color */
+    background-color: rgba(40, 167, 69, 0.2) !important; /* Very transparent success color */
   }
   .custom-budget{
     margin-bottom: -200px;
@@ -65,8 +69,29 @@
     animation: fadeIn 0.3s ease-in-out;
     margin-bottom: 20px;
   }
-  .text{
-    margin-left: 20px;
-    font-size: 17px;
+/* Text1 Styling */
+.text1 {
+  color: #ed2c2c; /* Red color for important notifications */
+  font-weight: bold; /* Bold text */
+  margin-top: -10px; /* Adjust top margin as needed */
+  font-size: 17px; /* Font size */
+  display: flex; /* Align icons and text properly */
+  align-items: center; /* Center align vertically */
+  margin-left: 15px;
+}
+.event-name{
+  margin-top: -20px;
+  font-size: 20px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: bold;
+  color: #4426ba;
+}
 
-  }
+/* Text2 Styling */
+.text2 {
+  font-weight: inherit; /* Regular weight for secondary text */
+  margin-top: -15px; /* Adjust top margin as needed */
+  font-size: 16px; /* Font size */
+  color: #333; /* Dark text color for readability */
+  margin-left: 15px;
+}
