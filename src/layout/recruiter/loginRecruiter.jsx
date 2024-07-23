@@ -161,7 +161,8 @@ const LoginRecruiter = () => {
               </form>
               <div className="bottom-box">
                 <div className="text">
-                  Don't have an account? <Link to="/register">Signup</Link>
+                  Don't have an account?{" "}
+                  <Link to="/register-recruiter">Signup</Link>
                 </div>
                 <div className="divider">
                   <span>or</span>
