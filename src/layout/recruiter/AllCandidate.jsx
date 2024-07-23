@@ -6,7 +6,7 @@ const AllCandidate = () => {
         <div>
             <div className="page-wrapper dashboard ">
                 {/* Preloader */}
-                <div className="preloader" />
+                {/* <div className="preloader" /> */}
                 {/* Header Span */}
                 <span className="header-span" />
                 {/* Sidebar Backdrop */}

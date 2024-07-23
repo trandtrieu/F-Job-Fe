@@ -9,20 +9,22 @@ import { Provider } from "react-redux";
 import { persistor, store } from "./Component/redux/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { BrowserRouter as Router } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const queryClient = new QueryClient()
-
 root.render(
   // <React.StrictMode>
-  <UserProvider>
+  <Router>
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <App />
+          <UserProvider>
+            <App />
+          </UserProvider >
         </PersistGate>
       </Provider>
     </QueryClientProvider>
-  </UserProvider >
+  </Router>
   // </React.StrictMode>
 );

@@ -16,7 +16,7 @@ import CVS from "./layout/CVS";
 import JobPost from "./layout/JobPost";
 import JobList from "./layout/JobList";
 import DashboardRecruiter from "./layout/recruiter/DashboardRecruiter";
-import ApproveSchedule from "./layout/recruiter/ApproveSchedule";
+import ApproveCandidate from "./layout/recruiter/ApproveCandidate";
 import ManageJobList from "./layout/admin/ManageJobList";
 import ProfileCandidate from "./layout/ProfileCandidate";
 import ChangePassword from "./layout/ChangePassword";
@@ -73,7 +73,7 @@ function App() {
             <Route path="/dashboard-recruiter" component={DashboardRecruiter} />
             <Route path="/all-applicant" component={AllApplicant} />
             <Route path="/all-candidate" component={AllCandidate} />
-            <Route path="/approve-schedule" component={ApproveSchedule} />
+            <Route path="/approve-schedule" component={ApproveCandidate} />
             <Route path="/manage-job-list" component={ManageJobList} />
             <Route path="/unauthorized" component={Unauthorized} />
             <Route
