@@ -8,6 +8,7 @@ import {
   faLocationDot,
   faPlaceOfWorship,
   faMoneyBillWave,
+  faCalendarAlt,
 } from "@fortawesome/free-solid-svg-icons";
 
 import Modal from "react-modal";
@@ -263,7 +264,10 @@ const JobList = () => {
               onClick={() => handleJobClick(job)}
             >
               <p
+                className="highlight-text"
                 style={{
+                  fontSize: "1rem",
+                  fontFamily: "Inter",
                   fontWeight: "600",
                 }}
               >
@@ -271,7 +275,9 @@ const JobList = () => {
               </p>
               <p
                 style={{
-                  fontWeight: "600",
+                  fontSize: "0.86rem",
+                  fontFamily: "Inter",
+                  fontWeight: "500",
                 }}
               >
                 {" "}
@@ -280,12 +286,14 @@ const JobList = () => {
 
               <p
                 style={{
-                  color: "#07bc0c",
+                  color: "#E05C3A",
+                  fontWeight: "500",
                 }}
               >
                 <FontAwesomeIcon
-                  icon={faDollarSign}
+                  icon={faMoneyBillWave}
                   style={{
+                    color: "#0767B8",
                     marginRight: "5px",
                   }}
                 />
@@ -293,11 +301,18 @@ const JobList = () => {
                 VND <br />
                 {job.salaryType}
               </p>
-              <p>
+              <p
+                style={{
+                  marginRight: "5px",
+                  fontFamily: "Inter",
+                  fontWeight: "600",
+                }}
+              >
                 <FontAwesomeIcon
                   icon={faLocationDot}
                   style={{
-                    marginRight: "5px",
+                    color: "#0767B8",
+                    paddingRight: "10px",
                   }}
                 />
                 {job.address}
@@ -314,14 +329,17 @@ const JobList = () => {
             <div className="scrollable-right">
               <div className="job-details-header">
                 <h2>{selectedJob.title}</h2>
-                <p>{selectedJob.nameCompany}</p>
+                <p style={{ fontSize: "1.2rem", fontWeight: "300" }}>
+                  {selectedJob.nameCompany}
+                </p>
                 <p
                   style={{
                     color: "#07bc0c",
+                    fontWeight: "500",
                   }}
                 >
                   <FontAwesomeIcon
-                    icon={faDollarSign}
+                    icon={faMoneyBillWave}
                     style={{
                       marginRight: "5px",
                     }}
@@ -342,26 +360,28 @@ const JobList = () => {
                 </button>
               </div>
               <div className="job-address">
-                <p>
+                <p style={{ fontSize: "0.9rem", fontFamily: "Inter" }}>
                   <strong>Job Type:</strong> {selectedJob.jobType}
                 </p>
-                <p>
+                <p style={{ fontSize: "0.9rem", fontFamily: "Inter" }}>
                   <strong>Job Categories:</strong> {selectedJob.jobCategories}
                 </p>
-                <p>
+                <p style={{ fontSize: "0.9rem", fontFamily: "Inter" }}>
                   <FontAwesomeIcon
                     icon={faPlaceOfWorship}
                     style={{
                       marginRight: "5px",
+                      color: "#008000",
                     }}
                   />{" "}
                   {selectedJob.workPlace}
                 </p>
-                <p>
+                <p style={{ fontSize: "0.9rem", fontFamily: "Inter" }}>
                   <FontAwesomeIcon
                     icon={faLocationDot}
                     style={{
                       marginRight: "5px",
+                      color: "#008000",
                     }}
                   />{" "}
                   {selectedJob.address}
@@ -370,9 +390,9 @@ const JobList = () => {
               <div className="reason">
                 <h4>Reasons to join us</h4>
                 {Array.isArray(selectedJob.reason) ? (
-                  <ul>
+                  <ul style={{ fontSize: "0.9rem", fontFamily: "Inter" }}>
                     {selectedJob.reason.map((reason, index) => (
-                      <li key={index}>{reason}</li>
+                      <li key={index}>{reason} </li>
                     ))}
                   </ul>
                 ) : (
@@ -381,17 +401,30 @@ const JobList = () => {
               </div>
               <div className="job-skill">
                 <h4>Your skills and experience</h4>
-                <p>{selectedJob.experience} experience</p>
-                <p>{selectedJob.skills}</p>
-                <p>{selectedJob.qualifications}</p>
+                <p style={{ fontSize: "0.9rem", fontFamily: "Inter" }}>
+                  {selectedJob.experience} experience
+                </p>
+                <p style={{ fontSize: "0.9rem", fontFamily: "Inter" }}>
+                  {selectedJob.skills}
+                </p>
+                <p style={{ fontSize: "0.9rem", fontFamily: "Inter" }}>
+                  {selectedJob.qualifications}
+                </p>
               </div>
+
               <div className="job-description">
                 <h4>Job description</h4>
-                <p>{selectedJob.description}</p>
+                <p style={{ fontSize: "0.9rem", fontFamily: "Inter" }}>
+                  {selectedJob.description}
+                </p>
               </div>
               {selectedJob.workingDays &&
                 selectedJob.workingDays.length > 0 && (
-                  <p>
+                  <p className="working-days">
+                    <FontAwesomeIcon
+                      icon={faCalendarAlt}
+                      style={{ color: "#008000", paddingRight: "10px" }}
+                    />
                     <strong>Working Days:</strong>{" "}
                     {selectedJob.workingDays.join(", ")}
                   </p>

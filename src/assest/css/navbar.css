@@ -30,18 +30,32 @@
 
 .btn-recruiter,
 .btn-job-seeker {
-  background-color: #1967d2;
+  background: linear-gradient(90deg, #1967d2, #1a73e8);
   color: white;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+  padding: 10px 22px;
+  border-radius: 50px;
   cursor: pointer;
   font-size: 16px;
+  font-family: 'Alexandria', sans-serif;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  text-align: center;
+  display: inline-block;
+  margin: 10px;
 }
 
 .btn-recruiter:hover,
 .btn-job-seeker:hover {
-  background-color: #0056b3;
+  background: linear-gradient(90deg, #0056b3, #0041a3);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.btn-recruiter:active,
+.btn-job-seeker:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 

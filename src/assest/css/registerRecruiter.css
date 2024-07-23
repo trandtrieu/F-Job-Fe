@@ -1,136 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+/* .registration-container {
+  display: flex;
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: #fff;
+  flex: 2;
+} */
 .registration-container {
-    display: flex;
-    max-width: 1200px;
-    margin: 60px auto;
-    padding: 20px;
-    border: none;
-    border-radius: 8px;
-    background-color: #fff;
-    flex: 2;
-  }
-  
-  .registration-form {
-    flex: 1;
-    padding: 20px;
-    border: 2px;
-  }
-  
-  .registration-form h2 {
-    color: #1967d2;
-    margin-bottom: 20px;
-    margin-top: 30px;
-  }
-  
-  .registration-form p {
-    color: gray;
- 
-  }
-  
-  .form-group-recruiter {
-    margin-bottom: 20px;
-    font-size: 15px;
-    font-weight: 600;
-  }
-  
-  .form-group-recruiter label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .form-group-recruiter input,
-  .form-group-recruiter select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #1967d2;
-    border-radius: 4px;
-    
-  }
-
-  .inline {
-    display: flex;
-    align-items: center;
-    margin-right: 640px;
-
-  }
-  
-  .inline input[type="checkbox"] {
-   flex: 1;
-  }
-  
-  .inline label {
-    display: flex;
-    flex: 2;
-    align-items: center;
-  }
-  
-  .inline a {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  .inline a:hover {
-    text-decoration: underline;
-  }
-  
+  display: grid;
+  grid-template-columns: 6fr 4fr;
+  gap: 2rem;
+  /* padding: 2rem; */
+  /* max-width: 1200px; */
+  margin: 60px auto;
+ padding-left: 50px;
+  border: none;
+  border-radius: 8px;
+  background-color: #fff;
+  flex: 2;
+  margin-top: 96px;
+}
 
 
-  .form-group-recruiter input[type="radio"] {
-    width: auto;
-    margin-right: 10px;
-  }
-  
-  .btn-recruiter-page {
-    width: 100%;
-    padding: 15px;
-    background-color: #1967d2;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .btn-recruiter-page:hover {
-    background-color: #1967d2;
-  }
-  
-  .registration-image {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f9f9f9;
-  }
-  
-  .registration-image img {
-    max-width: 100%;
-    border-radius: 8px;
-  }
-  
-  fieldset {
-    border: 1px solid #1967d2;
-    padding: 10px;
-    margin-bottom: 20px;
-  }
-  
-  legend {
-    padding: 0 10px;
-    font-weight: bold;
-    color: #1967d2;
-  }
-  .next-page {
-    text-align: center;
-    margin-top: 20px;
-  }
+.registration-form {
+  flex: 1;
+  padding: 20px;
+  border: 2px;
+}
 
-  .gender-group {
-    display: flex;
-    align-items: center;
-  }
-  
-  .gender-group input[type="radio"] {
-    margin-left: 15px;
-    margin-right: 5px;
-  }
+.registration-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.registration-image img {
+  max-width: 100%;
+  border-radius: 8px;
+}
 
-  
+.registration-form h2 {
+  color: #1967d2;
+  margin-bottom: 20px;
+  margin-top: 58px;
+  font-family: "Inter, sans-serif";
+}
+
+.registration-form p {
+  color: rgb(255, 0, 0);
+  font-family: 'Alexandria', sans-serif;
+  font-size: 0.9rem;
+}
+
+.form-group-recruiter {
+  margin-bottom: 20px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.form-group-recruiter label {
+  display: block;
+  margin-bottom: 5px;
+  font-family: 'Inter';
+}
+
+.form-group-recruiter input,
+.form-group-recruiter select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #1967d2;
+  border-radius: 4px;
+  color: gray;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group-recruiter input:focus,
+.form-group-recruiter select:focus {
+  border-color: #005599;
+  box-shadow: 0 0 5px rgba(0, 85, 153, 0.5);
+  outline: none;
+}
+
+.form-group-recruiter input.error,
+.form-group-recruiter select.error {
+  border-color: red;
+}
+
+.inline {
+  display: flex;
+  align-items: center;
+  margin-right: 640px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+}
+
+.inline input[type="checkbox"] {
+  flex: 1;
+}
+
+.inline label {
+  display: flex;
+  flex: 2;
+  align-items: center;
+}
+
+.inline a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.inline a:hover {
+  text-decoration: underline;
+}
+
+.form-group-recruiter input[type="radio"] {
+  width: auto;
+  margin-right: 10px;
+  font-family: "Inter";
+}
+
+.btn-recruiter-page {
+  width: 100%;
+  padding: 15px;
+  background-color: #1967d2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.btn-recruiter-page:hover {
+  background-color: #005599;
+}
+
+.registration-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9f9f9;
+}
+
+.registration-image img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+fieldset {
+  border: 1px solid #1967d2;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+legend {
+  padding: 0 10px;
+  font-weight: bold;
+  color: #1967d2;
+}
+
+.next-page {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+}
+
+.gender-group {
+  display: flex;
+  align-items: center;
+}
+
+.gender-group input[type="radio"] {
+  margin-left: 15px;
+  margin-right: 5px;
+}
+
+.phone-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: #005599; /* Lighter color */
+  color: #f9f9f9;
+  transition: background-color 0.3s ease;
+}
+
+.policy-link {
+  color: #005599;
+  text-decoration: none;
+}
+
+.policy-link:hover {
+  text-decoration: underline;
+}
+.error-text {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 5px;
+}
+
+.form-group-recruiter.inline {
+  margin-right: 350px;
+}
+
+.highlight-text {
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  color: #333;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.highlight-text:hover {
+  color: #005599;
+  text-shadow: 2px 2px 8px rgba(0, 85, 153, 0.5);
+}

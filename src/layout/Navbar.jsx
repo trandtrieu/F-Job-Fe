@@ -137,9 +137,12 @@ export default function Navbar() {
             </div>
 
             <div className="outer-box">
-              <a href="/cvs" className="upload-cv">
-                Upload your CV
-              </a>
+              {user && (
+                <a href="/cvs" className="upload-cv">
+                  Upload your CV
+                </a>
+              )}
+
               <div className="btn-box">
                 <a
                   className="theme-btn-role btn-style-one"
@@ -216,24 +219,47 @@ export default function Navbar() {
         className="custom-modal"
         overlayClassName="custom-overlay"
       >
-        <h2>Chào bạn,</h2>
+        <h2
+          style={{
+            paddingTop: "30px",
+            fontFamily: "inherit",
+            fontWeight: "400",
+          }}
+        >
+          Hello,
+        </h2>
         <button onClick={() => setIsModalOpen(false)} className="btn-navbar">
           <FontAwesomeIcon icon={faXmark} />
         </button>
-        <p>Bạn hãy dành ra vài giây để xác nhận thông tin dưới đây nhé!</p>
-        <p>
-          Để tối ưu tốt nhất cho trải nghiệm của bạn với F-Job , vui lòng lựa
-          chọn nhóm phù hợp nhất với bạn.
+        <p>Please take a few seconds to confirm the information below!</p>
+        <p
+          style={{
+            fontWeight: "400",
+            fontSize: "1.1rem",
+            marginBottom: "20px",
+            color: "#1F1F1F",
+          }}
+        >
+          To best optimize your experience with FJOB, please choose the group
+          that best suits you.
         </p>
+        <img
+          src="https://tuyendung.topcv.vn/app/_nuxt/img/bussiness.efbec2d.png"
+          style={{ width: "358px" }}
+        ></img>
+        <img
+          src="https://tuyendung.topcv.vn/app/_nuxt/img/student.c1c39ee.png"
+          style={{ width: "358px" }}
+        ></img>
         <div className="modal-buttons">
           <button className="btn-recruiter" onClick={handleRegisterClick}>
-            Tôi là nhà tuyển dụng
+            I am a recruiter!
           </button>
           <button
             className="btn-job-seeker"
             onClick={handleJobSeekerRegisterClick}
           >
-            Tôi là ứng viên tìm việc
+            I am a candidate!
           </button>
         </div>
         <div className="next-page">

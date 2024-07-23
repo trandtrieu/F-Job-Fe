@@ -189,14 +189,6 @@ const Login = () => {
                       <i className="fab fa-google" /> Log In via Gmail
                     </button>
                   </div>
-                  <div className="bottom-box">
-                    <div className="text">
-                      Don't have an account? <a href="/register">Signup</a>
-                    </div>
-                    <div className="divider">
-                      <span>or</span>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
