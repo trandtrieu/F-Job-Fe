@@ -7,6 +7,7 @@ import {
   faDollarSign,
   faLocationDot,
   faPlaceOfWorship,
+  faMoneyBillWave,
 } from "@fortawesome/free-solid-svg-icons";
 
 import Modal from "react-modal";
@@ -289,6 +290,7 @@ const JobList = () => {
                   }}
                 />
                 {formatSalary(job.minSalary)} - {formatSalary(job.maxSalary)}{" "}
+                VND <br />
                 {job.salaryType}
               </p>
               <p>
@@ -307,7 +309,7 @@ const JobList = () => {
         )}
       </div>
       {selectedJob && (
-        <div className="job-details">
+        <div className="job-details" style={{ marginTop: "40px" }}>
           <div className="scrollable-container">
             <div className="scrollable-right">
               <div className="job-details-header">
@@ -325,7 +327,8 @@ const JobList = () => {
                     }}
                   />
                   {formatSalary(selectedJob.minSalary)} -{" "}
-                  {formatSalary(selectedJob.maxSalary)} {selectedJob.salaryType}
+                  {formatSalary(selectedJob.maxSalary)} VND <br />
+                  {selectedJob.salaryType}{" "}
                 </p>
                 <button className="apply-now-btn" onClick={openModal}>
                   Apply Now

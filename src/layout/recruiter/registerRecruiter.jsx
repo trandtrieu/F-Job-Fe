@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../../assest/css/registerRecruiter.css";
+import { toast } from "react-toastify";
 
 const RecruiterRegistration = () => {
   const [formData, setFormData] = useState({
@@ -10,7 +11,7 @@ const RecruiterRegistration = () => {
     city: "",
     district: "",
     gender: "",
-    email: "",
+    emailRecruiter: "",
     password: "",
     confirmPassword: "",
   });
@@ -50,10 +51,34 @@ const RecruiterRegistration = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Xử lý logic đăng ký nhà tuyển dụng ở đây
-    console.log(formData);
+
+    const { confirmPassword, ...rest } = formData;
+
+    if (rest.password !== confirmPassword) {
+      toast.error("Passwords do not match!");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3005/recruiter/register-recruiter",
+        rest
+      );
+
+      if (response.status === 200) {
+        toast.success("Register with Recruiter successfully");
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 3000);
+      } else {
+        toast.error("Error register Recruiter");
+      }
+    } catch (error) {
+      console.error("There was an error!", error);
+      toast.error("An error occurred while registering.");
+    }
   };
 
   return (
@@ -81,8 +106,8 @@ const RecruiterRegistration = () => {
             <label>Email</label>
             <input
               type="email"
-              name="email"
-              value={formData.email}
+              name="emailRecruiter"
+              value={formData.emailRecruiter}
               onChange={handleChange}
               required
             />
@@ -160,39 +185,23 @@ const RecruiterRegistration = () => {
               required
             />
           </div>
-
           <div className="form-group-recruiter">
             <label>Work location</label>
-            <select
+            <input
               name="city"
               value={formData.city}
-              onChange={handleCityChange}
+              onChange={handleChange}
               required
-            >
-              <option value="">Select province/city</option>
-              {cities.map((city) => (
-                <option key={city.id} value={city.id}>
-                  {city.name}
-                </option>
-              ))}
-            </select>
+            ></input>
           </div>
-
           <div className="form-group-recruiter">
             <label>District</label>
-            <select
+            <input
               name="district"
               value={formData.district}
               onChange={handleChange}
               required
-            >
-              <option value="">Select district</option>
-              {districts.map((district) => (
-                <option key={district.id} value={district.id}>
-                  {district.name}
-                </option>
-              ))}
-            </select>
+            ></input>
           </div>
 
           <div className="form-group-recruiter inline">
@@ -201,16 +210,12 @@ const RecruiterRegistration = () => {
           </div>
 
           <button type="submit" className="btn-recruiter-page">
-            Hoàn tất
+            Submit
           </button>
         </form>
         <div className="next-page">
           You have account? <a href="/login-recruiter">Login Recruiter</a>
         </div>
-      </div>
-
-      <div className="registration-image">
-        <img src="/path/to/your/image.png" alt="Registration" />
       </div>
     </div>
   );

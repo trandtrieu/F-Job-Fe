@@ -17,21 +17,21 @@ import JobPost from "./layout/JobPost";
 import JobList from "./layout/JobList";
 import DashboardRecruiter from "./layout/recruiter/DashboardRecruiter";
 import ApproveSchedule from "./layout/recruiter/ApproveSchedule";
-import ManageJobList from "./layout/admin/ManageJobList";
 import ProfileCandidate from "./layout/ProfileCandidate";
 import ChangePassword from "./layout/ChangePassword";
-
 import ProfileCV from "./layout/ProfileCV";
-
-import ProtectedRoute from "./utils/auth";
-import Unauthorized from "./layout/Unauthorized";
-import RecruiterRegistration from "./layout/recruiter/registerRecruiter";
 import AllApplicant from "./layout/recruiter/AllApplicant";
 import AllCandidate from "./layout/recruiter/AllCandidate";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import AllJob from "./layout/recruiter/AllJob";
 import AllJobRecruiter from "./layout/recruiter/AllJobRecruiter";
-
+import ManageJobList from "../src/layout/recruiter/ManageJobList";
+import ProtectedRoute from "./utils/auth";
+import Unauthorized from "./layout/Unauthorized";
+import RecruiterRegistration from "./layout/recruiter/registerRecruiter";
+import LoginRecruiter from "./layout/recruiter/loginRecruiter";
+import UpdateJobPost from "./layout/recruiter/updateJobPost";
+import JobDetails from "./layout/recruiter/viewJobDetails";
 function App() {
   return (
     <div className="App">
@@ -71,9 +71,6 @@ function App() {
               component={ResetPassword}
             />
             <Route path="/job-list" component={JobList} />
-            <Route path="/job-post" component={JobPost} />
-            <Route path="/dashboard-recruiter" component={DashboardRecruiter} />
-            <Route path="/all-applicant" component={AllApplicant} />
             <Route path="/all-candidate" component={AllCandidate} />
             <Route path="/all-job" component={AllJob} />
             <Route
@@ -82,12 +79,44 @@ function App() {
             />
 
             <Route path="/approve-schedule" component={ApproveSchedule} />
-            <Route path="/manage-job-list" component={ManageJobList} />
-            <Route path="/unauthorized" component={Unauthorized} />
+            <Route path="/job-list" component={JobList} />
+            {/* <ProtectedRoute
+              path="/dashboard-applicant"
+              component={DashboardApplicant}
+              allowedRoles={["recruiter", "admin"]}
+            /> */}
+
+            <ProtectedRoute
+              path="/dashboard-recruiter"
+              component={DashboardRecruiter}
+              allowedRoles={["recruiter", "admin"]}
+            />
+            <ProtectedRoute
+              path="/job-post"
+              component={JobPost}
+              allowedRoles={["recruiter", "admin"]}
+            />
+            <ProtectedRoute
+              path="/manage-job-list"
+              component={ManageJobList}
+              allowedRoles={["recruiter", "admin"]}
+            />
+            <ProtectedRoute
+              path="/update-job/:jobId"
+              component={UpdateJobPost}
+              allowedRoles={["recruiter", "admin"]}
+            />
+            <ProtectedRoute
+              path="/job-details/:jobId"
+              component={JobDetails}
+              allowedRoles={["recruiter", "admin"]}
+            />
+            <Route path="/login-recruiter" component={LoginRecruiter} />
             <Route
               path="/register-recruiter"
               component={RecruiterRegistration}
             />
+            <Route path="/unauthorized" component={Unauthorized} />
           </Switch>
         </Router>
       </UserProvider>
