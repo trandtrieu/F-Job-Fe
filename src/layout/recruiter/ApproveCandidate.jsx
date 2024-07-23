@@ -3,13 +3,19 @@ import { sendApplicationMail } from '../../services/MailService';
 import { useHistory, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import NavbarRecruiter from "./NavbarRecruiter";
-
+import axios from 'axios';
 const ApproveCandidate = () => {
     const location = useLocation();
     const history = useHistory();
     const [email, setEmail] = useState('');
+    const [date, setDate] = useState('');
     const [time, setTime] = useState('');
+    const [status, setStatus] = useState('');
     const [description, setDescription] = useState('');
+
+    const handleOnChangeDate = (e) => {
+        setDate(e.target.value)
+    }
 
     const handleOnChangeTime = (e) => {
         setTime(e.target.value)
@@ -25,28 +31,42 @@ const ApproveCandidate = () => {
             setEmail(location.state.email);
         } else {
             // Nếu không có email trong state, điều hướng người dùng trở lại trang trước
-            history.push('/all-applicant');
+            history.push('/all-job');
         }
     }, [location, history]);
+
+
+    useEffect(() => {
+        if (location.state && location.state.status) {
+            setStatus(location.state.status);
+        } else {
+            console.log("erro")
+        }
+
+    }, [location]);
+
+    console.log("status", status)
+    console.log("email", email)
 
 
     const handleSendMail = async (e) => {
         e.preventDefault();
         try {
-            const mailData = { email, time, description };
+            const mailData = { email, date, time, description };
             await sendApplicationMail(mailData);
+            // Update status to "Approve"
+            await axios.post('http://localhost:3005/job/update-applicant-status', {email, status: 'APPROVED'});
+
             alert('Email sent successfully');
             toast.success("Email sent successfully")
-            history.push("/all-applicant")
-
+            history.push("/all-job")
         } catch (error) {
             alert('Failed to send email');
         }
     };
 
-    console.log("email", email)
 
-    console.log("time", time, description)
+    console.log("time", date, time, description)
     return (
         <div>
             <div className="page-wrapper dashboard ">
@@ -82,6 +102,16 @@ const ApproveCandidate = () => {
                                             <form className="default-form" onSubmit={handleSendMail}>
                                                 <div className="row">
                                                     {/* Input */}
+                                                    <div className="form-group col-lg-6 col-md-12">
+                                                        <label>Date</label>
+                                                        <input
+                                                            type="date"
+                                                            className="form-control"
+                                                            value={date}
+                                                            onChange={handleOnChangeDate}
+                                                        />
+                                                    </div>
+
                                                     <div className="form-group col-lg-6 col-md-12">
                                                         <label>Time</label>
                                                         <select className="chosen-select" value={time} onChange={handleOnChangeTime}>

@@ -31,26 +31,8 @@ const AllApplicant = () => {
     return (
         <div>
             <div className="page-wrapper dashboard ">
-                {/* Preloader */}
-                {/* <div className="preloader" /> */}
-                {/* Header Span */}
                 <span className="header-span" />
-                {/* Sidebar Backdrop */}
-                <div className="sidebar-backdrop" />
-
-                {/* User Sidebar */}
-                {/* <div className="user-sidebar">
-                    <div className="sidebar-inner">
-                        <ul className="navigation">
-                            <li><a href="/all-applicant"><i className="la la-file-invoice" /> All Applicants</a></li>
-                            <li><a href="/all-candidate"><i className="la la-bell" />All Candidates</a></li>
-                            <li><a href="index.html"><i className="la la-sign-out" />Logout</a></li>
-                        </ul>
-                    </div>
-                </div> */}
-
-                <NavbarRecruiter/>
-                {/* End User Sidebar */}
+                <NavbarRecruiter />
                 <section className="user-dashboard">
                     <div className="dashboard-outer">
                         <div className="upper-title-box">

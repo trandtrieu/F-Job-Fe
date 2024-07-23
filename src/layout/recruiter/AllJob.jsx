@@ -7,7 +7,7 @@ export default function AllJob() {
   const [jobs, setJobs] = useState([]);
   const history = useHistory();
 
-  const userId = "6697d6da2e4b022845e4d5a7"; // Replace with actual user ID
+  const userId = "669f7d9af3b965dfb561de82"; // Replace with actual user ID
 
   useEffect(() => {
     const fetchJobs = async () => {

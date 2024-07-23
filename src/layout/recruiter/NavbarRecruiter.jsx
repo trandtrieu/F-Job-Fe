@@ -4,25 +4,40 @@ export default function NavbarRecruiter() {
   return (
     <>
       <div>
-        {/* User Sidebar */}
         <div className="user-sidebar">
           <div className="sidebar-inner">
             <ul className="navigation">
+
               <li>
-                <a href="/all-applicant">
-                  <i className="la la-file-invoice" /> All Applicants
+                <a href="#">
                 </a>
               </li>
+
+              <li>
+                <a href="/all-applicant">
+                  <i className="la la-file-invoice" />
+                  All Applicants
+                </a>
+              </li>
+
               <li>
                 <a href="/all-candidate">
                   <i className="la la-bell" />
                   All Candidates
                 </a>
               </li>
+
               <li>
                 <a href="/all-job">
                   <i className="la la-bell" />
                   All Jobs
+                </a>
+              </li>
+
+              <li>
+                <a href="/manage-job-list">
+                  <i className="la la-briefcase" />
+                  Manage Jobs
                 </a>
               </li>
 
@@ -32,10 +47,10 @@ export default function NavbarRecruiter() {
                   Logout
                 </a>
               </li>
+
             </ul>
           </div>
         </div>
-        {/* End User Sidebar */}
       </div>
     </>
   );

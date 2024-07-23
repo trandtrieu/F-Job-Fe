@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWrench } from "@fortawesome/free-solid-svg-icons";
 import UpdateJobPost from "./updateJobPost";
 import { useHistory } from "react-router-dom";
+import NavbarRecruiter from "./NavbarRecruiter";
+
 const ManageJobList = () => {
   const [jobs, setJobs] = useState([]);
   const [dateString, setDateString] = useState(null);
@@ -85,54 +87,7 @@ const ManageJobList = () => {
   return (
     <div className="page-wrapper dashboard">
       <span className="header-span"></span>
-
-      <div className="user-sidebar">
-        <div className="sidebar-inner">
-          <ul className="navigation">
-            <li>
-              <a href="dashboard-company-profile.html">
-                <i className="la la-user-tie" />
-                Company Profile
-              </a>
-            </li>
-            <li>
-              <a href="/manage-job-list">
-                <i className="la la-briefcase" /> Manage Jobs{" "}
-              </a>
-            </li>
-            <li>
-              <a href="/dashboard-applicant">
-                <i className="la la-file-invoice" /> All Applicants
-              </a>
-            </li>
-            <li>
-              <a href="dashboard-change-password.html">
-                <i className="la la-lock" />
-                Change Password
-              </a>
-            </li>
-            <li>
-              <a href="dashboard-company-profile.html">
-                <i className="la la-user-alt" />
-                View Profile
-              </a>
-            </li>
-            <li>
-              <a href="index.html">
-                <i className="la la-sign-out" />
-                Logout
-              </a>
-            </li>
-            <li>
-              <a href="index.html">
-                <i className="la la-trash" />
-                Delete Profile
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-
+      <NavbarRecruiter />
       <section className="user-dashboard">
         <div className="dashboard-outer">
           <div className="upper-title-box">
@@ -170,9 +125,8 @@ const ManageJobList = () => {
                               <td>{formatDate(job.createdAt)}</td>
                               <td>{formatDate(job.expiredDate)}</td>
                               <td
-                                className={`status ${
-                                  job.status === "INACTIVE" ? "inactive" : ""
-                                }`}
+                                className={`status ${job.status === "INACTIVE" ? "inactive" : ""
+                                  }`}
                               >
                                 {job.status}
                               </td>

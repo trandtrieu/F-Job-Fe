@@ -4,8 +4,10 @@ import { useParams } from "react-router-dom";
 import NavbarRecruiter from "./NavbarRecruiter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-
+import { useHistory } from 'react-router-dom';
+import { toast } from "react-toastify";
 export default function AllJobRecruiter() {
+  const history = useHistory();
   const { jobId } = useParams(); // Get jobId from URL params
 
   const [candidates, setCandidates] = useState([]);
@@ -24,7 +26,10 @@ export default function AllJobRecruiter() {
         const response = await axios.get(
           `http://localhost:3005/job/${jobId}/applicants`
         );
+        console.log("response", response)
+
         setCandidates(response.data.applicants || []); // Access the applicants array
+        console.log("CandidateEmail", candidates.email)
       } catch (error) {
         console.error("Error fetching candidates:", error);
         setError(error.message);
@@ -35,6 +40,7 @@ export default function AllJobRecruiter() {
 
     fetchCandidates();
   }, [jobId]);
+
   const formatDate = (dateString) => {
     const options = {
       year: "numeric",
@@ -47,6 +53,37 @@ export default function AllJobRecruiter() {
   };
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
+
+  
+  // Thinh - handleApproveClick
+  const handleApproveClick = () => {
+    history.push({
+      pathname: '/approve-schedule',
+      state: { email: candidates.email }
+    });
+  };
+  // Thinh - handleRejectClick
+  const handleRejectClick = async (email) => {
+    // const reason = prompt("Please enter the reason for rejection:");
+    // if (!reason) return;
+
+    try {
+      // Gửi email từ chối
+      await axios.post('http://localhost:3005/job/send-reject-email', {
+        email
+      });
+
+      // Cập nhật trạng thái là "REJECT"
+      await axios.post('http://localhost:3005/job/update-applicant-status', {
+        email,
+        status: 'REJECTED'
+      });
+      toast.success("Successed to reject applicant");
+      history.push("/all-job");
+    } catch (error) {
+      toast.error(`Failed to reject applicant`);
+    }
+  };
 
   return (
     <div className="page-wrapper dashboard">
@@ -139,7 +176,7 @@ export default function AllJobRecruiter() {
                                     </ul>
                                     <ul className="post-tags">
                                       <li>
-                                        <a href="#">App</a>
+                                        <a href="#">{applicant.status}</a>
                                       </li>
                                       <li>
                                         <a href="#">Design</a>
@@ -157,12 +194,18 @@ export default function AllJobRecruiter() {
                                         </button>
                                       </li>
                                       <li>
-                                        <button data-text="Approve Application">
+                                        <button data-text="Approve Application" onClick={() => {
+                                          history.push({
+                                            pathname: '/approve-schedule',
+                                            state: { email: applicant.email, status: applicant.status}
+                                          });
+                                        }
+                                        }>
                                           <span className="la la-check" />
                                         </button>
                                       </li>
                                       <li>
-                                        <button data-text="Reject Application">
+                                        <button data-text="Reject Application" onClick={() => handleRejectClick(applicant.email)}>
                                           <span className="la la-times-circle" />
                                         </button>
                                       </li>
