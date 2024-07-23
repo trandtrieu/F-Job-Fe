@@ -1,17 +1,9 @@
 import React from "react";
-import CandidatesUser from "../../Component/CandidatesUser/CandidatesUser";
 
-const AllCandidate = () => {
+export default function NavbarRecruiter() {
   return (
-    <div>
-      <div className="page-wrapper dashboard ">
-        {/* Preloader */}
-        <div className="preloader" />
-        {/* Header Span */}
-        <span className="header-span" />
-        {/* Sidebar Backdrop */}
-        <div className="sidebar-backdrop" />
-
+    <>
+      <div>
         {/* User Sidebar */}
         <div className="user-sidebar">
           <div className="sidebar-inner">
@@ -28,6 +20,13 @@ const AllCandidate = () => {
                 </a>
               </li>
               <li>
+                <a href="/all-job">
+                  <i className="la la-bell" />
+                  All Jobs
+                </a>
+              </li>
+
+              <li>
                 <a href="index.html">
                   <i className="la la-sign-out" />
                   Logout
@@ -37,11 +36,7 @@ const AllCandidate = () => {
           </div>
         </div>
         {/* End User Sidebar */}
-        <CandidatesUser />
       </div>
-      {/* End Page Wrapper */}
-    </div>
+    </>
   );
-};
-
-export default AllCandidate;
+}

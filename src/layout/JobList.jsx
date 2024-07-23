@@ -7,12 +7,12 @@ import {
   faDollarSign,
   faLocationDot,
   faPlaceOfWorship,
+  faMoneyBillWave,
 } from "@fortawesome/free-solid-svg-icons";
 
 import Modal from "react-modal";
 import { UserContext } from "../utils/UserContext";
 import { toast } from "react-toastify";
-import { Tooltip } from "react-tooltip";
 
 Modal.setAppElement("#root");
 
@@ -41,9 +41,8 @@ const JobList = () => {
   const [jobs, setJobs] = useState([]);
   const [selectedJob, setSelectedJob] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [profileModalIsOpen, setProfileModalIsOpen] = useState(false);
+
   const [cv, setCv] = useState(null);
   const [degree, setDegree] = useState(null);
   const [cvs, setCvs] = useState([]);
@@ -55,6 +54,15 @@ const JobList = () => {
   const token = user ? user.token : null;
   const [cvFileURL, setCvFileURL] = useState("");
   const [degreeFileURL, setDegreeFileURL] = useState("");
+  const [profileComplete, setProfileComplete] = useState(false);
+
+  const [profileData, setProfileData] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    introduce: "",
+    image: "",
+  });
 
   const formatSalary = (salary) => {
     return new Intl.NumberFormat("en-US", {
@@ -115,8 +123,32 @@ const JobList = () => {
           );
           setDegrees(responseDegrees.data.degreeList);
           console.log("List Degrees: ", responseDegrees.data.degreeList);
+
+          // Fetch candidate profile information
+          const responseProfile = await axios.get(
+            `http://localhost:3005/api/user/candidate/profiles/${userId}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          const profile = responseProfile.data.profile;
+
+          setProfileData({
+            fullName: responseProfile.data.profile.fullName,
+            email: responseProfile.data.profile.email,
+            phone: responseProfile.data.profile.phone,
+            image: responseProfile.data.profile.image,
+            introduce: "",
+          });
+          setProfileComplete(
+            !!profile.fullName && !!profile.email && !!profile.phone
+          );
+
+          console.log(responseProfile.data);
         } catch (err) {
-          console.error("Error fetching CVs and degrees:", err);
+          console.error("Error fetching CVs, degrees, or profile:", err);
         }
       }
     };
@@ -130,7 +162,11 @@ const JobList = () => {
   };
   const openModal = () => {
     if (selectedJob) {
-      setModalIsOpen(true);
+      if (profileComplete) {
+        setModalIsOpen(true);
+      } else {
+        setProfileModalIsOpen(true);
+      }
     }
   };
 
@@ -138,7 +174,10 @@ const JobList = () => {
     setModalIsOpen(false);
   };
 
-  //trieu- apply job
+  const closeProfileModal = () => {
+    setProfileModalIsOpen(false);
+  };
+
   const handleApply = async (e) => {
     e.preventDefault();
     if (!selectedJob._id) {
@@ -146,18 +185,19 @@ const JobList = () => {
       return;
     }
 
-    if (!cv || !degree || !name || !email || !phone) {
-      toast.error("Please fill all required fields.");
+    if (!cv || !degree) {
+      toast.error("Please select CV and Degree.");
       return;
     }
 
     const formData = new FormData();
     formData.append("cvPath", cv);
     formData.append("degreePath", degree);
-    formData.append("fullName", name);
-    formData.append("email", email);
-    formData.append("phone", phone);
-    formData.append("introduce", "");
+    formData.append("fullName", profileData.fullName);
+    console.log("new name: " + profileData.fullName);
+    formData.append("email", profileData.email);
+    formData.append("phone", profileData.phone);
+    formData.append("introduce", profileData.introduce || "");
 
     try {
       const response = await axios.post(
@@ -174,15 +214,25 @@ const JobList = () => {
       closeModal();
     } catch (error) {
       console.error("There was an error!", error);
-      toast.error("There was an error submitting your application.");
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("There was an error submitting your application.");
+      }
     }
   };
+  useEffect(() => {
+    console.log("Profile Data has changed:", profileData);
+  }, [profileData]);
 
   const handleCvChange = (e) => {
     const file = e.target.files[0];
     setCv(file);
     setCvName(file?.name || "");
-    // const fileURL = file ? URL.createObjectURL(file) : "";
     const fileURL = `http://localhost:3005/api/uploadCv/download/${file}`;
     setCvFileURL(fileURL);
   };
@@ -193,6 +243,13 @@ const JobList = () => {
     setDegreeName(file?.name || "");
     const fileURL = file ? URL.createObjectURL(file) : "";
     setDegreeFileURL(fileURL);
+  };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setProfileData((prevProfileData) => ({
+      ...prevProfileData,
+      [name]: value,
+    }));
   };
 
   return (
@@ -233,6 +290,7 @@ const JobList = () => {
                   }}
                 />
                 {formatSalary(job.minSalary)} - {formatSalary(job.maxSalary)}{" "}
+                VND <br />
                 {job.salaryType}
               </p>
               <p>
@@ -251,7 +309,7 @@ const JobList = () => {
         )}
       </div>
       {selectedJob && (
-        <div className="job-details">
+        <div className="job-details" style={{ marginTop: "40px" }}>
           <div className="scrollable-container">
             <div className="scrollable-right">
               <div className="job-details-header">
@@ -269,7 +327,8 @@ const JobList = () => {
                     }}
                   />
                   {formatSalary(selectedJob.minSalary)} -{" "}
-                  {formatSalary(selectedJob.maxSalary)} {selectedJob.salaryType}
+                  {formatSalary(selectedJob.maxSalary)} VND <br />
+                  {selectedJob.salaryType}{" "}
                 </p>
                 <button className="apply-now-btn" onClick={openModal}>
                   Apply Now
@@ -382,10 +441,6 @@ const JobList = () => {
                         )}
                       </span>
                     </div>
-                    <Tooltip id="cvTooltip" place="top" effect="solid">
-                      <h1>hello</h1>
-                      {/* <iframe src={cvFileURL} width="400" height="300"></iframe> */}
-                    </Tooltip>
                   </div>
                 </div>
                 <div className="col-md-12">
@@ -417,13 +472,6 @@ const JobList = () => {
                         )}
                       </span>
                     </div>
-                    <Tooltip id="degreeTooltip" place="top" effect="solid">
-                      <iframe
-                        src={degreeFileURL}
-                        width="400"
-                        height="300"
-                      ></iframe>
-                    </Tooltip>
                   </div>
                 </div>
                 <div className="form-group">
@@ -461,10 +509,10 @@ const JobList = () => {
                 <label>Name</label>
                 <input
                   type="text"
-                  name="name"
-                  placeholder="Your name will be displayed with recruiter"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  name="fullName"
+                  id="fullName"
+                  value={profileData.fullName}
+                  onChange={handleInputChange}
                 />
               </div>
               <div className="form-group col-lg-6 col-md-12">
@@ -472,9 +520,9 @@ const JobList = () => {
                 <input
                   type="text"
                   name="email"
-                  placeholder="Your email will be displayed with recruiter"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  id="email"
+                  value={profileData.email}
+                  onChange={handleInputChange}
                 />
               </div>
               <div className="form-group col-lg-6 col-md-12">
@@ -482,17 +530,20 @@ const JobList = () => {
                 <input
                   type="text"
                   name="phone"
-                  placeholder="Your phone will be displayed with recruiter"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
+                  id="phone"
+                  value={profileData.phone}
+                  onChange={handleInputChange}
                 />
               </div>
+
               <div className="form-group col-lg-6 col-md-12">
                 <label>Recommendation</label>
                 <input
                   type="text"
-                  name="recommendation"
-                  placeholder="Your recommendation"
+                  name="introduce"
+                  value={profileData.introduce}
+                  onChange={handleInputChange}
+                  placeholder="Introduce yourself briefly"
                 />
               </div>
               <button type="submit">Submit Application</button>
@@ -502,6 +553,16 @@ const JobList = () => {
             </div>
           </form>
         </div>
+      </Modal>{" "}
+      <Modal
+        isOpen={profileModalIsOpen}
+        onRequestClose={closeProfileModal}
+        style={customStyles}
+      >
+        <h2>Profile Required</h2>
+        <p>You must create a profile before applying for a job.</p>
+        <a href="/profileCandidate">Go to create profile</a>
+        <button onClick={closeProfileModal}>Close</button>
       </Modal>
     </div>
   );

@@ -68,11 +68,24 @@ const JobPost = () => {
 
   const handleChange = (e) => {
     const { id, value } = e.target;
+    if (id === "minSalary" || id === "maxSalary") {
+      const cleanedValue = String(value).replace(/,/g, "");
+      const formattedValue = formatNumberWithCommas(cleanedValue);
+      setFormData((prevState) => ({
+        ...prevState,
+        [id]: cleanedValue,
+      }));
+      e.target.value = formattedValue;
+    } else {
+      setFormData((prevState) => ({
+        ...prevState,
+        [id]: value,
+      }));
+    }
+  };
 
-    setFormData((prevState) => ({
-      ...prevState,
-      [id]: value,
-    }));
+  const formatNumberWithCommas = (value) => {
+    return value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   const handleReasonChange = (e) => {
@@ -128,6 +141,10 @@ const JobPost = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (userId === null) {
+      toast.warn("You need login!");
+      window.location.href = "/login";
+    }
 
     const transformedData = {
       ...formData,
@@ -172,7 +189,10 @@ const JobPost = () => {
   };
 
   return (
-    <div className="post-container post-mt-5" style={{ marginTop: "100px" }}>
+    <div
+      className="post-container post-mt-5"
+      style={{ marginTop: "150px", marginBottom: "40px" }}
+    >
       <h1 className="title-posting">Job Posting Form</h1>
       <form onSubmit={handleSubmit}>
         <div className="post-form-group">
@@ -216,6 +236,7 @@ const JobPost = () => {
             value={formData.salaryType}
             onChange={handleChange}
           >
+            <option value="">Choose the payment method</option>
             <option value="Hourly">Hourly</option>
             <option value="Monthly">Monthly</option>
           </select>
@@ -229,8 +250,8 @@ const JobPost = () => {
             onChange={handleChange}
           >
             <option value="">Choose your workplace</option>
-            <option value="office">In the office</option>
-            <option value="remote">Remote</option>
+            <option value="Office">In the office</option>
+            <option value="Remote">Remote</option>
           </select>
         </div>
         <div className="post-form-group">
@@ -260,6 +281,7 @@ const JobPost = () => {
             value={formData.jobCategories}
             onChange={handleChange}
           >
+            <option value="">Choose Job Categories</option>
             <option value="Administrative">Administrative</option>
             <option value="IT/Technology">IT/Technology</option>
             <option value="Healthcare">Healthcare</option>
@@ -279,7 +301,7 @@ const JobPost = () => {
               type="text"
               className="post-form-control"
               id="minSalary"
-              value={formData.minSalary}
+              value={formatNumberWithCommas(String(formData.minSalary))}
               onChange={handleChange}
               placeholder="Min salary"
               pattern="\d*"
@@ -295,7 +317,7 @@ const JobPost = () => {
               type="text"
               className="post-form-control"
               id="maxSalary"
-              value={formData.maxSalary}
+              value={formatNumberWithCommas(String(formData.maxSalary))}
               onChange={handleChange}
               placeholder="Max salary"
               pattern="\d*"

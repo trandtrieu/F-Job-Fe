@@ -155,7 +155,6 @@ const Login = () => {
                     </Link>
                   </div>
                 </div>
-
                 <div className="form-group">
                   <button className="theme-btn btn-style-one" type="submit">
                     Log In

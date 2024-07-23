@@ -1,12 +1,19 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-
+import "../../assest/css/managerjoblist.css";
+import { toast } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faWrench } from "@fortawesome/free-solid-svg-icons";
+import UpdateJobPost from "./updateJobPost";
+import { useHistory } from "react-router-dom";
 const ManageJobList = () => {
   const [jobs, setJobs] = useState([]);
   const [dateString, setDateString] = useState(null);
+  const [selectedJobId, setSelectedJobId] = useState(null);
+  const history = useHistory();
 
   useEffect(() => {
-    const fetchJobs = async () => {
+    const fetchJobs = async (userId) => {
       try {
         const response = await axios.get("http://localhost:3005/job", {
           headers: {
@@ -24,8 +31,9 @@ const ManageJobList = () => {
             if (currentDate > expiredDate) {
               return { ...job, status: "INACTIVE" };
             }
+            return job;
           });
-          setJobs(dataJobs);
+          setJobs(updateJob);
         } else {
           console.error("Invalid data format:", dataJobs);
         }
@@ -41,6 +49,23 @@ const ManageJobList = () => {
 
     fetchJobs();
   }, []);
+
+  const handleUpdateClick = (jobId) => {
+    setSelectedJobId(jobId);
+    history.push(`/update-job/${jobId}`);
+  };
+
+  const handleRemoveJob = async (jobId) => {
+    try {
+      const response = await axios.delete(`http://localhost:3005/job/${jobId}`);
+      if (response.status === 200) {
+        setJobs((prevJobs) => prevJobs.filter((job) => job._id !== jobId));
+        toast.success("Remove job post succesffuly");
+      }
+    } catch (error) {
+      console.error("Error removing job post: ", error);
+    }
+  };
 
   const formatDate = (dateString) => {
     try {
@@ -144,14 +169,13 @@ const ManageJobList = () => {
                               </td>
                               <td>{formatDate(job.createdAt)}</td>
                               <td>{formatDate(job.expiredDate)}</td>
-                              <td className="status">{job.status}</td>
-                              {/* <td className="image">
-                                <img
-                                  src={`http://localhost:3005/api/images/${job.image}`}
-                                  style={{ width: "100px", height: "auto" }}
-                                  alt={job.title}
-                                />
-                              </td> */}
+                              <td
+                                className={`status ${
+                                  job.status === "INACTIVE" ? "inactive" : ""
+                                }`}
+                              >
+                                {job.status}
+                              </td>
                               <td style={{ textAlign: "center" }}>
                                 <div
                                   className="option-box"
@@ -168,7 +192,20 @@ const ManageJobList = () => {
                                       </button>
                                     </li>
                                     <li>
-                                      <button data-text="Delete Application">
+                                      <button
+                                        data-text="Update Application"
+                                        onClick={() =>
+                                          handleUpdateClick(job._id)
+                                        }
+                                      >
+                                        <FontAwesomeIcon icon={faWrench} />
+                                      </button>
+                                    </li>
+                                    <li>
+                                      <button
+                                        data-text="Delete Application"
+                                        onClick={() => handleRemoveJob(job._id)}
+                                      >
                                         <span className="la la-trash"></span>
                                       </button>
                                     </li>
@@ -183,7 +220,6 @@ const ManageJobList = () => {
                   </div>
                 </div>
               </div>
-              {/* LS Widget End */}
             </div>
           </div>
         </div>
