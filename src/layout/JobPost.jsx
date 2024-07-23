@@ -69,13 +69,12 @@ const JobPost = () => {
   const handleChange = (e) => {
     const { id, value } = e.target;
     if (id === "minSalary" || id === "maxSalary") {
-      const cleanedValue = String(value).replace(/,/g, "");
-      const formattedValue = formatNumberWithCommas(cleanedValue);
+      const cleanedValue = value.replace(/[^0-9]/g, "");
       setFormData((prevState) => ({
         ...prevState,
         [id]: cleanedValue,
       }));
-      e.target.value = formattedValue;
+      e.target.value = cleanedValue;
     } else {
       setFormData((prevState) => ({
         ...prevState,
@@ -190,37 +189,37 @@ const JobPost = () => {
 
   return (
     <div
-      className="post-container post-mt-5"
+      className="jobpost-post-container jobpost-post-mt-5"
       style={{ marginTop: "150px", marginBottom: "40px" }}
     >
-      <h1 className="title-posting">Job Posting Form</h1>
+      <h1 className="jobpost-title-posting">Job Posting Form</h1>
       <form onSubmit={handleSubmit}>
-        <div className="post-form-group">
+        <div className="jobpost-post-form-group">
           <label htmlFor="title">Title</label>
           <input
             type="text"
-            className="post-form-control"
+            className="jobpost-post-form-control"
             id="title"
             value={formData.title}
             onChange={handleChange}
             placeholder="Enter job title"
           />
         </div>
-        <div className="post-form-group">
+        <div className="jobpost-post-form-group">
           <label htmlFor="title">Name Company</label>
           <input
             type="text"
-            className="post-form-control"
+            className="jobpost-post-form-control"
             id="nameCompany"
             value={formData.nameCompany}
             onChange={handleChange}
             placeholder="Enter name company"
           />
         </div>
-        <div className="post-form-group">
+        <div className="jobpost-post-form-group">
           <label htmlFor="description">Description</label>
           <textarea
-            className="post-form-control"
+            className="jobpost-post-form-control"
             id="description"
             rows="4"
             value={formData.description}
@@ -228,10 +227,10 @@ const JobPost = () => {
             placeholder="Describe the job"
           ></textarea>
         </div>
-        <div className="post-form-group">
+        <div className="jobpost-post-form-group">
           <label htmlFor="salaryType">Salary</label>
           <select
-            className="post-form-control"
+            className="jobpost-post-form-control"
             id="salaryType"
             value={formData.salaryType}
             onChange={handleChange}
@@ -241,10 +240,10 @@ const JobPost = () => {
             <option value="Monthly">Monthly</option>
           </select>
         </div>
-        <div className="post-form-group">
+        <div className="jobpost-post-form-group">
           <label htmlFor="salaryType">Workplace</label>
           <select
-            className="post-form-control"
+            className="jobpost-post-form-control"
             id="workPlace"
             value={formData.workPlace}
             onChange={handleChange}
@@ -254,10 +253,10 @@ const JobPost = () => {
             <option value="Remote">Remote</option>
           </select>
         </div>
-        <div className="post-form-group">
+        <div className="jobpost-post-form-group">
           <label htmlFor="jobType">Job Type</label>
           <select
-            className="post-form-control"
+            className="jobpost-post-form-control"
             id="jobType"
             value={formData.jobType}
             onChange={handleChange}
@@ -273,10 +272,10 @@ const JobPost = () => {
             <option value="Seasonal">Seasonal Job</option>
           </select>
         </div>
-        <div className="post-form-group">
+        <div className="jobpost-post-form-group">
           <label htmlFor="jobCategories">Job Categories</label>
           <select
-            className="post-form-control"
+            className="jobpost-post-form-control"
             id="jobCategories"
             value={formData.jobCategories}
             onChange={handleChange}
@@ -294,14 +293,14 @@ const JobPost = () => {
             <option value="Creative Arts/Design">Creative Arts/Design</option>
           </select>
         </div>
-        <div className="post-form-row">
-          <div className="post-form-group post-col-md-6">
+        <div className="jobpost-post-form-row">
+          <div className="jobpost-post-form-group jobpost-post-col-md-6">
             <label htmlFor="minSalary">Min Salary</label>
             <input
               type="text"
-              className="post-form-control"
+              className="jobpost-post-form-control"
               id="minSalary"
-              value={formatNumberWithCommas(String(formData.minSalary))}
+              value={formData.minSalary}
               onChange={handleChange}
               placeholder="Min salary"
               pattern="\d*"
@@ -311,13 +310,13 @@ const JobPost = () => {
               }}
             />
           </div>
-          <div className="post-form-group post-col-md-6">
+          <div className="jobpost-post-form-group jobpost-post-col-md-6">
             <label htmlFor="maxSalary">Max Salary</label>
             <input
               type="text"
-              className="post-form-control"
+              className="jobpost-post-form-control"
               id="maxSalary"
-              value={formatNumberWithCommas(String(formData.maxSalary))}
+              value={formData.maxSalary}
               onChange={handleChange}
               placeholder="Max salary"
               pattern="\d*"
@@ -328,78 +327,78 @@ const JobPost = () => {
             />
           </div>
         </div>
-        <div className="post-form-group">
+        <div className="jobpost-post-form-group">
           <label htmlFor="skills">Skills</label>
           <input
             type="text"
-            className="post-form-control"
+            className="jobpost-post-form-control"
             id="skills"
             value={formData.skills.join("; ")}
             onChange={handleSkillsChange}
             placeholder="Skills"
           />
         </div>
-        <div className="post-form-group">
+        <div className="jobpost-post-form-group">
           <label htmlFor="qualifications">Qualifications</label>
           <input
             type="text"
-            className="post-form-control"
+            className="jobpost-post-form-control"
             id="qualifications"
             value={formData.qualifications.join(";")}
             onChange={handleQualificationsChange}
             placeholder="Qualifications"
           />
         </div>
-        <div className="post-form-group">
+        <div className="jobpost-post-form-group">
           <label htmlFor="experience">Experience</label>
           <input
             type="text"
-            className="post-form-control"
+            className="jobpost-post-form-control"
             id="experience"
             value={formData.experience}
             onChange={handleChange}
             placeholder="Experience"
           />
         </div>
-        <div className="post-form-group">
+        <div className="jobpost-post-form-group">
           <label htmlFor="reason">Reason</label>
           <input
             type="text"
-            className="post-form-control"
+            className="jobpost-post-form-control"
             id="reason"
             value={formData.reason.join("; ")}
             onChange={handleReasonChange}
             placeholder="Reasons to choose the company"
           />
         </div>
-        <div className="post-form-group">
+        <div className="jobpost-post-form-group">
           <label htmlFor="address">Address</label>
           <input
             type="text"
-            className="post-form-control"
+            className="jobpost-post-form-control"
             id="address"
             value={formData.address}
             onChange={handleChange}
             placeholder="Address"
           />
         </div>
-        <div className="post-form-row">
-          <div className="post-form-group post-col-md-6">
+        <div className="jobpost-post-form-row">
+          <div className="jobpost-post-form-group jobpost-post-col-md-6">
             <label htmlFor="country">Country</label>
             <input
               type="text"
-              className="post-form-control"
+              className="jobpost-post-form-control"
               id="country"
               value={formData.country}
               onChange={handleChange}
               placeholder="Country"
             />
           </div>
-          <div className="post-form-group post-col-md-6">
+          <div className="jobpost-post-form-group jobpost-post-col-md-6">
             <label htmlFor="state">State</label>
             <input
               type="text"
-              className="post-form-control"
+              className="jobpost-post-form-control"
               id="state"
               value={formData.state}
               onChange={handleChange}
@@ -407,7 +406,7 @@ const JobPost = () => {
             />
           </div>
         </div>
-        <div className="post-form-group">
+        <div className="jobpost-post-form-group">
           <label htmlFor="workingDays">Working Days</label>
           <div style={{ display: "flex", gap: "20px" }}>
             {[
@@ -419,7 +418,7 @@ const JobPost = () => {
               "Saturday",
               "Sunday",
             ].map((day) => (
-              <div key={day} className="post-form-check">
+              <div key={day} className="jobpost-post-form-check">
                 <input
                   type="checkbox"
                   id={day}
@@ -432,11 +431,11 @@ const JobPost = () => {
             ))}
           </div>
         </div>
-        <div className="post-form-group">
+        <div className="jobpost-post-form-group">
           <label htmlFor="images">Upload Images</label>
           <input
             type="file"
-            className="post-form-control"
+            className="jobpost-post-form-control"
             id="images"
             accept="image/*"
             onChange={handleImageChange}
@@ -445,7 +444,7 @@ const JobPost = () => {
         </div>
         <button
           type="submit"
-          className="post-btn post-btn-primary post-btn-block"
+          className="jobpost-post-btn jobpost-post-btn-primary jobpost-post-btn-block"
         >
           Post Now
         </button>
