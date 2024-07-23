@@ -106,7 +106,10 @@ const Login = () => {
   return (
     <div className="page-wrapper">
       <div className="login-section">
-        <div className="image-layer" style={{ backgroundImage: "url(../assets/images/background/12.jpg)" }} />
+        <div
+          className="image-layer"
+          style={{ backgroundImage: "url(../assets/images/background/12.jpg)" }}
+        />
         <div className="outer-box">
           <div className="login-form default-form">
             <div className="form-inner">
@@ -161,9 +164,8 @@ const Login = () => {
                     Log In
                   </button>
                 </div>
-
               </form>
-              
+
               <div className="bottom-box">
                 <div className="text">
                   Don't have an account? <Link to="/register">Signup</Link>

@@ -1,7 +1,9 @@
-// import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Login from "./layout/Login";
 import Navbar from "./layout/Navbar";
+import Footer from "./layout/Footer";
 import Home from "./layout/Home";
 import Register from "./layout/Register";
 import ForgotPassword from "./layout/ForgotPassword";
@@ -28,7 +30,6 @@ import Unauthorized from "./layout/Unauthorized";
 import RecruiterRegistration from "./layout/recruiter/registerRecruiter";
 import AllApplicant from "./layout/recruiter/AllApplicant";
 import AllCandidate from "./layout/recruiter/AllCandidate";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
   return (
@@ -82,6 +83,8 @@ function App() {
             />
           </Switch>
         </Router>
+
+        <Footer />
       </UserProvider>
     </div>
   );

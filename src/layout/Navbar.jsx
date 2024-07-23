@@ -42,8 +42,18 @@ export default function Navbar() {
             <div className="nav-outer">
               <div className="logo-box">
                 <div className="logo">
-                  <a href="/">
-                    <img src="../assets/images/logo.svg" alt="" title />
+                  <a href="/" style={{ display: "inline-block" }}>
+                    <img
+                      src="../assets/images/letterFlogo.png"
+                      alt="Fjob logo"
+                      title="Fjob"
+                      // style="width: 154px; height: 100px; object-fit: contain;"
+                      style={{
+                        width: "154px",
+                        height: "75px",
+                        objectFit: "contain",
+                      }}
+                    />
                   </a>
                 </div>
               </div>
@@ -85,7 +95,11 @@ export default function Navbar() {
                   <div>
                     <button
                       onClick={handleLogout}
-                      style={{ textAlign: "center", marginRight: "10px" }}
+                      style={{
+                        textAlign: "center",
+                        marginRight: "10px",
+                        paddingLeft: "30px",
+                      }}
                     >
                       <p>Welcome, {user.email}</p>
                       Log out
@@ -100,7 +114,6 @@ export default function Navbar() {
                   </a>
                 )}
               </div>
-
             </div>
           </div>
           <div className="mobile-header">

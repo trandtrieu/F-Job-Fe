@@ -85,6 +85,7 @@ Fonts
 @import url("mmenu.css");
 @import url("jquery.fancybox.min.css");
 @import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap');
 
 /*** 
 
@@ -2913,7 +2914,7 @@ Clients Section
 ***/
 .clients-section {
   position: relative;
-  padding: 60px 0 60px;
+  padding: 117px 0 60px;
   border-bottom: 1px solid #ECEDF2;
 }
 
@@ -5285,8 +5286,8 @@ Main Footer
 /*=== Widgets Section ===*/
 .main-footer .widgets-section {
   position: relative;
-  padding-top: 100px;
-  padding-bottom: 50px;
+  padding-top: 159px;
+  padding-bottom: 0;
 }
 
 .main-footer .footer-column {
@@ -5300,11 +5301,12 @@ Main Footer
 
 .main-footer .widget-title {
   position: relative;
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 500;
   color: #2F2D51;
   line-height: 1.4em;
   margin-bottom: 30px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
 .main-footer .logo {
@@ -5353,6 +5355,7 @@ Main Footer
 
 .main-footer .list {
   position: relative;
+  font-family: 'Alexandria', sans-serif;
 }
 
 .main-footer .list li {
@@ -5360,7 +5363,7 @@ Main Footer
   display: block;
   font-size: 14px;
   line-height: 20px;
-  font-weight: 400;
+  font-weight: 300;
   color: #696969;
   margin-bottom: 15px;
 }
@@ -5547,9 +5550,9 @@ Main Footer
 .main-footer.alternate3:before {
   position: absolute;
   left: 0;
-  top: 0;
+  top: 70px;
   width: 100%;
-  height: 100%;
+  height: 93%;
   background-image: url(../images/background/6.png);
   background-repeat: no-repeat;
   background-position: center;
@@ -7462,6 +7465,15 @@ Job Section
 .job-section.style-two .default-dots .owl-dots {
   margin-top: 20px;
 }
+
+/* Mai_fix */
+
+.owl-dots, .owl-nav {
+  display: none !important;
+}
+
+/* Mai_fix */
+
 
 /*** 
 
@@ -11566,7 +11578,8 @@ Testimonial Section
 ***/
 .testimonial-section {
   position: relative;
-  padding: 100px 0;
+  padding: 81px 0;
+  top: 52px;
   background-color: #F0F5F7;
 }
 
@@ -14682,7 +14695,7 @@ News Section
 .news-block .inner-box {
   position: relative;
   overflow: hidden;
-  padding: 10px;
+  /* padding: 10px; */
   border-radius: 10px;
   background: #ffffff;
 }
@@ -14709,7 +14722,7 @@ News Section
 }
 
 .news-block .lower-content {
-  padding: 20px 20px 16px;
+  padding: 0px 0px 16px;
   position: relative;
 }
 
@@ -14717,17 +14730,18 @@ News Section
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 20px;
+  margin-bottom: -2px;
 }
 
 .news-block .post-meta li {
   position: relative;
   font-size: 14px;
   line-height: 24px;
-  color: #696969;
+  color: #1967D2;
   margin-right: 15px;
   padding-left: 20px;
   margin-bottom: 5px;
+
 }
 
 .news-block .post-meta li:before {
@@ -14766,6 +14780,8 @@ News Section
 .news-block .lower-content h3 a {
   color: #202124;
   transition: all 300ms ease;
+  font-family: 'Alexandria', sans-serif;
+  font-size: 0.9rem;
 }
 
 .news-block .lower-content h3 a:hover {
@@ -14784,6 +14800,7 @@ News Section
   font-size: 16px;
   line-height: 28px;
   color: #1967D2;
+  padding-bottom: 2rem;
 }
 
 .news-block .read-more i {
@@ -22723,4 +22740,72 @@ Work Section
   max-height: 100px;
   display: block;
   margin-top: 10px; /* Khoảng cách từ hình ảnh đến ô chọn file */
+}
+/* Mai-fix =====================================================================================*/
+.about-us-section {
+  padding: 60px 0;
+  background-color: #FFFFFF; /* Light gray background */
+}
+
+.section-content {
+  background-color: #F5F7FB; /* White background for content */
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 52px;
+  font-size: 2rem;
+  font-weight: lighter;
+  color: #1967D2;
+}
+
+.text-content {
+  padding: 20px;
+ font-family: 'Alexandria', sans-serif;
+  padding-top: 4px;
+  font-size: 14px;
+
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.image-content {
+  text-align: center;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+p, .text {
+  padding-top: 10px;
+  font-weight: 300;
+}
+
+/* .pb-8 {
+  padding-bottom: 2rem;
+} */
+
+.news-block.col-lg-3.col-md-6.col-sm-12.wow.fadeInUp {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+ul.post-meta {
+  padding-left: 15px;
+  font-weight: 500;
 }
