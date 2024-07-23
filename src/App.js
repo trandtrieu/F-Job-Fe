@@ -29,6 +29,8 @@ import RecruiterRegistration from "./layout/recruiter/registerRecruiter";
 import AllApplicant from "./layout/recruiter/AllApplicant";
 import AllCandidate from "./layout/recruiter/AllCandidate";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import AllJob from "./layout/recruiter/AllJob";
+import AllJobRecruiter from "./layout/recruiter/AllJobRecruiter";
 
 function App() {
   return (
@@ -73,6 +75,12 @@ function App() {
             <Route path="/dashboard-recruiter" component={DashboardRecruiter} />
             <Route path="/all-applicant" component={AllApplicant} />
             <Route path="/all-candidate" component={AllCandidate} />
+            <Route path="/all-job" component={AllJob} />
+            <Route
+              path="/all-job-recruiter/:jobId"
+              component={AllJobRecruiter}
+            />
+
             <Route path="/approve-schedule" component={ApproveSchedule} />
             <Route path="/manage-job-list" component={ManageJobList} />
             <Route path="/unauthorized" component={Unauthorized} />
