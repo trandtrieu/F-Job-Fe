@@ -44,6 +44,8 @@ const TableComponent = (props) => {
             })
             .saveAs("Excel.xlsx");
     };
+
+
     return (
         <div>
             <Loading isLoading={isLoading}>
@@ -56,7 +58,7 @@ const TableComponent = (props) => {
                     dataSource={dataSource}
                     {...props}
                 />
-                <Button onClick={exportExcel}>Export Excel</Button>
+                {/* <Button onClick={exportExcel}>Export Excel</Button> */}
             </Loading>
         </div>
     )

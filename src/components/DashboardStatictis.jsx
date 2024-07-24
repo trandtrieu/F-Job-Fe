@@ -13,7 +13,7 @@ import {
 import BudgetReport from "./BudgetReport";
 import EventActivity from "./EventActivity";
 
-function DashboardRecruiter() {
+function DashboardStatictis() {
   const [cvCount, setCvCount] = useState(0);
   const [recruitmentCount, setRecruitmentCount] = useState(0);
   const [newCvCount, setNewCvCount] = useState(0);
@@ -184,4 +184,4 @@ function DashboardRecruiter() {
   );
 }
 
-export default DashboardRecruiter;
+export default DashboardStatictis;

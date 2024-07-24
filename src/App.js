@@ -13,7 +13,7 @@ import { ToastContainer } from "react-toastify";
 import { UserProvider } from "./utils/UserContext";
 import Profile from "./layout/Profile";
 import JobFinder from "./layout/JobFinder";
-import DashboardRecruiter from "./components/DashboardRecruiter";
+
 
 import "react-tooltip/dist/react-tooltip.css";
 import Design from "./layout/Design";
@@ -21,7 +21,7 @@ import demo from "./layout/demo";
 import CVS from "./layout/CVS";
 import JobPost from "./layout/JobPost";
 import JobList from "./layout/JobList";
-// import DashboardRecruiter from "./layout/recruiter/DashboardRecruiter";
+
 import ApproveCandidate from "./layout/recruiter/ApproveCandidate";
 
 import ProfileCandidate from "./layout/ProfileCandidate";
@@ -38,6 +38,10 @@ import RecruiterRegistration from "./layout/recruiter/registerRecruiter";
 import LoginRecruiter from "./layout/recruiter/loginRecruiter";
 import UpdateJobPost from "./layout/recruiter/updateJobPost";
 import JobDetails from "./layout/recruiter/viewJobDetails";
+import RecruiterList from "./layout/admin/RecruiterList";
+import DashboardAdmin from "./layout/admin/DashboardAdmin";
+import DashboardStatictis from "./components/DashboardStatictis";
+import DashboardRecruiter from "./layout/recruiter/DashboardRecruiter";
 function App() {
   return (
     <div className="App">
@@ -77,10 +81,14 @@ function App() {
               component={ResetPassword}
             />
             <Route path="/job-finder" component={JobFinder} />
-            <Route path="/view-statistic" component={DashboardRecruiter} />
             <Route path="/job-list" component={JobList} />
             <Route path="/all-candidate" component={AllCandidate} />
-            <Route path="/all-job" component={AllJob} />
+            <ProtectedRoute
+              path="/all-job"
+              component={AllJob}
+              allowedRoles={["recruiter", "admin"]}
+            />
+
             <Route
               path="/all-job-recruiter/:jobId"
               component={AllJobRecruiter}
@@ -96,7 +104,7 @@ function App() {
             />
             <ProtectedRoute
               path="/view-statistic"
-              component={DashboardRecruiter}
+              component={DashboardStatictis}
               allowedRoles={["recruiter", "admin"]}
             />
             <ProtectedRoute
@@ -119,6 +127,7 @@ function App() {
               component={JobDetails}
               allowedRoles={["recruiter", "admin"]}
             />
+
             <Route path="/login-recruiter" component={LoginRecruiter} />
             <Route path="/approve-schedule" component={ApproveCandidate} />
             <Route path="/manage-job-list" component={ManageJobList} />
@@ -130,6 +139,19 @@ function App() {
             <Route path="/unauthorized" component={Unauthorized} />
 
             <Route path="/all-applicant" component={AllApplicant} />
+
+
+            {/* Thinh */}
+            <Route path="/all-recruiter" component={RecruiterList} />
+            <Route path="/dashboard-admin" component={DashboardAdmin} />
+            <ProtectedRoute
+              path="/dashboard-admin"
+              component={DashboardAdmin}
+              allowedRoles={["admin"]}
+            />
+
+
+
           </Switch>
         </Router>
 

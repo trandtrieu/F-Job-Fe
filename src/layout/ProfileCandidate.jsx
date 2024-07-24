@@ -131,6 +131,7 @@ const ProfileCandidate = () => {
           <div className="preloader" />
           <span className="header-span" />
           <div className="sidebar-backdrop" />
+
           <div className="user-sidebar">
             <div className="sidebar-inner">
               <ul className="navigation">
@@ -231,6 +232,7 @@ const ProfileCandidate = () => {
               </div>
             </div>
           </div>
+
           <section className="user-dashboard">
             <div className="dashboard-outer">
               <div className="upper-title-box">
@@ -410,6 +412,7 @@ const ProfileCandidate = () => {
               </div>
             </div>
           </section>
+
         </div>
       </div>
     </div>

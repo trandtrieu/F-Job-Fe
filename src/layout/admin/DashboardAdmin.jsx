@@ -1,22 +1,18 @@
 import React from "react";
-import CandidatesUser from "../../Component/CandidatesUser/CandidatesUser";
-import NavbarRecruiter from "./NavbarRecruiter";
+import NavbarAdmin from "./NavbarAdmin";
 
-const AllCandidate = () => {
+const DashboardAdmin = () => {
   return (
     <div>
       <div className="page-wrapper dashboard ">
-        {/* Preloader */}
         {/* <div className="preloader" /> */}
-        {/* Header Span */}
         <span className="header-span" />
         {/* Sidebar Backdrop */}
         <div className="sidebar-backdrop" />
-        <NavbarRecruiter />
-        <CandidatesUser />
+        <NavbarAdmin />
       </div>
     </div>
   );
 };
 
-export default AllCandidate;
+export default DashboardAdmin;

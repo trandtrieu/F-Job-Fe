@@ -61,11 +61,11 @@ export default function Navbar() {
     window.location.href = "/register";
   };
 
-  const navJobFinder = () =>{
-    window.location.href="/job-finder";
+  const navJobFinder = () => {
+    window.location.href = "/job-finder";
   };
-  const navStatistic =() =>{
-    window.location.href="/view-statistic";
+  const navStatistic = () => {
+    window.location.href = "/view-statistic";
 
   };
 
@@ -126,8 +126,8 @@ export default function Navbar() {
                       {userRole === "admin" && (
                         <li className="mm-add-listing">
                           <a
-className="theme-btn-role btn-style-one-role"
-                            href="/manager"
+                            className="theme-btn-role btn-style-one-role"
+                            href="/dashboard-admin"
                             style={{ fontSize: "16px", marginRight: "20px" }}
                           >
                             Manager
@@ -207,10 +207,10 @@ className="theme-btn-role btn-style-one-role"
               )}
               <li className="dropdown has-mega-menu">
 
-            <span onClick={navJobFinder}>Find Jobs</span>
-          </li>
+                <span onClick={navJobFinder}>Find Jobs</span>
+              </li>
 
-          
+
               <div className="btn-box">
                 <a
                   className="theme-btn-role btn-style-one"
@@ -245,7 +245,7 @@ className="theme-btn-role btn-style-one-role"
                     href="/login"
                     className="theme-btn-role btn-style-three call-modal"
                   >
-Login / Register
+                    Login / Register
                   </a>
                 )}
               </div>
