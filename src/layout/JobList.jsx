@@ -224,14 +224,16 @@ const JobList = () => {
       return;
     }
 
-    if (!cv || !degree) {
+    if (!cv || degree.length === 0) {
       toast.error("Please select CV and Degree.");
       return;
     }
 
     const formData = new FormData();
     formData.append("cvPath", cv);
-    formData.append("degreePath", degree);
+    degree.forEach((file, index) => {
+      formData.append(`degreePath`, file);
+    });
     formData.append("fullName", profileData.fullName);
     console.log("new name: " + profileData.fullName);
     formData.append("email", profileData.email);
@@ -264,6 +266,7 @@ const JobList = () => {
       }
     }
   };
+
   useEffect(() => {
     console.log("Profile Data has changed:", profileData);
   }, [profileData]);
@@ -277,11 +280,11 @@ const JobList = () => {
   };
 
   const handleDegreeChange = (e) => {
-    const file = e.target.files[0];
-    setDegree(file);
-    setDegreeName(file?.name || "");
-    const fileURL = file ? URL.createObjectURL(file) : "";
-    setDegreeFileURL(fileURL);
+    const files = Array.from(e.target.files);
+    setDegree(files);
+    setDegreeName(files.map((file) => file.name).join(", "));
+    const fileURLs = files.map((file) => URL.createObjectURL(file));
+    setDegreeFileURL(fileURLs);
   };
 
   const handleInputChange = (e) => {
@@ -494,7 +497,7 @@ const JobList = () => {
                         className="uploadButton-input"
                         type="file"
                         name="cv"
-                        accept="image/*, application/pdf"
+                        accept="image/*"
                         id="uploadCV"
                         onChange={handleCvChange}
                       />
@@ -531,10 +534,12 @@ const JobList = () => {
                         className="uploadButton-input"
                         type="file"
                         name="degree"
-                        accept="image/*, application/pdf"
+                        accept="image/*"
                         id="uploadDegree"
+                        multiple
                         onChange={handleDegreeChange}
                       />
+
                       <label
                         className="uploadButton-button ripple-effect"
                         htmlFor="uploadDegree"

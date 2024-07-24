@@ -65,23 +65,26 @@ export default function AllJobRecruiter() {
     return new Date(dateString).toLocaleDateString("en-US", options);
   };
 
-  const handleView = (url, title) => {
-    const fileExtension = url.split(".").pop().toLowerCase();
-    const isImage = ["jpg", "jpeg", "png", "gif"].includes(fileExtension);
+  const handleView = (urls, title) => {
+    if (Array.isArray(urls)) {
+      // Nếu urls là mảng, set contentUrls
 
-    if (isImage) {
-      setCvUrl(url);
-      setModalTitle(title);
-      setIsModalOpen(true);
+      setDegreeUrl(urls);
+      console.log(urls);
     } else {
-      window.location.href = url;
+      console.log(urls);
+
+      // Nếu urls là một URL đơn lẻ, set cvUrl
+      setCvUrl(urls);
     }
+    setModalTitle(title);
+    setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setCvUrl("");
-    setDegreeUrl("");
+    setCvUrl(""); // Clear the URL
+    setDegreeUrl(""); // Clear the URL
   };
 
   const handleStatusChange = (event) => {
