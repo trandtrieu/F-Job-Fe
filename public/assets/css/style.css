@@ -1132,6 +1132,8 @@ input:checked+.slider:before {
   color: #202124;
   font-weight: 500;
   margin-bottom: 10px;
+  font-family: 'Alexandria', sans-serif;
+  margin-top: 10px;
 }
 
 .default-form .form-group input[type="text"],
@@ -3910,8 +3912,11 @@ Dashboard
   font-weight: 500;
   font-size: 30px;
   line-height: 41px;
-  color: #202124;
+  color: #0962B1;
   margin-bottom: 10px;
+  font-family: 'Alexandria', sans-serif;
+  text-align: center;
+  margin-top: "30px";
 }
 
 .ui-item {
@@ -4478,12 +4483,13 @@ User Sidebar
   padding: 10px 30px;
   line-height: 30px;
   font-weight: 400;
-  font-size: 15px;
+  font-size: 14px;
   color: #696969;
   text-align: left;
   text-transform: capitalize;
   border-radius: 8px;
   transition: all 500ms ease;
+  font-family: "Inter";
 }
 
 .user-sidebar .navigation li a i {
@@ -6130,9 +6136,10 @@ Main Header
   font-size: 15px;
   line-height: 30px;
   font-weight: 400;
-  color: #202124;
+  color: #1967D2;
   cursor: pointer;
   transition: all 300ms ease;
+
 }
 
 .main-menu .navigation>li.current>a,
@@ -9121,12 +9128,28 @@ Login Section
 }
 
 .login-form h3 {
+  font-family: "Inter", sans-serif;
   font-weight: 500;
   font-size: 24px;
   line-height: 33px;
   color: #202124;
-  margin-bottom: 32px;
+  margin-bottom: 30px;
+  text-align: center;
+  letter-spacing: -0.5px;
+  text-transform: capitalize;
+  position: relative; 
+  margin-top: 10px;
 }
+
+.login-form h3::after {
+  content: ""; 
+  display: block; 
+  width: 60%; 
+  height: 2px; 
+  background-color: #0A4885; 
+  margin: 10px auto 0; 
+}
+
 
 .login-form .field-outer {
   position: relative;
@@ -9243,6 +9266,8 @@ Login Section
 .social-btn-two.facebook-btn {
   border-color: #3b5998;
   color: #3b5998;
+  background-color: #fff;
+  border: 1px solid #3b5998;
 }
 
 .social-btn-two.facebook-btn:hover {
@@ -9253,11 +9278,14 @@ Login Section
 .social-btn-two.google-btn {
   border-color: #dc4d28;
   color: #dc4d28;
+  background-color: #fff;
+  border: 1px solid #3b5998;
 }
 
 .social-btn-two.google-btn:hover {
   background-color: #dc4d28;
   color: #ffffff;
+  border-color: red;
 }
 
 .cluster-visible {
@@ -10405,6 +10433,7 @@ Registeration Banners
   color: #1b2032;
   font-size: 16px;
   border: 2px dashed #ced4e1;
+  font-family: "Inter";
 }
 
 .uploadButton .uploadButton-button:hover {
@@ -10802,8 +10831,9 @@ Section Title
   display: block;
   font-size: 30px;
   line-height: 1.2em;
-  color: #202124;
+  color: #1967D2;
   font-weight: 500;
+  font-family: 'Alexandria', sans-serif;
 }
 
 .sec-title .text {

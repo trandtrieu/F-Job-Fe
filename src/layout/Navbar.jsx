@@ -202,7 +202,7 @@ className="theme-btn-role btn-style-one-role"
             <div className="outer-box">
               {user && (
                 <a href="/cvs" className="upload-cv">
-                  Upload your CV
+                  CV Template
                 </a>
               )}
               <li className="dropdown has-mega-menu">

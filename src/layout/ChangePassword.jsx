@@ -151,26 +151,26 @@ const ChangePassword = () => {
                   <i className="la la-file-invoice" /> All Applicants
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a href="dashboard-resumes.html">
                   <i className="la la-bookmark-o" /> Shortlisted Resumes
                 </a>
-              </li>
-              <li>
+              </li> */}
+              {/* <li>
                 <a href="dashboard-packages.html">
                   <i className="la la-box" /> Packages
                 </a>
-              </li>
+              </li> */}
               <li>
                 <a href="dashboard-messages.html">
                   <i className="la la-comment-o" /> Messages
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a href="dashboard-resume-alerts.html">
                   <i className="la la-bell" /> Resume Alerts
                 </a>
-              </li>
+              </li> */}
               <li className="active">
                 <a href="/changePassword">
                   <i className="la la-lock" /> Change Password
@@ -186,20 +186,19 @@ const ChangePassword = () => {
                   <i className="la la-sign-out" /> Logout
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a href="index.html">
                   <i className="la la-trash" /> Delete Profile
                 </a>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>
         <section className="user-dashboard">
           <div className="user-dashboard-wrap">
             <div className="user-dashboard-wrap-form">
-              <h3 style={{ textAlign: "center", marginBottom: "20px" }}>
-                Change Password
-              </h3>
+              <h3 className="change-password-header">Change Password</h3>
+
               <form className="default-form" onSubmit={handleSubmit}>
                 <div
                   className="form-group"

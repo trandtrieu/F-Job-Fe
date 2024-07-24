@@ -234,8 +234,8 @@ const ProfileCandidate = () => {
           <section className="user-dashboard">
             <div className="dashboard-outer">
               <div className="upper-title-box">
-                <h3>My Profile</h3>
-                <div className="text">Ready to jump back in?</div>
+                <h3>Personal information settings</h3>
+                {/* <div className="text">Ready to jump back in?</div> */}
               </div>
               <div className="row">
                 <div className="col-lg-12">
@@ -276,7 +276,10 @@ const ProfileCandidate = () => {
                                   />
                                 )}
                               </div>
-
+                              <label style={{ marginTop: "15px" }}>
+                                <span style={{ color: "red" }}>(*)</span>{" "}
+                                <span>Required information</span>
+                              </label>
                               <div className="form-group col-lg-6 col-md-12">
                                 <label>Full Name</label>
                                 <input
@@ -303,6 +306,10 @@ const ProfileCandidate = () => {
                                   onChange={handleChange}
                                 />
                               </div>
+                              <label>
+                                <span style={{ color: "red" }}>(*)</span>{" "}
+                                <span>Required information</span>
+                              </label>
                               <div className="form-group col-lg-6 col-md-12">
                                 <label>Phone</label>
                                 <input

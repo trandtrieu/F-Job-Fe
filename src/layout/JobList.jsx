@@ -23,18 +23,48 @@ const customStyles = {
     zIndex: 1000,
   },
   content: {
-    top: "60%",
+    top: "50%",
     left: "50%",
     right: "auto",
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
-    maxHeight: "95vh",
+    maxHeight: "90vh",
     overflowY: "auto",
     border: "none",
     textAlign: "center",
     zIndex: 1001,
-    maxWidth: "45%",
+    maxWidth: "50%",
+    padding: "20px",
+    borderRadius: "8px",
+  },
+  buttonSubmit: {
+    border: "none",
+    borderRadius: "5px",
+    padding: "10px 20px",
+    fontSize: "16px",
+    fontWeight: "bold",
+    cursor: "pointer",
+    backgroundColor: "#007bff" /* Primary color */,
+    color: "#fff",
+    transition: "background-color 0.3s ease, color 0.3s ease",
+  },
+  buttonSubmitHover: {
+    backgroundColor: "#0056b3" /* Darker shade on hover */,
+  },
+  buttonClose: {
+    border: "none",
+    borderRadius: "5px",
+    padding: "10px 20px",
+    fontSize: "16px",
+    fontWeight: "bold",
+    cursor: "pointer",
+    backgroundColor: "#6c757d" /* Secondary color */,
+    color: "#fff",
+    transition: "background-color 0.3s ease, color 0.3s ease",
+  },
+  buttonCloseHover: {
+    backgroundColor: "#5a6268" /* Darker shade on hover */,
   },
 };
 
@@ -56,7 +86,7 @@ const JobList = () => {
   const [cvFileURL, setCvFileURL] = useState("");
   const [degreeFileURL, setDegreeFileURL] = useState("");
   const [profileComplete, setProfileComplete] = useState(false);
-
+  const [isHovered, setIsHovered] = useState(false);
   const [profileData, setProfileData] = useState({
     fullName: "",
     email: "",
@@ -448,7 +478,10 @@ const JobList = () => {
         contentLabel="Apply for Job"
         style={customStyles}
       >
-        <h4>Apply for {selectedJob ? selectedJob.title : "Job"}</h4>
+        <h4 class="custom-heading">
+          Apply for {selectedJob ? selectedJob.title : "Job"}
+        </h4>
+
         <hr />
         <div className="widget-content">
           <form onSubmit={handleApply} className="default-form">
@@ -465,12 +498,18 @@ const JobList = () => {
                         id="uploadCV"
                         onChange={handleCvChange}
                       />
-                      <label
-                        className="uploadButton-button ripple-effect"
-                        htmlFor="uploadCV"
-                      >
+                      <label className="uploadButton-button" htmlFor="uploadCV">
                         Browse CV
                       </label>
+                      <span className="uploadButton-text">
+                        Support .doc, .docx, pdf formats with size under 5MB
+                      </span>
+                      <input
+                        type="file"
+                        id="uploadCV"
+                        style={{ display: "none" }}
+                      />
+
                       <span className="uploadButton-file-name">
                         {cvName && (
                           <p
@@ -516,36 +555,6 @@ const JobList = () => {
                     </div>
                   </div>
                 </div>
-                <div className="form-group">
-                  <label htmlFor="cv">Select CV:</label>
-                  <select
-                    id="cv"
-                    value={cvName}
-                    onChange={(e) => setCvName(e.target.value)}
-                  >
-                    <option value="">Select CV</option>
-                    {cvs.map((cv) => (
-                      <option key={cv.cvName} value={cv.cvName}>
-                        {cv.cvName}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="degree">Select Degree:</label>
-                  <select
-                    id="degree"
-                    value={degreeName}
-                    onChange={(e) => setDegreeName(e.target.value)}
-                  >
-                    <option value="">Select Degree</option>
-                    {degrees.map((degree) => (
-                      <option key={degree.degreeName} value={degree.degreeName}>
-                        {degree.degreeName}
-                      </option>
-                    ))}
-                  </select>
-                </div>
               </div>
               <div className="form-group col-lg-6 col-md-12">
                 <label>Name</label>
@@ -577,7 +586,6 @@ const JobList = () => {
                   onChange={handleInputChange}
                 />
               </div>
-
               <div className="form-group col-lg-6 col-md-12">
                 <label>Recommendation</label>
                 <input
@@ -588,23 +596,104 @@ const JobList = () => {
                   placeholder="Introduce yourself briefly"
                 />
               </div>
-              <button type="submit">Submit Application</button>
-              <button type="button" onClick={closeModal}>
-                Close
-              </button>
+              <div className="button-container">
+                <button
+                  type="submit"
+                  style={customStyles.buttonSubmit}
+                  onMouseOver={(e) =>
+                    (e.currentTarget.style.backgroundColor =
+                      customStyles.buttonSubmitHover.backgroundColor)
+                  }
+                  onMouseOut={(e) =>
+                    (e.currentTarget.style.backgroundColor =
+                      customStyles.buttonSubmit.backgroundColor)
+                  }
+                >
+                  Submit Application
+                </button>
+                <button
+                  type="button"
+                  style={customStyles.buttonClose}
+                  onMouseOver={(e) =>
+                    (e.currentTarget.style.backgroundColor =
+                      customStyles.buttonCloseHover.backgroundColor)
+                  }
+                  onMouseOut={(e) =>
+                    (e.currentTarget.style.backgroundColor =
+                      customStyles.buttonClose.backgroundColor)
+                  }
+                  onClick={closeModal}
+                >
+                  Close
+                </button>
+              </div>
             </div>
           </form>
         </div>
-      </Modal>{" "}
+      </Modal>
+
       <Modal
         isOpen={profileModalIsOpen}
         onRequestClose={closeProfileModal}
         style={customStyles}
       >
-        <h2>Profile Required</h2>
-        <p>You must create a profile before applying for a job.</p>
-        <a href="/profileCandidate">Go to create profile</a>
-        <button onClick={closeProfileModal}>Close</button>
+        <h2
+          style={{
+            fontFamily: "Inter, sans-serif",
+            marginBottom: "20px",
+            fontSize: "26px",
+            textAlign: "center",
+            color: "#333",
+            fontWeight: "bold",
+          }}
+        >
+          Profile Required
+        </h2>
+        <p
+          style={{
+            marginBottom: "25px",
+            fontSize: "18px",
+            textAlign: "center",
+            color: "#555",
+            lineHeight: "1.5",
+          }}
+        >
+          You must create a profile before applying for a job.
+        </p>
+        <a
+          href="/profileCandidate"
+          style={{
+            display: "block",
+            textAlign: "center",
+            marginBottom: "25px",
+            fontSize: "16px",
+            color: "#007bff",
+            textDecoration: "none",
+            fontWeight: "500",
+          }}
+        >
+          Go to create profile
+        </a>
+        <button
+          onClick={closeProfileModal}
+          style={{
+            display: "block",
+            margin: "0 auto",
+            padding: "12px 24px",
+            fontSize: "16px",
+            color: "#fff",
+            backgroundColor: isHovered ? "#0056b3" : "#007bff",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+            transition: "background-color 0.3s ease, transform 0.2s ease",
+            transform: isHovered ? "scale(1.05)" : "scale(1)",
+          }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          Close
+        </button>
       </Modal>
     </div>
   );
