@@ -12,7 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { UserProvider } from "./utils/UserContext";
 import "react-tooltip/dist/react-tooltip.css";
-
+import Design from "./layout/Design";
 import demo from "./layout/demo";
 import CVS from "./layout/CVS";
 import JobPost from "./layout/JobPost";

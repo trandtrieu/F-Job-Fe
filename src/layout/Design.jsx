@@ -279,7 +279,7 @@ const Design = () => {
       {/* End About Section */}
 
       {/* News Section */}
-      <section className="news-section">
+      <section className="news-section" id="news-section">
         <div className="auto-container">
           <div className="section-title">RECENT NEWS ARTICLES</div>
 

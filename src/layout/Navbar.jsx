@@ -86,6 +86,33 @@ export default function Navbar() {
               </div>
               <nav className="nav main-menu">
                 <ul className="navigation" id="navbar">
+                  <li className="mm-add-listing">
+                    <a
+                      className="theme-btn-role btn-style-one-role"
+                      href="/"
+                      style={{ fontSize: "16px", marginRight: "20px" }}
+                    >
+                      Home
+                    </a>
+                  </li>
+                  <li className="mm-add-listing">
+                    <a
+                      className="theme-btn-role btn-style-one-role"
+                      href="/job-finder"
+                      style={{ fontSize: "16px", marginRight: "20px" }}
+                    >
+                      Find Job
+                    </a>
+                  </li>
+                  <li className="mm-add-listing">
+                    <a
+                      className="theme-btn-role btn-style-one-role"
+                      href="#news-section"
+                      style={{ fontSize: "16px", marginRight: "20px" }}
+                    >
+                      Blog
+                    </a>
+                  </li>
                   {user ? (
                     <>
                       {userRole === "admin" && (
@@ -93,6 +120,7 @@ export default function Navbar() {
                           <a
                             className="theme-btn-role btn-style-one-role"
                             href="/manager"
+                            style={{ fontSize: "16px", marginRight: "20px" }}
                           >
                             Manager
                           </a>
@@ -104,6 +132,7 @@ export default function Navbar() {
                             <a
                               className="theme-btn-role btn-style-one-role"
                               href="/dashboard-recruiter"
+                              style={{ fontSize: "16px", marginRight: "20px" }}
                             >
                               Recruiter
                             </a>
@@ -112,21 +141,37 @@ export default function Navbar() {
                             <a
                               className="theme-btn-role btn-style-one-role"
                               href="/job-list"
+                              style={{ fontSize: "16px", marginRight: "20px" }}
                             >
-                              Jobs
+                              Candidates
                             </a>
                           </li>
                         </>
                       )}
                       {userRole === "user" && (
-                        <li className="mm-add-listing">
-                          <a
-                            className="theme-btn-role btn-style-one-role"
-                            href="/job-list"
-                          >
-                            Jobs
-                          </a>
-                        </li>
+                        <>
+                          <li className="mm-add-listing">
+                            <a
+                              className="theme-btn-role btn-style-one-role"
+                              href="/job-list"
+                              style={{ fontSize: "16px", marginRight: "20px" }}
+                            >
+                              Job List
+                            </a>
+                          </li>
+                          <li className="mm-add-listing">
+                            <a
+                              className="theme-btn-role btn-style-one-role"
+                              href="/profileCandidate"
+                              style={{
+                                fontSize: "16px",
+                                marginRight: "20px",
+                              }}
+                            >
+                              Profile Candidates
+                            </a>
+                          </li>
+                        </>
                       )}
                     </>
                   ) : (

@@ -56,7 +56,8 @@ const Login = () => {
         toast.success("Login successful!");
         setUser(response.data.user);
         localStorage.setItem("user", JSON.stringify(response.data.user));
-        history.push("/");
+        // history.push("/");
+        window.location.href = "/";
       } else {
         toast.error("Login failed. Please check your credentials.");
       }
