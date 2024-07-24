@@ -128,7 +128,7 @@ const ProfileCandidate = () => {
       <div>
         <div className="page-wrapper dashboard">
           <ToastContainer position="bottom-right" />
-          <div className="preloader" />
+          {/* <div className="preloader" /> */}
           <span className="header-span" />
           <div className="sidebar-backdrop" />
           <div className="user-sidebar">

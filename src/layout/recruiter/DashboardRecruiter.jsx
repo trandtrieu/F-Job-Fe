@@ -5,7 +5,7 @@ const DashboardRecruiter = () => {
   return (
     <div>
       <div className="page-wrapper dashboard ">
-        <div className="preloader" />
+        {/* <div className="preloader" /> */}
         <span className="header-span" />
         {/* Sidebar Backdrop */}
         <div className="sidebar-backdrop" />

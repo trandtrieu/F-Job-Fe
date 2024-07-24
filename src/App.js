@@ -34,6 +34,8 @@ import RecruiterRegistration from "./layout/recruiter/registerRecruiter";
 import LoginRecruiter from "./layout/recruiter/loginRecruiter";
 import UpdateJobPost from "./layout/recruiter/updateJobPost";
 import JobDetails from "./layout/recruiter/viewJobDetails";
+import RecruiterList from "./layout/admin/RecruiterList";
+import DashboardAdmin from "./layout/admin/DashboardAdmin";
 function App() {
   return (
     <div className="App">
@@ -119,6 +121,12 @@ function App() {
             <Route path="/unauthorized" component={Unauthorized} />
 
             <Route path="/all-applicant" component={AllApplicant} />
+
+
+            {/* Thinh */}
+            <Route path="/all-recruiter" component={RecruiterList} />
+            <Route path="/dashboard-admin" component={DashboardAdmin} />
+
           </Switch>
         </Router>
 

@@ -4,6 +4,8 @@ import { Button, Form, Input, Space } from "antd";
 import TableComponent from "../TableComponent/TableComponent";
 import ModalComponent from "../ModalComponent/ModalComponent";
 import Loading from "../LoadingComponent/Loading";
+import * as XLSX from 'xlsx';
+
 import {
   DeleteOutline,
   EditOutlined,
@@ -379,6 +381,15 @@ const CandidateUser = () => {
       }
     );
   };
+
+
+  const exportToExcel = () => {
+    const ws = XLSX.utils.json_to_sheet(dataTable);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'dataTable');
+    XLSX.writeFile(wb, 'dataTable.xlsx');
+  };
+
   return (
     <div>
       <div
@@ -529,6 +540,11 @@ const CandidateUser = () => {
           <div>Bạn muốn xoá tài thông tin ứng viên này không?</div>
         </Loading>
       </ModalComponent>
+
+      <div style={{marginLeft: "30px", marginBottom: "80px"}}>
+        <Button onClick={exportToExcel}>Export to Excel</Button>
+      </div>
+
     </div>
   );
 };
