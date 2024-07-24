@@ -1,8 +1,10 @@
 import React from "react";
 
+
 export default function Banner() {
   return (
     <>
+    
       <section className="banner-section">
         <div className="auto-container">
           <div className="row" >

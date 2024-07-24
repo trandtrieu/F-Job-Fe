@@ -105,6 +105,7 @@ export default function Register() {
                       Register
                     </button>
                   </div>
+
                 </form>
 
                 {/* Login Facebook, Gmail */}
@@ -131,6 +132,7 @@ export default function Register() {
                     </div>
                   </div>
                 </div>
+
               </div>
             </div>
             {/*End Login Form */}

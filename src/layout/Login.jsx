@@ -91,7 +91,6 @@ const Login = () => {
       toast.error("Failed to log in with Facebook.");
     }
   };
-
   const handleFacebookLogin = () => {
     FB.login(checkLoginState, { scope: "public_profile,email" });
   };
@@ -173,7 +172,7 @@ const Login = () => {
                   <span>or</span>
                 </div>
                 <div className="btn-box row">
-                  <div className="col-lg-6 col-md-12">
+                <div className="col-lg-6 col-md-12">
                     <button
                       onClick={handleFacebookLogin}
                       className="theme-btn social-btn-two facebook-btn"

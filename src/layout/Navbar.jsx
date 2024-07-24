@@ -61,6 +61,14 @@ export default function Navbar() {
     window.location.href = "/register";
   };
 
+  const navJobFinder = () =>{
+    window.location.href="/job-finder";
+  };
+  const navStatistic =() =>{
+    window.location.href="/view-statistic";
+
+  };
+
   return (
     <>
       <div className="body-wrapper">
@@ -91,7 +99,7 @@ export default function Navbar() {
                       {userRole === "admin" && (
                         <li className="mm-add-listing">
                           <a
-                            className="theme-btn-role btn-style-one-role"
+className="theme-btn-role btn-style-one-role"
                             href="/manager"
                           >
                             Manager
@@ -108,6 +116,16 @@ export default function Navbar() {
                               Recruiter
                             </a>
                           </li>
+
+                          <li className="mm-add-listing">
+                            <a
+                              className="theme-btn-role btn-style-one-role"
+                              href="/view-statistic"
+                            >
+                              View Statistic
+                            </a>
+                          </li>
+
                           <li className="mm-add-listing">
                             <a
                               className="theme-btn-role btn-style-one-role"
@@ -142,7 +160,12 @@ export default function Navbar() {
                   Upload your CV
                 </a>
               )}
+              <li className="dropdown has-mega-menu">
 
+            <span onClick={navJobFinder}>Find Jobs</span>
+          </li>
+
+          
               <div className="btn-box">
                 <a
                   className="theme-btn-role btn-style-one"
@@ -177,7 +200,7 @@ export default function Navbar() {
                     href="/login"
                     className="theme-btn-role btn-style-three call-modal"
                   >
-                    Login / Register
+Login / Register
                   </a>
                 )}
               </div>

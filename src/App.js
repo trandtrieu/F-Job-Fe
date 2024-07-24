@@ -11,13 +11,15 @@ import ResetPassword from "./layout/ResetPassword";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { UserProvider } from "./utils/UserContext";
-import "react-tooltip/dist/react-tooltip.css";
+import Profile from "./layout/Profile";
+import JobFinder from "./layout/JobFinder";
+import DashboardRecruiter from "./components/DashboardRecruiter";
 
 import demo from "./layout/demo";
 import CVS from "./layout/CVS";
 import JobPost from "./layout/JobPost";
 import JobList from "./layout/JobList";
-import DashboardRecruiter from "./layout/recruiter/DashboardRecruiter";
+// import DashboardRecruiter from "./layout/recruiter/DashboardRecruiter";
 import ApproveCandidate from "./layout/recruiter/ApproveCandidate";
 
 import ProfileCandidate from "./layout/ProfileCandidate";
@@ -37,8 +39,9 @@ import JobDetails from "./layout/recruiter/viewJobDetails";
 function App() {
   return (
     <div className="App">
+      
       <UserProvider>
-        <Navbar />
+      <Navbar />
         <ToastContainer
           position="top-left"
           autoClose={3000}
@@ -72,6 +75,8 @@ function App() {
               path="/reset_password/:id/:token"
               component={ResetPassword}
             />
+            <Route path="/job-finder" component={JobFinder} />
+            <Route path="/view-statistic" component={DashboardRecruiter}/>
             <Route path="/job-list" component={JobList} />
             <Route path="/all-candidate" component={AllCandidate} />
             <Route path="/all-job" component={AllJob} />
@@ -85,6 +90,11 @@ function App() {
 
             <ProtectedRoute
               path="/dashboard-recruiter"
+              component={DashboardRecruiter}
+              allowedRoles={["recruiter", "admin"]}
+            />
+            <ProtectedRoute
+              path="/view-statistic"
               component={DashboardRecruiter}
               allowedRoles={["recruiter", "admin"]}
             />
