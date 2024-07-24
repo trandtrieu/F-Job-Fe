@@ -6,19 +6,19 @@ import { toast } from "react-toastify";
 import useFacebookSDK from "../utils/useFacebookSDK";
 import { UserContext } from "../utils/UserContext";
 import { loginUser, facebookLogin, googleLogin } from "../services/api.js";
+import { validatePassword } from "../utils/validate";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+  const [errors, setErrors] = useState({});
   const { setUser } = useContext(UserContext);
   const history = useHistory();
 
   useFacebookSDK(process.env.REACT_APP_FACEBOOK_APP_ID);
 
   useEffect(() => {
-    localStorage.removeItem("user");
-
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get("id");
     const token = urlParams.get("token");
@@ -33,30 +33,34 @@ const Login = () => {
     }
   }, [history, setUser]);
 
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const userId = urlParams.get("userId");
-    const token = urlParams.get("token");
-    const email = urlParams.get("email");
-
-    if (userId && token && email) {
-      const user = { userId, token, email };
-      setUser(user);
-      localStorage.setItem("user", JSON.stringify(user));
-      toast.success("Login successful!");
-      history.push("/");
-    }
-  }, [history, setUser]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validate input
+    const newErrors = {};
+    if (!email) {
+      newErrors.email = "Email is required.";
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      newErrors.email = "Email is invalid.";
+    }
+
+    const passwordError = validatePassword(password);
+    if (passwordError) {
+      newErrors.password = passwordError;
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
     try {
       const response = await loginUser(email, password);
       if (response.data.status === "OK") {
         toast.success("Login successful!");
         setUser(response.data.user);
         localStorage.setItem("user", JSON.stringify(response.data.user));
-        window.location.href = "/"
+        history.push("/");
       } else {
         toast.error("Login failed. Please check your credentials.");
       }
@@ -96,9 +100,6 @@ const Login = () => {
     FB.login(checkLoginState, { scope: "public_profile,email" });
   };
 
-  // const handleGoogleLogin = () => {
-  //   window.open(`http://localhost:3005/api/user/google/callback`, "_self");
-  // };
   const handleGoogleLogin = () => {
     window.open(`http://localhost:3005/api/user/google/callback`, "_self");
   };
@@ -113,7 +114,7 @@ const Login = () => {
         <div className="outer-box">
           <div className="login-form default-form">
             <div className="form-inner">
-              <h3>Login to F-Job</h3>
+              <h3>LOGIN TO F-JOB</h3>
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
                   <label>Email</label>
@@ -125,6 +126,9 @@ const Login = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                   />
+                  {errors.email && (
+                    <span className="error-text">{errors.email}</span>
+                  )}
                 </div>
 
                 <div className="form-group">
@@ -137,6 +141,9 @@ const Login = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                   />
+                  {errors.password && (
+                    <span className="error-text">{errors.password}</span>
+                  )}
                 </div>
 
                 <div className="form-group">

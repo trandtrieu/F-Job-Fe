@@ -139,7 +139,7 @@ export default function Navbar() {
             <div className="outer-box">
               {user && (
                 <a href="/cvs" className="upload-cv">
-                  Upload your CV
+                  CV Template
                 </a>
               )}
 
