@@ -7,7 +7,7 @@ function Report() {
     series: [
       {
         name: "CV received",
-        data: [0, 10, 7, 9, 11, 18, 24],
+        data: [0, 10, 7, 9, 11, 18, 22],
       },
       {
         name: "New application CV",
@@ -15,7 +15,7 @@ function Report() {
       },
       {
         name: "Recruitment",
-        data: [8, 10, 15, 24, 11, 9, 28],
+        data: [8, 10, 15, 19, 11, 9, 24],
       },
     ],
 
