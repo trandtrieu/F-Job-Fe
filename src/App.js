@@ -15,6 +15,8 @@ import Profile from "./layout/Profile";
 import JobFinder from "./layout/JobFinder";
 import DashboardRecruiter from "./components/DashboardRecruiter";
 
+import "react-tooltip/dist/react-tooltip.css";
+import Design from "./layout/Design";
 import demo from "./layout/demo";
 import CVS from "./layout/CVS";
 import JobPost from "./layout/JobPost";

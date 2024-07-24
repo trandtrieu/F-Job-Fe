@@ -91,7 +91,9 @@
   align-items: center;
   margin-bottom: 90px;
 }
-
+.theme-btn-role:hover {
+  color: blue; /* Change text color on hover */
+}
 .outer-box {
   display: flex;
   align-items: center;
@@ -151,13 +153,13 @@
 }
 .btn-navbar {
   position: absolute;
-  top: 10px; /* Điều chỉnh giá trị này theo nhu cầu */
-  right: 10px; /* Điều chỉnh giá trị này theo nhu cầu */
-  background: none; /* Hoặc màu nền tùy thích */
-  border: none; /* Hoặc viền tùy thích */
-  font-size: 18px; /* Điều chỉnh kích thước font */
+  top: 10px; 
+  right: 10px; 
+  background: none;
+  border: none; 
+  font-size: 18px; 
   cursor: pointer;
-  /* Các kiểu dáng khác cho nút */
+
 }
 
 
