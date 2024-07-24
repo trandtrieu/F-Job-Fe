@@ -14,7 +14,6 @@ import { UserProvider } from "./utils/UserContext";
 import Profile from "./layout/Profile";
 import JobFinder from "./layout/JobFinder";
 
-
 import "react-tooltip/dist/react-tooltip.css";
 import Design from "./layout/Design";
 import demo from "./layout/demo";
@@ -140,7 +139,6 @@ function App() {
 
             <Route path="/all-applicant" component={AllApplicant} />
 
-
             {/* Thinh */}
             <Route path="/all-recruiter" component={RecruiterList} />
             <Route path="/dashboard-admin" component={DashboardAdmin} />
@@ -149,9 +147,6 @@ function App() {
               component={DashboardAdmin}
               allowedRoles={["admin"]}
             />
-
-
-
           </Switch>
         </Router>
 

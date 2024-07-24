@@ -505,7 +505,7 @@ const JobList = () => {
                         Browse CV
                       </label>
                       <span className="uploadButton-text">
-                        Support .doc, .docx, pdf formats with size under 5MB
+                        Support image formats with size under 5MB
                       </span>
                       <input
                         type="file"
@@ -546,6 +546,9 @@ const JobList = () => {
                       >
                         Browse Degree
                       </label>
+                      <span className="uploadButton-text">
+                        Support many image formats with size under 5MB
+                      </span>
                       <span className="uploadButton-file-name">
                         {degreeName && (
                           <p
