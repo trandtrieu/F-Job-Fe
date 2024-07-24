@@ -261,6 +261,7 @@ const ProfileCandidate = () => {
                                   accept="image/*"
                                   onChange={handleFileChange}
                                   input
+                                  required
                                 />
                                 {file && (
                                   <img

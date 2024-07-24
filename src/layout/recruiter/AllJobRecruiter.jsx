@@ -8,6 +8,7 @@ import CustomModal from "../../Modal/CustomModal";
 export default function AllJobRecruiter() {
   const history = useHistory();
   const { jobId } = useParams(); // Get jobId from URL params
+  const [job, setJob] = useState(null); // State to store job details
 
   const [candidates, setCandidates] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -23,7 +24,15 @@ export default function AllJobRecruiter() {
       console.error("jobId is undefined or null");
       return;
     }
-
+    const fetchJobDetails = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3005/job/${jobId}`);
+        setJob(response.data); // Store job details
+      } catch (error) {
+        console.error("Error fetching job details:", error);
+        setError(error.message);
+      }
+    };
     const fetchCandidates = async () => {
       try {
         setLoading(true);
@@ -33,6 +42,7 @@ export default function AllJobRecruiter() {
           }`
         );
         setCandidates(response.data.applicants || []); // Access the applicants array
+        console.log(response.data.applicants);
       } catch (error) {
         console.error("Error fetching candidates:", error);
         setError(error.message);
@@ -40,7 +50,7 @@ export default function AllJobRecruiter() {
         setLoading(false);
       }
     };
-
+    fetchJobDetails();
     fetchCandidates();
   }, [jobId, statusFilter]);
 
@@ -56,15 +66,22 @@ export default function AllJobRecruiter() {
   };
 
   const handleView = (url, title) => {
-    setCvUrl(url);
-    setModalTitle(title);
-    setIsModalOpen(true);
+    const fileExtension = url.split(".").pop().toLowerCase();
+    const isImage = ["jpg", "jpeg", "png", "gif"].includes(fileExtension);
+
+    if (isImage) {
+      setCvUrl(url);
+      setModalTitle(title);
+      setIsModalOpen(true);
+    } else {
+      window.location.href = url;
+    }
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setCvUrl(""); // Clear the URL
-    setDegreeUrl(""); // Clear the URL
+    setCvUrl("");
+    setDegreeUrl("");
   };
 
   const handleStatusChange = (event) => {
@@ -99,19 +116,23 @@ export default function AllJobRecruiter() {
 
   return (
     <div className="page-wrapper dashboard">
+      <span class="header-span"></span>
+
       <NavbarRecruiter />
       <section className="user-dashboard">
         <div className="dashboard-outer">
           <div className="upper-title-box">
-            <h3>All Applicants</h3>
-            <div className="text">Ready to jump back in?</div>
+            <h3>
+              All Applicants for{" "}
+              <span className="text-success">{job ? job.title : ""}</span>{" "}
+            </h3>
           </div>
           <div className="row">
             <div className="col-lg-12">
               <div className="ls-widget">
                 <div className="tabs-box">
                   <div className="widget-title">
-                    <h4>Applicant</h4>
+                    <h4>Applicant list</h4>
                     <div className="chosen-outer">
                       <select
                         className="chosen-select"
@@ -185,15 +206,9 @@ export default function AllJobRecruiter() {
                                         {formatDate(applicant.appliedAt)}
                                       </li>
                                     </ul>
-                                    <ul className="post-tags">
+                                    <ul className="">
                                       <li>
-                                        <a href="#">{applicant.status}</a>
-                                      </li>
-                                      <li>
-                                        <a href="#">Design</a>
-                                      </li>
-                                      <li>
-                                        <a href="#">Digital</a>
+                                        <a href="/">{applicant.status}</a>
                                       </li>
                                     </ul>
                                   </div>

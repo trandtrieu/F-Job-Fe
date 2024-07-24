@@ -3,11 +3,15 @@ import NavbarRecruiter from "./NavbarRecruiter";
 import axios from "axios";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { UserContext } from "../../utils/UserContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faWrench } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-toastify";
 
 export default function AllJob() {
   const [jobs, setJobs] = useState([]);
   const history = useHistory();
   const { recruiter } = useContext(UserContext);
+  const [selectedJobId, setSelectedJobId] = useState(null);
 
   const userId = recruiter ? recruiter.id : null;
 
@@ -25,10 +29,27 @@ export default function AllJob() {
 
     fetchJobs();
   }, [userId]);
-
+  const handleRemoveJob = async (jobId) => {
+    try {
+      const response = await axios.delete(`http://localhost:3005/job/${jobId}`);
+      if (response.status === 200) {
+        setJobs((prevJobs) => prevJobs.filter((job) => job._id !== jobId));
+        toast.success("Remove job post succesffuly");
+      }
+    } catch (error) {
+      console.error("Error removing job post: ", error);
+    }
+  };
   const handleViewCandidates = (jobId) => {
     console.log("jobId: " + jobId);
     history.push(`/all-job-recruiter/${jobId}`); // Navigate to AllJobRecruiter with jobId
+  };
+  const handleUpdateClick = (jobId) => {
+    setSelectedJobId(jobId);
+    history.push(`/update-job/${jobId}`);
+  };
+  const handleViewClick = (jobId) => {
+    history.push(`/job-details/${jobId}`);
   };
 
   return (
@@ -97,18 +118,33 @@ export default function AllJob() {
                                   <div className="option-box">
                                     <ul className="option-list">
                                       <li>
-                                        <button data-text="View Application">
-                                          <span className="la la-eye" />
+                                        <button
+                                          data-text="View Application"
+                                          onClick={() =>
+                                            handleViewClick(job._id)
+                                          }
+                                        >
+                                          <span className="la la-eye"></span>
                                         </button>
                                       </li>
                                       <li>
-                                        <button data-text="Edit Job">
-                                          <span className="la la-pencil" />
+                                        <button
+                                          data-text="Update Application"
+                                          onClick={() =>
+                                            handleUpdateClick(job._id)
+                                          }
+                                        >
+                                          <FontAwesomeIcon icon={faWrench} />
                                         </button>
                                       </li>
                                       <li>
-                                        <button data-text="Delete Job">
-                                          <span className="la la-trash" />
+                                        <button
+                                          data-text="Delete Application"
+                                          onClick={() =>
+                                            handleRemoveJob(job._id)
+                                          }
+                                        >
+                                          <span className="la la-trash"></span>
                                         </button>
                                       </li>
                                       <li>

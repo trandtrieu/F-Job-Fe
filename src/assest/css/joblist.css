@@ -32,8 +32,10 @@
 }
 
 .job-listing.selected {
-  border: 2px solid #07bc0c; /* Màu xanh xung quanh phần được chọn */
-  background-color: #e0ffe0; /* Màu nền khi được chọn */
+  border: 2px solid #07bc0c;
+  /* Màu xanh xung quanh phần được chọn */
+  background-color: #e0ffe0;
+  /* Màu nền khi được chọn */
 }
 
 .job-listing:hover {
@@ -262,13 +264,16 @@ ul {
   font-weight: 500;
   font-family: 'Alexandria', sans-serif;
 }
+
 .job-skill:hover {
   background-color: #f0f0f0;
 }
+
 .job-skill p {
   position: relative;
   padding-left: 1.8rem;
 }
+
 .job-skill p::before {
   content: "✔";
   color: green;

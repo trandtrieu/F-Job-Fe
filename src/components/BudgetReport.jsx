@@ -24,22 +24,22 @@ function BudgetReport() {
       },
       series: [
         {
-          name: 'Budget vs Spending',
-          type: 'radar',
+          name: "Budget vs Spending",
+          type: "radar",
           data: [
             {
               value: [5200, 3500, 20000, 35000, 45000, 16000],
-              name: 'Allocated Budget',
+              name: "Allocated Budget",
               itemStyle: {
-                color: '#1f77b4' // Example color for visibility
-              }
+                color: "#1f77b4", // Example color for visibility
+              },
             },
             {
               value: [5000, 8000, 25000, 30000, 40000, 18000],
-              name: 'Estimated Expenses',
+              name: "Estimated Expenses",
               itemStyle: {
-                color: '#339933' // Example color for visibility
-              }
+                color: "#339933", // Example color for visibility
+              },
             },
           ],
         },
@@ -55,8 +55,11 @@ function BudgetReport() {
   }, []); // Empty dependency array means this effect runs once when the component mounts
 
   return (
-    <div id="budgetChart" style={{ minHeight: '400px', width: '100%' }} className="echarts">
-    </div>
+    <div
+      id="budgetChart"
+      style={{ minHeight: "400px", width: "100%" }}
+      className="echarts"
+    ></div>
   );
 }
 

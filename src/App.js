@@ -39,9 +39,8 @@ import JobDetails from "./layout/recruiter/viewJobDetails";
 function App() {
   return (
     <div className="App">
-      
       <UserProvider>
-      <Navbar />
+        <Navbar />
         <ToastContainer
           position="top-left"
           autoClose={3000}
@@ -76,7 +75,7 @@ function App() {
               component={ResetPassword}
             />
             <Route path="/job-finder" component={JobFinder} />
-            <Route path="/view-statistic" component={DashboardRecruiter}/>
+            <Route path="/view-statistic" component={DashboardRecruiter} />
             <Route path="/job-list" component={JobList} />
             <Route path="/all-candidate" component={AllCandidate} />
             <Route path="/all-job" component={AllJob} />

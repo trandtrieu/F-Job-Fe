@@ -11,7 +11,6 @@ import {
   faCircleInfo,
 } from "@fortawesome/free-solid-svg-icons";
 import BudgetReport from "./BudgetReport";
-import { Bold } from "lucide-react";
 import EventActivity from "./EventActivity";
 
 function DashboardRecruiter() {
@@ -80,11 +79,12 @@ function DashboardRecruiter() {
         <div className="notification">
           <p className="text1">
             {" "}
-            <FontAwesomeIcon icon={faCircleInfo} />Important notification:{" "}
+            <FontAwesomeIcon icon={faCircleInfo} />
+            Important notification:{" "}
           </p>
           <p className="text2">
-          From July 15, 2024, the system will officially undergo a major update
-          account authentication book.
+            From July 15, 2024, the system will officially undergo a major
+            update account authentication book.
           </p>
         </div>
         {/* <SidebarAdmin /> */}
@@ -160,17 +160,23 @@ function DashboardRecruiter() {
             </div>
           </div>
           <div className="col-lg-5 d-flex flex-column">
-          <div className=" mb-6 p-4 border rounded-lg shadow-md bg-white" 
-          style={{ marginTop:"10px", width:"502px", height:"300px"}}>
-            <EventActivity/>
-
-          </div>
-          <div
-            className="custom-budget  mb-6 p-4 border rounded-lg shadow-md bg-white"
-            style={{ marginBottom: "-20px", height: "447px", width: "527px", marginTop:"40px" }}
-          >
-            <BudgetReport />
-          </div>
+            <div
+              className=" mb-6 p-4 border rounded-lg shadow-md bg-white"
+              style={{ marginTop: "10px", width: "502px", height: "300px" }}
+            >
+              <EventActivity />
+            </div>
+            <div
+              className="custom-budget  mb-6 p-4 border rounded-lg shadow-md bg-white"
+              style={{
+                marginBottom: "-20px",
+                height: "447px",
+                width: "527px",
+                marginTop: "40px",
+              }}
+            >
+              <BudgetReport />
+            </div>
           </div>
         </div>
       </section>
