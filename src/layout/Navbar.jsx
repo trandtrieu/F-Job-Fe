@@ -66,7 +66,6 @@ export default function Navbar() {
   };
   const navStatistic = () => {
     window.location.href = "/view-statistic";
-
   };
 
   return (
@@ -205,11 +204,6 @@ export default function Navbar() {
                   CV Template
                 </a>
               )}
-              <li className="dropdown has-mega-menu">
-
-                <span onClick={navJobFinder}>Find Jobs</span>
-              </li>
-
 
               <div className="btn-box">
                 <a
@@ -311,14 +305,16 @@ export default function Navbar() {
           To best optimize your experience with FJOB, please choose the group
           that best suits you.
         </p>
-        <img
-          src="https://tuyendung.topcv.vn/app/_nuxt/img/bussiness.efbec2d.png"
-          style={{ width: "358px" }}
-        ></img>
-        <img
-          src="https://tuyendung.topcv.vn/app/_nuxt/img/student.c1c39ee.png"
-          style={{ width: "358px" }}
-        ></img>
+        <div className="modal-images">
+          <img
+            src="https://tuyendung.topcv.vn/app/_nuxt/img/bussiness.efbec2d.png"
+            style={{ width: "300px" }}
+          ></img>
+          <img
+            src="https://tuyendung.topcv.vn/app/_nuxt/img/student.c1c39ee.png"
+            style={{ width: "300px" }}
+          ></img>
+        </div>
         <div className="modal-buttons">
           <button className="btn-recruiter" onClick={handleRegisterClick}>
             I am a recruiter!
